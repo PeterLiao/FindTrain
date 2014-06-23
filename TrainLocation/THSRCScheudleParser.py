@@ -253,10 +253,10 @@ def get_your_train(lat1, long1, lat2, long2):
     station_list = get_station_list_from_schedule(schedule_list)
 
     nearby_station = get_nearby_station_by_direction(lat2, long2, station_list, direction_type)
-    print 'nearby station is:', nearby_station.name
+    print 'nearby station is:', nearby_station.name.encode('utf-8')
 
     dist = get_dist(lat2, long2, nearby_station.latitude, nearby_station.longitude)
-    print 'your train is still ', dist, ' away from ', nearby_station.name
+    print 'your train is still ', dist, ' away from ', nearby_station.name.encode('utf-8')
 
     train_list = get_train_list_from_schedule(schedule_list, nearby_station)
     schedule_list = get_schedule_list_by_station(schedule_list, nearby_station)
@@ -267,7 +267,7 @@ def get_your_train(lat1, long1, lat2, long2):
 
     for schedule in schedule_list:
         d = ((schedule.arrive_time - now).seconds/60) * schedule.train.average_speed_in_minute
-        print 'By train:', schedule.train.train_number, ', from ', schedule.train_station.name, ' it is still ', d, ' away'
+        print 'By train:', schedule.train.train_number, ', from ', schedule.train_station.name.encode('utf-8'), ' it is still ', d, ' away'
         if abs(dist - d) < diff_between_yours_and_schedule:
             you_schedule = schedule
 
