@@ -249,6 +249,8 @@ def get_your_train(lat1, long1, lat2, long2):
 
     direction_type = get_direction_type(lat1, long1, lat2, long2)
     print 'you direction is:', direction_type
+    if direction_type == "north":
+        return TrainSchedule() # Not support north train so far
 
     schedule_list = get_running_train_schedule()
     station_list = get_station_list_from_schedule(schedule_list)
