@@ -41,7 +41,7 @@
             $("#train_form")[0].id_lat2.value = position.coords.latitude;
             $("#train_form")[0].id_long2.value = position.coords.longitude;
             console.log('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
-            $("#train_form").submit()
+            $("#train_form").submit();
         }
     </script>
     {% if train_schedule.train %}
