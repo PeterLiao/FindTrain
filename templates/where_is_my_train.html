@@ -10,10 +10,10 @@
 
     <script>
         var x = document.getElementById("demo");
-
+        var timer;
         function getTrain() {
             getLocation(1); // get start position
-            setInterval(function(){getLocation(2)}, 5000); // get end position
+            timer = setInterval(function(){getLocation(2)}, 3000); // get end position
         }
         function errorHandler(err) {
             alert('err:' + err.code);
@@ -49,12 +49,13 @@
             console.log('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
             $("#train_form").submit();
             alert('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
+            clearInterval(timer);
         }
     </script>
     {% if train_schedule.train %}
     Your train is {{ train_schedule.train.train_number }}
     {% endif %}
-    <form id="train_form" style="display:none" action="/train/" method="post">
+    <form id="train_form" style="display:" action="/train/" method="post">
         {% csrf_token %}
         {{ train_form.as_p }}
     </form>
