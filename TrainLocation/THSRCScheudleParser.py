@@ -182,6 +182,7 @@ def get_nearby_station_by_direction(lat, long, station_list, direction):
 def get_running_train_schedule():
     running_train_list = []
     now = get_utc_now()
+    print 'utc now is:', now
     train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now)
     for train in train_list:
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
