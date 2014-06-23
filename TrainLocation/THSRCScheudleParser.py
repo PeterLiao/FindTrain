@@ -244,7 +244,7 @@ def get_schedule_list_by_station(schedule_list, station):
 
 
 def get_your_train(lat1, long1, lat2, long2):
-    now = utc_to_local(get_utc_now())
+    now = get_utc_now()
 
     direction_type = get_direction_type(lat1, long1, lat2, long2)
     print 'you direction is:', direction_type
