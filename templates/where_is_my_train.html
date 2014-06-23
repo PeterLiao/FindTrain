@@ -16,6 +16,7 @@
             setInterval(function(){getLocation(2)}, 5000); // get end position
         }
         function errorHandler(err) {
+            alert('err:' + err.code);
             if(err.code == 1) {
                 console.log("Error: Access is denied!");
             }else if( err.code == 2) {
@@ -29,6 +30,7 @@
                 else
                     navigator.geolocation.getCurrentPosition(setPosition2, errorHandler);
             } else {
+                alert("Geolocation is not supported by this browser");
                 console.log("Geolocation is not supported by this browser.");
             }
         }
@@ -36,12 +38,14 @@
             $("#train_form")[0].id_lat1.value = position.coords.latitude;
             $("#train_form")[0].id_long1.value = position.coords.longitude;
             console.log('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
+            alert('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
         }
         function setPosition2(position) {
             $("#train_form")[0].id_lat2.value = position.coords.latitude;
             $("#train_form")[0].id_long2.value = position.coords.longitude;
             console.log('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
             $("#train_form").submit();
+            alert('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
         }
     </script>
     {% if train_schedule.train %}
