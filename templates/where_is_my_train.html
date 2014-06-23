@@ -12,8 +12,10 @@
         var x = document.getElementById("demo");
         var timer;
         function getTrain() {
-            getLocation(1); // get start position
-            timer = setInterval(function(){getLocation(2)}, 3000); // get end position
+            alert('test');
+            alert($("#train_form").id_lat1.value);
+            //getLocation(1); // get start position
+            //timer = setInterval(function(){getLocation(2)}, 3000); // get end position
         }
         function errorHandler(err) {
             clearInterval(timer);
