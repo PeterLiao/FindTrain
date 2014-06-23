@@ -187,7 +187,7 @@ def get_running_train_schedule():
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
         schedule = schedule_list[0]
         running_train_list.append(schedule)
-        print 'train:', train.train_number, ' is going to ', schedule.train_station.name
+        print 'train:', train.train_number, ' is going to ', schedule.train_station.name.encode('utf-8')
     return running_train_list
 
 
