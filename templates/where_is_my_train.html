@@ -16,6 +16,7 @@
             timer = setInterval(function(){getLocation(2)}, 3000); // get end position
         }
         function errorHandler(err) {
+            clearInterval(timer);
             alert('err:' + err.code);
             if(err.code == 1) {
                 console.log("Error: Access is denied!");
@@ -33,6 +34,7 @@
             } else {
                 alert("Geolocation is not supported by this browser");
                 console.log("Geolocation is not supported by this browser.");
+                clearInterval(timer);
             }
         }
         function setPosition1(position) {
