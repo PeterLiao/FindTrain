@@ -47,7 +47,9 @@
         function setPosition2(position) {
             alert(position.coords.latitude);
             clearInterval(timer);
+            alert($("#train_form").id_lat2.value);
             $("#train_form").id_lat2.value = position.coords.latitude;
+            alert($("#train_form").id_lat2.value);
             $("#train_form").id_long2.value = position.coords.longitude;
             //console.log('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
             //alert('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
