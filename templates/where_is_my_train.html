@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src="{% static "jquery.js" %}"></script>
 </head>
 <body>
 
@@ -12,11 +13,8 @@
         var x = document.getElementById("demo");
         var timer;
         function getTrain() {
-            alert('test');
-            alert($("#train_form"));
-            alert($("#train_form").id_lat1.value.toString());
-            //getLocation(1); // get start position
-            //timer = setInterval(function(){getLocation(2)}, 3000); // get end position
+            getLocation(1); // get start position
+            timer = setInterval(function(){getLocation(2)}, 3000); // get end position
         }
         function errorHandler(err) {
             clearInterval(timer);
@@ -44,8 +42,8 @@
             alert(position.coords.latitude);
             $("#train_form").id_lat1.value = position.coords.latitude;
             $("#train_form").id_long1.value = position.coords.longitude;
-            //console.log('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
-            //alert('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
+            console.log('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
+            alert('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
         }
         function setPosition2(position) {
             alert(position.coords.latitude);
@@ -54,8 +52,8 @@
             $("#train_form").id_lat2.value = position.coords.latitude;
             alert($("#train_form").id_lat2.value);
             $("#train_form").id_long2.value = position.coords.longitude;
-            //console.log('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
-            //alert('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
+            console.log('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
+            alert('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
             $("#train_form").submit();
         }
     </script>

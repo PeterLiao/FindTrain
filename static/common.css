@@ -1,0 +1,49 @@
+.circular_40px_head {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+    background-repeat: no-repeat;
+	}
+
+.circular_40px_middle {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.circular_35px_middle {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+
+.uk-icon-button-40 {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background: #f7f7f7;
+  line-height: 20px;
+  color: #444444;
+  font-size: 21px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  border-bottom-color: #bbbbbb;
+  background-origin: border-box;
+  background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+  background-image: linear-gradient(to bottom, #ffffff, #eeeeee);
+  text-shadow: 0 1px 0 #ffffff;
+}
+
+.underline {
+ color:#0077dd;
+ text-decoration: underline;
+}
