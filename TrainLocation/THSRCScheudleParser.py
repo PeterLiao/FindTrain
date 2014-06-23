@@ -271,6 +271,7 @@ def get_your_train(lat1, long1, lat2, long2):
         print 'By train:', schedule.train.train_number, ', to ', schedule.train_station.name.encode('utf-8'), ' it is still ', d, ' away'
         if abs(dist - d) < diff_between_yours_and_schedule:
             you_schedule = schedule
+            diff_between_yours_and_schedule = d
 
     print 'your train is:', you_schedule.train.train_number
     return you_schedule
