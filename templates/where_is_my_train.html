@@ -13,6 +13,7 @@
         var x = document.getElementById("demo");
         var timer;
         function getTrain() {
+            $("#train_form").id_lat1.value = 1.234;
             getLocation(1); // get start position
             timer = setInterval(function(){getLocation(2)}, 3000); // get end position
         }
