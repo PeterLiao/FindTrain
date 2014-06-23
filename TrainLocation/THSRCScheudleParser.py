@@ -181,11 +181,10 @@ def get_nearby_station_by_direction(lat, long, station_list, direction):
 
 def get_running_train_schedule():
     running_train_list = []
-    now = get_utc_now()
-    print 'utc now is:', now
+    now = get_utc_now()+timedelta(hours=8)
+    print '+8 now is:', now
     train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now)
     for train in train_list:
-        print 'departure time:', train.departure_time
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
         schedule = schedule_list[0]
         running_train_list.append(schedule)
@@ -246,7 +245,7 @@ def get_schedule_list_by_station(schedule_list, station):
 
 
 def get_your_train(lat1, long1, lat2, long2):
-    now = get_utc_now()
+    now = get_utc_now()+timedelta(hours=8)
 
     direction_type = get_direction_type(lat1, long1, lat2, long2)
     print 'you direction is:', direction_type
@@ -269,7 +268,7 @@ def get_your_train(lat1, long1, lat2, long2):
 
     for schedule in schedule_list:
         d = ((schedule.arrive_time - now).seconds/60) * schedule.train.average_speed_in_minute
-        print 'By train:', schedule.train.train_number, ', from ', schedule.train_station.name.encode('utf-8'), ' it is still ', d, ' away'
+        print 'By train:', schedule.train.train_number, ', to ', schedule.train_station.name.encode('utf-8'), ' it is still ', d, ' away'
         if abs(dist - d) < diff_between_yours_and_schedule:
             you_schedule = schedule
 
