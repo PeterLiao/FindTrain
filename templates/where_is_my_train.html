@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <button onclick="getTrain()">Where is my train</button>
+
+    <script>
+        var x = document.getElementById("demo");
+
+        function getTrain() {
+            getLocation(1); // get start position
+            setInterval(function(){getLocation(2)}, 5000); // get end position
+        }
+        function errorHandler(err) {
+            if(err.code == 1) {
+                console.log("Error: Access is denied!");
+            }else if( err.code == 2) {
+                console.log("Error: Position is unavailable!");
+            }
+        }
+        function getLocation(index) {
+            if (navigator.geolocation) {
+                if(index == 1)
+                    navigator.geolocation.getCurrentPosition(setPosition1, errorHandler);
+                else
+                    navigator.geolocation.getCurrentPosition(setPosition2, errorHandler);
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+            }
+        }
+        function setPosition1(position) {
+            $("#train_form")[0].id_lat1.value = position.coords.latitude;
+            $("#train_form")[0].id_long1.value = position.coords.longitude;
+            console.log('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
+        }
+        function setPosition2(position) {
+            $("#train_form")[0].id_lat2.value = position.coords.latitude;
+            $("#train_form")[0].id_long2.value = position.coords.longitude;
+            console.log('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
+            $("#train_form").submit()
+        }
+    </script>
+    {% if train_schedule.train %}
+    Your train is {{ train_schedule.train.train_number }}
+    {% endif %}
+    <form id="train_form" style="display:none" action="/train/" method="post">
+        {% csrf_token %}
+        {{ train_form.as_p }}
+    </form>
+
+</body>
+</html>

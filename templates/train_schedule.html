@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<table>
+{% for train in train_list %}
+    <tr>
+        <td>{{ train.train_number }}</td>
+        <td>{{ train.departure_time_str }}</td>
+        <td> ~ {{ train.arrive_time_str }}</td>
+    </tr>
+{% endfor %}
+</table>
+</body>
+</html>
