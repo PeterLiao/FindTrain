@@ -45,13 +45,13 @@
             alert('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
         }
         function setPosition2(position) {
+            clearInterval(timer);
             alert('2:' + position);
             $("#train_form")[0].id_lat2.value = position.coords.latitude;
             $("#train_form")[0].id_long2.value = position.coords.longitude;
             console.log('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
-            $("#train_form").submit();
             alert('lat2:' + position.coords.latitude + ", long2:" + position.coords.longitude);
-            clearInterval(timer);
+            $("#train_form").submit();
         }
     </script>
     {% if train_schedule.train %}
