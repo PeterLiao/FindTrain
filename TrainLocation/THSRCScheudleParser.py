@@ -1,5 +1,5 @@
-__author__ = 'peter_c_liao'
 # -*- coding: utf-8 -*-
+__author__ = 'peter_c_liao'
 import urllib2
 import re
 import json
@@ -71,14 +71,14 @@ def get_schedule_list():
 
 
 def update_location_info_to_station():
-    TrainStation.objects.filter(name="台北站").update(latitude=25.047924, longitude=121.517081)
-    TrainStation.objects.filter(name="板橋站").update(latitude=25.014051, longitude=121.463815)
-    TrainStation.objects.filter(name="桃園站").update(latitude=25.013093, longitude=121.215217)
-    TrainStation.objects.filter(name="新竹站").update(latitude=24.808060, longitude=121.040415)
-    TrainStation.objects.filter(name="台中站").update(latitude=24.112143, longitude=120.616152)
-    TrainStation.objects.filter(name="嘉義站").update(latitude=23.459565, longitude=120.323320)
-    TrainStation.objects.filter(name="台南站").update(latitude=22.924928, longitude=120.285720)
-    TrainStation.objects.filter(name="左營站").update(latitude=22.686927, longitude=120.307827)
+    TrainStation.objects.filter(name=u"台北站").update(latitude=25.047924, longitude=121.517081)
+    TrainStation.objects.filter(name=u"板橋站").update(latitude=25.014051, longitude=121.463815)
+    TrainStation.objects.filter(name=u"桃園站").update(latitude=25.013093, longitude=121.215217)
+    TrainStation.objects.filter(name=u"新竹站").update(latitude=24.808060, longitude=121.040415)
+    TrainStation.objects.filter(name=u"台中站").update(latitude=24.112143, longitude=120.616152)
+    TrainStation.objects.filter(name=u"嘉義站").update(latitude=23.459565, longitude=120.323320)
+    TrainStation.objects.filter(name=u"台南站").update(latitude=22.924928, longitude=120.285720)
+    TrainStation.objects.filter(name=u"左營站").update(latitude=22.686927, longitude=120.307827)
 
 
 def parse_datetime(datetime_str):
@@ -187,7 +187,7 @@ def get_running_train_schedule():
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
         schedule = schedule_list[0]
         running_train_list.append(schedule)
-        print 'train:', train.train_number, ' is going to ' + schedule.train_station.name
+        print 'train:', train.train_number, ' is going to ', schedule.train_station.name
     return running_train_list
 
 
