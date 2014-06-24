@@ -122,7 +122,7 @@ def download_schedule_and_save():
         arrive_time = parse_datetime(item["arrive_time"])
 
         train_schedule_list.append(TrainSchedule(train=train, train_station=train_station, arrive_time=arrive_time,pub_date=get_utc_now()))
-        print 'create new schedule:', train.train_number, ',', train_station.name, ',', arrive_time
+        print 'create new schedule:', train.train_number, ',', train_station.name.encode('utf-8'), ',', arrive_time
 
     TrainSchedule.objects.bulk_create(train_schedule_list)
 
