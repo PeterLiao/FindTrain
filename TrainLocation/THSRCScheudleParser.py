@@ -9,6 +9,7 @@ from datetime import timedelta
 from django.utils.timezone import utc
 import datetime
 from utils import *
+import copy
 
 debug = False
 
@@ -29,7 +30,7 @@ class THSRCHTMLParser(HTMLParser):
         if tag == "td":
             self.in_td = True
             for key, value in attrs:
-                if key == 'title' and self.in_train_number and value != '':
+                if key == 'title' and self.in_train_number and value != "":
                     self.in_train_station = True
                     if debug:
                         print "train_station:", value
@@ -45,6 +46,7 @@ class THSRCHTMLParser(HTMLParser):
             self.in_train_station = False
         if tag == "td":
             self.in_td = False
+            self.in_train_station = False
 
     def handle_data(self, data):
         if self.in_table and self.in_tr and self.in_td:
@@ -60,17 +62,24 @@ class THSRCHTMLParser(HTMLParser):
                 self.schedule_list.append(self.schedule_item.copy())
 
     def get_schedule_list(self):
-        return self.schedule_list
+        return list(self.schedule_list)
+
+    def clean_schedule_list(self):
+        del self.schedule_list[:]
 
 
 def get_schedule_list(direction):
     url = 'http://www.thsrc.com.tw/tw/TimeTable/WeeklyTimeTable/1'
     if direction == 0:
         url = 'http://www.thsrc.com.tw/tw/TimeTable/WeeklyTimeTable/0'
+    print url
     src = urllib2.urlopen(url).read()
     parser = THSRCHTMLParser()
     parser.feed(src)
-    return parser.get_schedule_list()
+    schedule_list = parser.get_schedule_list()
+    show_schedule_list(schedule_list)
+    parser.clean_schedule_list()
+    return schedule_list
 
 
 def update_location_info_to_station():
@@ -107,7 +116,8 @@ def add_train_station_if_not_exist(name):
         if train_station_list.count() == 0:
             train_station = TrainStation(name=name, pub_date=get_utc_now(), latitude=0.0, longitude=0.0)
             train_station.save()
-            print 'create new station:', train_station.name
+            if debug:
+                print 'create new station:', train_station.name
 
 
 def get_schedule_list_and_save(direction):
@@ -124,7 +134,8 @@ def get_schedule_list_and_save(direction):
         arrive_time = parse_datetime(item["arrive_time"])
 
         train_schedule_list.append(TrainSchedule(train=train, train_station=train_station, direction=direction, arrive_time=arrive_time,pub_date=get_utc_now()))
-        print 'create new schedule:', train.train_number, ',', train_station.name.encode('utf-8'), ',', arrive_time
+        if debug:
+            print 'create new schedule:', train.train_number, ',', train_station.name.encode('utf-8'), ',', arrive_time
 
     TrainSchedule.objects.bulk_create(train_schedule_list)
 
@@ -146,11 +157,13 @@ def calculate_train_info():
                         train_schedule_list[0].train_station.longitude,
                         train_schedule_list[len(train_schedule_list)-1].train_station.latitude,
                         train_schedule_list[len(train_schedule_list)-1].train_station.longitude)
-        print 'dist:', dist
+        if debug:
+            print 'dist:', dist
         running_time = arrive_time - departure_time
         speed = dist/(running_time.seconds/60.0)
         Train.objects.filter(train_number=train.train_number).update(departure_time=departure_time, arrive_time=arrive_time, average_speed_in_minute=speed)
-        print 'update train:', train.train_number, ' departure_time: ', departure_time, ' arrive_time:', arrive_time, ' total_time:', running_time, ' speed:', speed
+        if debug:
+            print 'update train:', train.train_number, ' departure_time: ', departure_time, ' arrive_time:', arrive_time, ' total_time:', running_time, ' speed:', speed
 
 
 def get_nearby_station(lat, long):
@@ -190,13 +203,15 @@ def get_nearby_station_by_direction(lat, long, station_list, direction):
 def get_running_train_schedule():
     running_schedule_list = []
     now = get_utc_now()+timedelta(hours=8)
-    print '+8 now is:', now
+    if debug:
+        print '+8 now is:', now
     train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now)
     for train in train_list:
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
         schedule = schedule_list[0]
         running_schedule_list.append(schedule)
-        print 'train:', train.train_number, ' is going to ', schedule.train_station.name.encode('utf-8')
+        if debug:
+            print 'train:', train.train_number, ' is going to ', schedule.train_station.name.encode('utf-8')
     return running_schedule_list
 
 
@@ -213,13 +228,17 @@ def get_your_train(lat1, long1, lat2, long2):
     nearby_station_direction_type = get_direction_type(get_direction(lat2, long2, nearby_station.latitude, nearby_station.longitude))
     train_direction_type = get_direction_type(lat1, long1, lat2, long2)
     if train_direction_type == 1 and nearby_station_direction_type == 1:
-        print 'you are going to ', nearby_station.name
+        if debug:
+            print 'you are going to ', nearby_station.name
     elif train_direction_type == 1 and nearby_station_direction_type == 0:
-        print 'you are leaving from ', nearby_station.name
+        if debug:
+            print 'you are leaving from ', nearby_station.name
     elif train_direction_type == 0 and nearby_station_direction_type == 1:
-        print 'you are leaving from ', nearby_station.name
+        if debug:
+            print 'you are leaving from ', nearby_station.name
     elif train_direction_type == 0 and nearby_station_direction_type == 0:
-        print 'you are going to ', nearby_station.name
+        if debug:
+            print 'you are going to ', nearby_station.name
 
 
 def get_to_station(lat1, lat2, direction):

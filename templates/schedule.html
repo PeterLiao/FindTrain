@@ -12,26 +12,27 @@
 <div class="uk-grid" data-uk-grid-margin="">
 <div class="uk-width-medium-1-1">
     <table class="uk-table uk-table-striped uk-table-condensed">
-        <caption>時刻表</caption>
+        {% if direction_id == 0 %}
+            <caption>北上時刻表</caption>
+        {% else %}
+            <caption>南下時刻表</caption>
+        {% endif %}
         <thead>
             <tr>
                 <th>車次</th>
-                <th>方向</th>
-                <th>下一個停靠站</th>
-                <th>停靠時間</th>
+                {% for station in station_list %}
+                    <th>{{ station.name }}</th>
+                {% endfor %}
             </tr>
         </thead>
+        {% regroup schedule_list by train as train_list %}
         <tbody>
-            {% for schedule in schedule_list %}
+            {% for train in train_list %}
                 <tr>
-                    <td>{{ schedule.train.train_number }}</td>
-                    {% if schedule.direction == 0 %}
-                        <td>北上</td>
-                        {% else %}
-                        <td>南下</td>
-                    {% endif %}
-                    <td>{{ schedule.train_station.name }}</td>
-                    <td>{{ schedule.arrive_time_str }}</td>
+                    <td>{{ train.grouper.train_number }}</td>
+                    {% for item in train.list %}
+                        <td>{{ item.arrive_time_str }}</td>
+                    {% endfor %}
                 </tr>
             {% endfor %}
         </tbody>

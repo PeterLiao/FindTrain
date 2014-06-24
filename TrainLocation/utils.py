@@ -56,3 +56,6 @@ def get_direction(lat1, long1, lat2, long2):
     return coordNames[coordIndex]
 
 
+def show_schedule_list(schedule_list):
+    for item in schedule_list:
+        print item["train_number"], ',', item["train_station"], ',', item["arrive_time"]
