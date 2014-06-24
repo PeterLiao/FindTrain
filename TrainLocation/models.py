@@ -8,12 +8,19 @@ class Train(models.Model):
     arrive_time = models.DateTimeField()
     pub_date = models.DateTimeField('date published')
     average_speed_in_minute = models.FloatField()
+    direction = models.IntegerField()
 
     def get_departure_str(self):
-        return self.departure_time.strftime("%H:%M")
+        if self.departure_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):
+            return " - "
+        else:
+            return self.departure_time.strftime("%H:%M")
 
     def get_arrive_str(self):
-        return self.arrive_time.strftime("%H:%M")
+        if self.arrive_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):
+            return " - "
+        else:
+            return self.arrive_time.strftime("%H:%M")
 
     departure_time_str = property(get_departure_str)
     arrive_time_str = property(get_arrive_str)
@@ -31,8 +38,12 @@ class TrainSchedule(models.Model):
     train_station = models.ForeignKey(TrainStation)
     arrive_time = models.DateTimeField()
     pub_date = models.DateTimeField('date published')
+    direction = models.IntegerField()
 
     def get_arrive_str(self):
-        return self.arrive_time.strftime("%H:%M")
+        if self.arrive_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):
+            return " - "
+        else:
+            return self.arrive_time.strftime("%H:%M")
 
     arrive_time_str = property(get_arrive_str)

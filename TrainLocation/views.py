@@ -10,24 +10,19 @@ from THSRCScheudleParser import *
 from TrainLocation.forms import *
 
 
-def show_all_train_schedule(request):
-    schedule_list = TrainSchedule.objects.all()
-    return render_to_response("train_schedule.html", {"schedule_list":schedule_list})
-
-
 def show_list(list):
     for item in list:
         print item.train.train_number, ',', item.train_station.name, ',', item.arrive_time_str
 
 
 def show_running_train(request):
-    get_running_train_schedule()
-    return HttpResponse('OK')
+    schedule_list = get_running_train_schedule()
+    return render_to_response("running.html", {"schedule_list": schedule_list})
 
 
-def show_train_schedule(request):
-    train_list = Train.objects.all()
-    return render_to_response("train_schedule.html", {"train_list":train_list})
+def show_train_schedule(request, direction_id):
+    schedule_list = TrainSchedule.objects.filter(direction=direction_id)
+    return render_to_response("schedule.html", {"schedule_list": schedule_list})
 
 
 def show_distance_between_station(request):

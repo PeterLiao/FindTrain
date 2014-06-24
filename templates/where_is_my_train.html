@@ -3,9 +3,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="http://petercliao.pythonanywhere.com/static/jquery.js"></script>
-    <link rel="stylesheet" href=http://petercliao.pythonanywhere.com/static/uikit-2.6.0/css/uikit.min.css" />
-    <link rel="stylesheet" href="http://petercliao.pythonanywhere.com/static/uikit-2.6.0/css/uikit.gradient.css" />
+    <script src="./static/jquery.js"></script>
+    <link rel="stylesheet" href=./static/uikit-2.6.0/css/uikit.min.css" />
+    <link rel="stylesheet" href="./static/uikit-2.6.0/css/uikit.gradient.css" />
 </head>
 <body>
 
@@ -22,10 +22,10 @@
             clearInterval(timer);
             if(err.code == 1) {
                 console.log("Error: Access is denied!");
-                $("#msg")[0].innerHTML="錯誤: Access is denied!";
+                $("#msg")[0].innerHTML="錯誤: Access is denied! 請再次確定你已開啟GPS";
             }else if( err.code == 2) {
                 console.log("Error: Position is unavailable!");
-                $("#msg")[0].innerHTML="錯誤: Position is unavailable!";
+                $("#msg")[0].innerHTML="錯誤: Position is unavailable! 無法取得你的座標位置";
             }
         }
         function getLocation(index) {

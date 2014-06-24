@@ -63,8 +63,11 @@ class THSRCHTMLParser(HTMLParser):
         return self.schedule_list
 
 
-def get_schedule_list():
-    src = urllib2.urlopen('http://www.thsrc.com.tw/tw/TimeTable/WeeklyTimeTable/1').read()
+def get_schedule_list(direction):
+    url = 'http://www.thsrc.com.tw/tw/TimeTable/WeeklyTimeTable/1'
+    if direction == 0:
+        url = 'http://www.thsrc.com.tw/tw/TimeTable/WeeklyTimeTable/0'
+    src = urllib2.urlopen(url).read()
     parser = THSRCHTMLParser()
     parser.feed(src)
     return parser.get_schedule_list()
@@ -91,10 +94,10 @@ def parse_datetime(datetime_str):
     return today + d
 
 
-def add_train_if_not_exist(train_number):
+def add_train_if_not_exist(train_number, direction):
         train_list = Train.objects.filter(train_number=train_number)
         if train_list.count() == 0:
-            train = Train(train_number=train_number, pub_date=get_utc_now(), departure_time=get_utc_now(), arrive_time=get_utc_now(), average_speed_in_minute=0.0)
+            train = Train(train_number=train_number, direction=direction, pub_date=get_utc_now(), departure_time=get_utc_now(), arrive_time=get_utc_now(), average_speed_in_minute=0.0)
             train.save()
             print 'create new train:', train.train_number
 
@@ -107,13 +110,12 @@ def add_train_station_if_not_exist(name):
             print 'create new station:', train_station.name
 
 
-def download_schedule_and_save():
-    schedule_list = get_schedule_list()
-    TrainSchedule.objects.all().delete()
+def get_schedule_list_and_save(direction):
     train_schedule_list = []
+    schedule_list = get_schedule_list(direction)
     for item in schedule_list:
 
-        add_train_if_not_exist(item["train_number"])
+        add_train_if_not_exist(item["train_number"], direction)
         train = Train.objects.filter(train_number=item["train_number"])[0]
 
         add_train_station_if_not_exist(item["train_station"])
@@ -121,10 +123,16 @@ def download_schedule_and_save():
 
         arrive_time = parse_datetime(item["arrive_time"])
 
-        train_schedule_list.append(TrainSchedule(train=train, train_station=train_station, arrive_time=arrive_time,pub_date=get_utc_now()))
+        train_schedule_list.append(TrainSchedule(train=train, train_station=train_station, direction=direction, arrive_time=arrive_time,pub_date=get_utc_now()))
         print 'create new schedule:', train.train_number, ',', train_station.name.encode('utf-8'), ',', arrive_time
 
     TrainSchedule.objects.bulk_create(train_schedule_list)
+
+
+def download_schedule_and_save():
+    TrainSchedule.objects.all().delete()
+    get_schedule_list_and_save(0) #北上列車
+    get_schedule_list_and_save(1) #南下列車
 
 
 def calculate_train_info():
@@ -180,37 +188,37 @@ def get_nearby_station_by_direction(lat, long, station_list, direction):
 
 
 def get_running_train_schedule():
-    running_train_list = []
+    running_schedule_list = []
     now = get_utc_now()+timedelta(hours=8)
     print '+8 now is:', now
     train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now)
     for train in train_list:
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
         schedule = schedule_list[0]
-        running_train_list.append(schedule)
+        running_schedule_list.append(schedule)
         print 'train:', train.train_number, ' is going to ', schedule.train_station.name.encode('utf-8')
-    return running_train_list
+    return running_schedule_list
 
 
 def get_direction_type(lat1, long1, lat2, long2):
     direction = get_direction(lat1, long1, lat2, long2)
     if direction in ["SE", "S", "SW", "W"]:
-        return 'south'
+        return 1
     else:
-        return 'north'
+        return 0
 
 
 def get_your_train(lat1, long1, lat2, long2):
     nearby_station = get_nearby_station(lat2, long2)
     nearby_station_direction_type = get_direction_type(get_direction(lat2, long2, nearby_station.latitude, nearby_station.longitude))
     train_direction_type = get_direction_type(lat1, long1, lat2, long2)
-    if train_direction_type == 'south' and nearby_station_direction_type == 'south':
+    if train_direction_type == 1 and nearby_station_direction_type == 1:
         print 'you are going to ', nearby_station.name
-    elif train_direction_type == 'south' and nearby_station_direction_type == 'north':
+    elif train_direction_type == 1 and nearby_station_direction_type == 0:
         print 'you are leaving from ', nearby_station.name
-    elif train_direction_type == 'north' and nearby_station_direction_type == 'south':
+    elif train_direction_type == 0 and nearby_station_direction_type == 1:
         print 'you are leaving from ', nearby_station.name
-    elif train_direction_type == 'north' and nearby_station_direction_type == 'north':
+    elif train_direction_type == 0 and nearby_station_direction_type == 0:
         print 'you are going to ', nearby_station.name
 
 
