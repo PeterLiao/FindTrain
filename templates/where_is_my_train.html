@@ -16,15 +16,16 @@
             $("#spinner").css("display", "");
             getLocation(1); // get start position
             timer = setInterval(function(){getLocation(2)}, 3000); // get end position
-            //$("#train_form").submit();
         }
         function errorHandler(err) {
             $("#spinner").css("display", "none");
             clearInterval(timer);
             if(err.code == 1) {
                 console.log("Error: Access is denied!");
+                $("#msg")[0].innerHTML="錯誤: Access is denied!";
             }else if( err.code == 2) {
                 console.log("Error: Position is unavailable!");
+                $("#msg")[0].innerHTML="錯誤: Position is unavailable!";
             }
         }
         function getLocation(index) {
@@ -35,6 +36,7 @@
                     navigator.geolocation.getCurrentPosition(setPosition2, errorHandler);
             } else {
                 console.log("Geolocation is not supported by this browser.");
+                $("#msg")[0].innerHTML="錯誤: Geolocation is not supported by this browser.";
                 clearInterval(timer);
                 $("#spinner").css("display", "none");
             }
