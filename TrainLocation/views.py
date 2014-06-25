@@ -15,7 +15,7 @@ def show_running_train(request):
     return render_to_response("running.html", {"schedule_list": schedule_list})
 
 
-def show_train_schedule(request, direction_id):
+def show_trains_schedule(request, direction_id):
     direction = int(direction_id)
     schedule_list = TrainSchedule.objects.filter(direction=direction)
     station_list = TrainStation.objects.all()
@@ -24,6 +24,18 @@ def show_train_schedule(request, direction_id):
     return render_to_response("schedule.html", {"schedule_list": schedule_list,
                                                 "station_list": station_list,
                                                 "direction_id": direction})
+
+
+def show_train_schedule(request, train_id):
+    train_number = train_id
+    train = Train.objects.filter(train_number=train_number)[0]
+    schedule_list = TrainSchedule.objects.filter(train=train)
+    station_list = TrainStation.objects.all()
+    if train.direction == Direction.SOUTH:
+        station_list = station_list.order_by("-latitude")
+    return render_to_response("schedule.html", {"schedule_list": schedule_list,
+                                                "station_list": station_list,
+                                                "direction_id": train.direction})
 
 
 def show_distance_between_station(request):

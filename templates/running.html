@@ -11,8 +11,8 @@
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 <div class="uk-grid" data-uk-grid-margin="">
 <div class="uk-width-medium-1-1">
-    <table class="uk-table uk-table-striped uk-table-condensed">
-        <caption>正在行駛中的列車</caption>
+    <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
+        <caption>行駛中的列車</caption>
         <thead>
             <tr>
                 <th>車次</th>
@@ -23,7 +23,7 @@
         </thead>
         <tbody>
             {% for schedule in schedule_list %}
-                <tr>
+                <tr onclick="window.location.href='/train/{{ schedule.train.train_number }}';">
                     <td>{{ schedule.train.train_number }}</td>
                     {% if schedule.direction == 0 %}
                         <td>北上</td>

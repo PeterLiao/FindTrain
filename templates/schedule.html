@@ -11,11 +11,11 @@
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 <div class="uk-grid" data-uk-grid-margin="">
 <div class="uk-width-medium-1-1">
-    <table class="uk-table uk-table-striped uk-table-condensed">
+    <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
         {% if direction_id == 0 %}
-            <caption>北上時刻表</caption>
+            <caption>北上列車</caption>
         {% else %}
-            <caption>南下時刻表</caption>
+            <caption>南下列車</caption>
         {% endif %}
         <thead>
             <tr>
@@ -28,7 +28,7 @@
         {% regroup schedule_list by train as train_list %}
         <tbody>
             {% for train in train_list %}
-                <tr>
+                <tr onclick="window.location.href='/train/{{ train.grouper.train_number }}';">
                     <td>{{ train.grouper.train_number }}</td>
                     {% for item in train.list %}
                         <td>{{ item.arrive_time_str }}</td>
