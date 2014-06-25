@@ -13,6 +13,12 @@ import copy
 
 debug = False
 
+class Direction:
+    NORTH = 0
+    SOUTH = 1
+
+
+
 class THSRCHTMLParser(HTMLParser):
     schedule_item = {"train_number": "", "train_station": "", "arrive_time": ""}
     schedule_list = []
@@ -70,7 +76,7 @@ class THSRCHTMLParser(HTMLParser):
 
 def get_schedule_list(direction):
     url = 'http://www.thsrc.com.tw/tw/TimeTable/WeeklyTimeTable/1'
-    if direction == 0:
+    if direction == Direction.NORTH:
         url = 'http://www.thsrc.com.tw/tw/TimeTable/WeeklyTimeTable/0'
     print url
     src = urllib2.urlopen(url).read()
@@ -142,8 +148,8 @@ def get_schedule_list_and_save(direction):
 
 def download_schedule_and_save():
     TrainSchedule.objects.all().delete()
-    get_schedule_list_and_save(0) #北上列車
-    get_schedule_list_and_save(1) #南下列車
+    get_schedule_list_and_save(Direction.NORTH) #北上列車
+    get_schedule_list_and_save(Direction.SOUTH) #南下列車
 
 
 def calculate_train_info():
@@ -218,25 +224,25 @@ def get_running_train_schedule():
 def get_direction_type(lat1, long1, lat2, long2):
     direction = get_direction(lat1, long1, lat2, long2)
     if direction in ["SE", "S", "SW", "W"]:
-        return 1
+        return Direction.SOUTH
     else:
-        return 0
+        return Direction.NORTH
 
 
 def get_your_train(lat1, long1, lat2, long2):
     nearby_station = get_nearby_station(lat2, long2)
     nearby_station_direction_type = get_direction_type(get_direction(lat2, long2, nearby_station.latitude, nearby_station.longitude))
     train_direction_type = get_direction_type(lat1, long1, lat2, long2)
-    if train_direction_type == 1 and nearby_station_direction_type == 1:
+    if train_direction_type == Direction.SOUTH and nearby_station_direction_type == Direction.SOUTH:
         if debug:
             print 'you are going to ', nearby_station.name
-    elif train_direction_type == 1 and nearby_station_direction_type == 0:
+    elif train_direction_type == Direction.SOUTH and nearby_station_direction_type == Direction.NORTH:
         if debug:
             print 'you are leaving from ', nearby_station.name
-    elif train_direction_type == 0 and nearby_station_direction_type == 1:
+    elif train_direction_type == Direction.NORTH and nearby_station_direction_type == Direction.SOUTH:
         if debug:
             print 'you are leaving from ', nearby_station.name
-    elif train_direction_type == 0 and nearby_station_direction_type == 0:
+    elif train_direction_type == Direction.NORTH and nearby_station_direction_type == Direction.NORTH:
         if debug:
             print 'you are going to ', nearby_station.name
 

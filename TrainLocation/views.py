@@ -15,17 +15,15 @@ def show_running_train(request):
     return render_to_response("running.html", {"schedule_list": schedule_list})
 
 
-def show_train_schedule(request, direction_id):
-    print direction_id
-    schedule_list = TrainSchedule.objects.filter(direction=direction_id)
-    for item in schedule_list:
-        print item.train.train_number
+def show_train_schedule(request, direction_str):
+    direction = int(direction_str)
+    schedule_list = TrainSchedule.objects.filter(direction=direction)
     station_list = TrainStation.objects.all()
-    if direction_id == 1:
+    if direction == Direction.SOUTH:
         station_list = station_list.order_by("-latitude")
     return render_to_response("schedule.html", {"schedule_list": schedule_list,
                                                 "station_list": station_list,
-                                                "direction_id": direction_id})
+                                                "direction_id": direction})
 
 
 def show_distance_between_station(request):
