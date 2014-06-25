@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 __author__ = 'peter_c_liao'
 
 from TrainLocation.THSRCScheudleParser import *
