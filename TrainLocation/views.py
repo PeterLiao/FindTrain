@@ -25,7 +25,7 @@ def show_train_schedule(request, direction_id):
         station_list = station_list.order_by("-latitude")
     return render_to_response("schedule.html", {"schedule_list": schedule_list,
                                                 "station_list": station_list,
-                                                "direction_id": int(direction_id)})
+                                                "direction_id": direction_id})
 
 
 def show_distance_between_station(request):
