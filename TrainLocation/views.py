@@ -15,8 +15,8 @@ def show_running_train(request):
     return render_to_response("running.html", {"schedule_list": schedule_list})
 
 
-def show_train_schedule(request, direction_str):
-    direction = int(direction_str)
+def show_train_schedule(request, direction_id):
+    direction = int(direction_id)
     schedule_list = TrainSchedule.objects.filter(direction=direction)
     station_list = TrainStation.objects.all()
     if direction == Direction.SOUTH:
