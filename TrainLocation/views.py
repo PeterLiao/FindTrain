@@ -21,7 +21,7 @@ def show_train_schedule(request, direction_id):
     for item in schedule_list:
         print item.train.train_number
     station_list = TrainStation.objects.all()
-    if int(direction_id) == 1:
+    if direction_id == 1:
         station_list = station_list.order_by("-latitude")
     return render_to_response("schedule.html", {"schedule_list": schedule_list,
                                                 "station_list": station_list,
