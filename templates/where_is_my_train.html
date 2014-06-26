@@ -60,6 +60,7 @@
             $("#spinner").css("display", "none");
             $("#train_form")[0].id_lat2.value = position.coords.latitude;
             $("#train_form")[0].id_long2.value = position.coords.longitude;
+            alert('heading:' + position.coords.heading + ', speed:' + position.coords.speed);
             $("#train_form").submit();
         }
     </script>
