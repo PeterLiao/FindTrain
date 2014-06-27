@@ -311,7 +311,7 @@ def get_your_train(lat, long, heading):
 
     if direction_type != station_direction_type:
         print 'your train direction is not meet with the direction to nearby station'
-        return TrainSchedule()
+        return None
 
     dist = get_dist(lat, long, nearby_station.latitude, nearby_station.longitude)
     print 'your train is still ', dist, ' away from ', nearby_station.name.encode('utf-8')

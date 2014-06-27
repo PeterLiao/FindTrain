@@ -62,8 +62,9 @@ def show_your_train(request):
             long = float(train_form.cleaned_data['long'])
             heading = float(train_form.cleaned_data['heading'])
             train_schedule = get_your_train(lat, long, heading)
-            if not train_schedule.train:
+            if train_schedule == None:
                 err_code = -1
+                train_schedule = TrainSchedule()
     return render_to_response("where_is_my_train.html",
                               {"train_form": train_form,
                                "train_schedule": train_schedule,
