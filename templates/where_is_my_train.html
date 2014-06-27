@@ -19,36 +19,52 @@
 
 </script>
     <script>
+        window.addEventListener('deviceorientation', function(e) {
+            console.log(e.webkitCompassHeading);
+            $("#msg")[0].innerHTML="方向:" + e.webkitCompassHeading;
+        }, false);
+        var timer;
         function getTrain() {
             $("#spinner").css("display", "");
-            watchPosition();
+            getLocation(1); // get start position
+            timer = setInterval(function(){getLocation(2)}, 3000); // get end position
         }
         function errorHandler(err) {
             $("#spinner").css("display", "none");
+            clearInterval(timer);
             if(err.code == 1) {
+                console.log("Error: Access is denied!");
                 $("#msg")[0].innerHTML="錯誤: Access is denied! 請確定你已開啟GPS";
             }else if( err.code == 2) {
+                console.log("Error: Position is unavailable!");
                 $("#msg")[0].innerHTML="錯誤: Position is unavailable! 無法取得你的座標位置";
             }
         }
-        function watchPosition() {
+        function getLocation(index) {
             if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(successHandler, errorHandler, {
-                                                                  enableHighAccuracy: 4000,
-                                                                  timeout: 5000,
-                                                                  maximumAge: 4000 }
-                                                    );
+                if(index == 1)
+                    navigator.geolocation.getCurrentPosition(setPosition1, errorHandler);
+                else
+                    navigator.geolocation.getCurrentPosition(setPosition2, errorHandler);
             } else {
+                console.log("Geolocation is not supported by this browser.");
                 $("#msg")[0].innerHTML="錯誤: Geolocation is not supported by this browser.";
                 clearInterval(timer);
                 $("#spinner").css("display", "none");
             }
         }
-        function successHandler(pos) {
-              var crd = pos.coords;
-              $("#msg")[0].innerHTML="方向: " +  crd.heading + ', 速度: ' + crd.speed + ', latitude: ' + crd.latitude;
-              $("#spinner").css("display", "none");
-        };
+        function setPosition1(position) {
+            $("#train_form")[0].id_lat1.value = position.coords.latitude;
+            $("#train_form")[0].id_long1.value = position.coords.longitude;
+            console.log('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
+        }
+        function setPosition2(position) {
+            clearInterval(timer);
+            $("#spinner").css("display", "none");
+            $("#train_form")[0].id_lat2.value = position.coords.latitude;
+            $("#train_form")[0].id_long2.value = position.coords.longitude;
+            $("#train_form").submit();
+        }
     </script>
     <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
         <div class="uk-grid" data-uk-grid-margin="">
