@@ -19,10 +19,9 @@
 
 </script>
     <script>
-        var heading = 0.0;
         window.addEventListener('deviceorientation', function(e) {
             console.log(e.webkitCompassHeading);
-            heading = e.webkitCompassHeading;
+            $("#train_form")[0].id_heading.value = e.webkitCompassHeading;
         }, false);
         function getTrain() {
             $("#spinner").css("display", "");
@@ -51,7 +50,6 @@
             $("#spinner").css("display", "none");
             $("#train_form")[0].id_lat.value = position.coords.latitude;
             $("#train_form")[0].id_long.value = position.coords.longitude;
-            $("#train_form")[0].id_heading.value = heading;
             $("#train_form").submit();
         }
     </script>
