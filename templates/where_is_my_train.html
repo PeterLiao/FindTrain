@@ -34,9 +34,9 @@
         function watchPosition() {
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(successHandler, errorHandler, {
-                                                                  enableHighAccuracy: false,
+                                                                  enableHighAccuracy: 4000,
                                                                   timeout: 5000,
-                                                                  maximumAge: 0 }
+                                                                  maximumAge: 4000 }
                                                     );
             } else {
                 $("#msg")[0].innerHTML="錯誤: Geolocation is not supported by this browser.";
@@ -46,7 +46,7 @@
         }
         function successHandler(pos) {
               var crd = pos.coords;
-              $("#msg")[0].innerHTML="方向: " +  crd.heading + ', 速度: ' + crd.speed;
+              $("#msg")[0].innerHTML="方向: " +  crd.heading + ', 速度: ' + crd.speed + ', latitude: ' + crd.latitude;
               $("#spinner").css("display", "none");
         };
     </script>
