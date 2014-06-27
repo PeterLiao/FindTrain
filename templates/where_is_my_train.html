@@ -37,7 +37,7 @@
                 $("#msg")[0].innerHTML="錯誤: Position is unavailable! 無法取得你的座標位置";
             }
         }
-        function getLocation(index) {
+        function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(setPosition, errorHandler);
             } else {
