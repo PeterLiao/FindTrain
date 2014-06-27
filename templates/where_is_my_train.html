@@ -20,8 +20,10 @@
 </script>
     <script>
         window.addEventListener('deviceorientation', function(e) {
-            console.log(e.webkitCompassHeading);
-            $("#train_form")[0].id_heading.value = e.webkitCompassHeading;
+            if(e.webkitCompassHeading)
+                $("#train_form")[0].id_heading.value = e.webkitCompassHeading;
+            else
+                $("#train_form")[0].id_heading.value = e.alpha;
         }, false);
         function getTrain() {
             $("#spinner").css("display", "");
