@@ -16,6 +16,7 @@ debug = False
 class Direction:
     NORTH = 0
     SOUTH = 1
+    OTHERS = 2
 
 
 
@@ -229,10 +230,12 @@ def get_running_train_schedule_by_direction(direction):
 
 def get_direction_type(lat1, long1, lat2, long2):
     direction = get_direction(lat1, long1, lat2, long2)
-    if direction in ["SE", "S", "SW", "W"]:
+    if direction in ["S", "SW", "W"]:
         return Direction.SOUTH
-    else:
+    elif direction in ["N", "NE", "E"]:
         return Direction.NORTH
+    else:
+        return Direction.OTHERS
 
 
 def get_direction_type_by_heading(heading):
@@ -304,10 +307,7 @@ def get_your_train(lat, long, heading):
     print 'nearby station is:', nearby_station.name.encode('utf-8')
 
     station_direction_type = get_direction_type(lat, long, nearby_station.latitude, nearby_station.longitude)
-    if station_direction_type == Direction.NORTH:
-        print 'nearby station is at your north'
-    else:
-        print 'nearby station is at your south'
+    print 'nearby station is at your(0: North, 1: South, 2: Others): ', station_direction_type
 
     if direction_type != station_direction_type:
         print 'your train direction is not meet with the direction to nearby station'
