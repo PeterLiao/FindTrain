@@ -68,6 +68,8 @@
                         <div class="uk-vertical-align-middle uk-width-3-4">
                             {% if train_schedule.train %}
                                 <h1 id="msg" class="uk-heading-large">你搭乘的班次為 <a href="/train/{{ train_schedule.train.train_number}}">{{ train_schedule.train.train_number }} </a>{% if train_schedule.direction == 0 %} 北上列車{% else %} 南下列車{% endif %}<br>下一個停靠站為 {{ train_schedule.train_station.name }}<br>停靠時間為 {{ train_schedule.arrive_time_str }}</h1>
+                            {% elif err_code == -1%}
+                                <h1 id="msg" class="uk-heading-large">查無適合你的方向與位置的班次，你應該沒有在列車上吧...</h1>
                             {% else %}
                                 <h1 id="msg" class="uk-heading-large">知道你現在搭乘的是哪一班列車嗎？</h1>
                             {% endif %}
