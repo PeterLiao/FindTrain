@@ -303,6 +303,16 @@ def get_your_train(lat, long, heading):
     nearby_station = get_nearby_station_by_specific_station_list(lat, long, station_list)
     print 'nearby station is:', nearby_station.name.encode('utf-8')
 
+    station_direction_type = get_direction_type(lat, long, nearby_station.latitude, nearby_station.longitude)
+    if station_direction_type == Direction.NORTH:
+        print 'nearby station is at your north'
+    else:
+        print 'nearby station is at your south'
+
+    if direction_type != station_direction_type:
+        print 'your train direction is not meet with the direction to nearby station'
+        return TrainSchedule()
+
     dist = get_dist(lat, long, nearby_station.latitude, nearby_station.longitude)
     print 'your train is still ', dist, ' away from ', nearby_station.name.encode('utf-8')
 

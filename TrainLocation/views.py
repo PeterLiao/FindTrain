@@ -54,6 +54,7 @@ def show_distance_between_station(request):
 def show_your_train(request):
     train_form = TrainForm()
     train_schedule = TrainSchedule()
+    err_code = 0
     if request.method == 'POST':
         train_form = TrainForm(request.POST)
         if train_form.is_valid():
@@ -61,7 +62,10 @@ def show_your_train(request):
             long = float(train_form.cleaned_data['long'])
             heading = float(train_form.cleaned_data['heading'])
             train_schedule = get_your_train(lat, long, heading)
+            if not train_schedule.train:
+                err_code = -1
     return render_to_response("where_is_my_train.html",
                               {"train_form": train_form,
-                               "train_schedule": train_schedule},
+                               "train_schedule": train_schedule,
+                               "err_code": err_code},
                                context_instance = RequestContext(request))
