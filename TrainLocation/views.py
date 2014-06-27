@@ -70,3 +70,10 @@ def show_your_train(request):
                                "train_schedule": train_schedule,
                                "err_code": err_code},
                                context_instance = RequestContext(request))
+
+
+@csrf_exempt
+def show_station(request, station_id):
+    station_id_int = int(station_id)
+    schedule_list = get_running_train_schedule_by_station(station_id_int)
+    return render_to_response("station.html", {"schedule_list": schedule_list})

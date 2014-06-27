@@ -228,6 +228,23 @@ def get_running_train_schedule_by_direction(direction):
     return running_schedule_list
 
 
+def get_running_train_schedule_by_station(station_id):
+    running_schedule_list = []
+    now = get_utc_now()+timedelta(hours=8)
+    if debug:
+        print '+8 now is:', now
+    train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now)
+    for train in train_list:
+        schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
+        schedule = schedule_list[0]
+        station = TrainStation.objects.filter(id=station_id)[0]
+        if schedule.train_station == station:
+            running_schedule_list.append(schedule)
+        if debug:
+            print 'train:', train.train_number, ' is going to ', schedule.train_station.name.encode('utf-8')
+    return running_schedule_list
+
+
 def get_direction_type(lat1, long1, lat2, long2):
     direction = get_direction(lat1, long1, lat2, long2)
     if direction in ["S", "SW", "W"]:
