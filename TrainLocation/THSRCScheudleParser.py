@@ -229,6 +229,15 @@ def get_direction_type(lat1, long1, lat2, long2):
         return Direction.NORTH
 
 
+def get_direction_type_by_heading(heading):
+    if (0 <= heading <= 90) or (270 <= heading <= 360):
+        print 'heading:', heading, ', direction is north'
+        return Direction.NORTH
+    else:
+        print 'heading:', heading, ', direction is south'
+        return Direction.SOUTH
+
+'''
 def get_your_train(lat1, long1, lat2, long2):
     nearby_station = get_nearby_station(lat2, long2)
     nearby_station_direction_type = get_direction_type(get_direction(lat2, long2, nearby_station.latitude, nearby_station.longitude))
@@ -244,7 +253,7 @@ def get_your_train(lat1, long1, lat2, long2):
             print 'you are leaving from ', nearby_station.name
     elif train_direction_type == Direction.NORTH and nearby_station_direction_type == Direction.NORTH:
         if debug:
-            print 'you are going to ', nearby_station.name
+            print 'you are going to ', nearby_station.name'''
 
 
 def get_to_station(lat1, lat2, direction):
@@ -277,21 +286,18 @@ def get_schedule_list_by_station(schedule_list, station):
     return ret_list
 
 
-def get_your_train(lat1, long1, lat2, long2):
+def get_your_train(lat, long, heading):
     now = get_utc_now()+timedelta(hours=8)
 
-    direction_type = get_direction_type(lat1, long1, lat2, long2)
-    print 'you direction is:', direction_type
-    if direction_type == "north":
-        return TrainSchedule() # Not support north train so far
+    direction_type = get_direction_type_by_heading(heading)
 
     schedule_list = get_running_train_schedule()
     station_list = get_station_list_from_schedule(schedule_list)
 
-    nearby_station = get_nearby_station_by_direction(lat2, long2, station_list, direction_type)
+    nearby_station = get_nearby_station_by_direction(lat, long, station_list, direction_type)
     print 'nearby station is:', nearby_station.name.encode('utf-8')
 
-    dist = get_dist(lat2, long2, nearby_station.latitude, nearby_station.longitude)
+    dist = get_dist(lat, long, nearby_station.latitude, nearby_station.longitude)
     print 'your train is still ', dist, ' away from ', nearby_station.name.encode('utf-8')
 
     train_list = get_train_list_from_schedule(schedule_list, nearby_station)

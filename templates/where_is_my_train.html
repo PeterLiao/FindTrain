@@ -19,19 +19,17 @@
 
 </script>
     <script>
+        var heading = 0.0;
         window.addEventListener('deviceorientation', function(e) {
             console.log(e.webkitCompassHeading);
-            $("#msg")[0].innerHTML="方向:" + e.webkitCompassHeading;
+            heading = e.webkitCompassHeading;
         }, false);
-        var timer;
         function getTrain() {
             $("#spinner").css("display", "");
-            getLocation(1); // get start position
-            timer = setInterval(function(){getLocation(2)}, 3000); // get end position
+            getLocation();
         }
         function errorHandler(err) {
             $("#spinner").css("display", "none");
-            clearInterval(timer);
             if(err.code == 1) {
                 console.log("Error: Access is denied!");
                 $("#msg")[0].innerHTML="錯誤: Access is denied! 請確定你已開啟GPS";
@@ -42,27 +40,18 @@
         }
         function getLocation(index) {
             if (navigator.geolocation) {
-                if(index == 1)
-                    navigator.geolocation.getCurrentPosition(setPosition1, errorHandler);
-                else
-                    navigator.geolocation.getCurrentPosition(setPosition2, errorHandler);
+                navigator.geolocation.getCurrentPosition(setPosition, errorHandler);
             } else {
                 console.log("Geolocation is not supported by this browser.");
                 $("#msg")[0].innerHTML="錯誤: Geolocation is not supported by this browser.";
-                clearInterval(timer);
                 $("#spinner").css("display", "none");
             }
         }
-        function setPosition1(position) {
-            $("#train_form")[0].id_lat1.value = position.coords.latitude;
-            $("#train_form")[0].id_long1.value = position.coords.longitude;
-            console.log('lat1:' + position.coords.latitude + ", long1:" + position.coords.longitude);
-        }
-        function setPosition2(position) {
-            clearInterval(timer);
+        function setPosition(position) {
             $("#spinner").css("display", "none");
-            $("#train_form")[0].id_lat2.value = position.coords.latitude;
-            $("#train_form")[0].id_long2.value = position.coords.longitude;
+            $("#train_form")[0].id_lat.value = position.coords.latitude;
+            $("#train_form")[0].id_long.value = position.coords.longitude;
+            $("#train_form")[0].id_heading.value = heading;
             $("#train_form").submit();
         }
     </script>

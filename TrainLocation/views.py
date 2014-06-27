@@ -52,11 +52,10 @@ def show_your_train(request):
     if request.method == 'POST':
         train_form = TrainForm(request.POST)
         if train_form.is_valid():
-            lat1 = train_form.cleaned_data['lat1']
-            long1 = train_form.cleaned_data['long1']
-            lat2 = train_form.cleaned_data['lat2']
-            long2 = train_form.cleaned_data['long2']
-            train_schedule = get_your_train(lat1, long1, lat2, long2)
+            lat = train_form.cleaned_data['lat']
+            long = train_form.cleaned_data['long']
+            heading = train_form.cleaned_data['heading']
+            train_schedule = get_your_train(lat, long, heading)
     return render_to_response("where_is_my_train.html",
                               {"train_form": train_form,
                                "train_schedule": train_schedule},
