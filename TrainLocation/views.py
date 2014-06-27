@@ -8,7 +8,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from THSRCScheudleParser import *
 from TrainLocation.forms import *
-
+from django.contrib.auth import authenticate, login
 
 def show_running_train(request):
     schedule_list = get_running_train_schedule()
