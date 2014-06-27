@@ -224,7 +224,7 @@ def get_direction_type(lat1, long1, lat2, long2):
 
 
 def get_direction_type_by_heading(heading):
-    if (0 <= heading <= 90) or (270 <= heading <= 360):
+    if (0.0 <= heading <= 90.0) or (270 <= heading <= 360):
         print 'heading:', heading, ', direction is north'
         return Direction.NORTH
     else:
