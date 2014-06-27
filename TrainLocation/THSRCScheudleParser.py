@@ -83,7 +83,7 @@ def get_schedule_list(direction):
     parser = THSRCHTMLParser()
     parser.feed(src)
     schedule_list = parser.get_schedule_list()
-    show_schedule_list(schedule_list)
+    #show_schedule_list(schedule_list)
     parser.clean_schedule_list()
     return schedule_list
 
