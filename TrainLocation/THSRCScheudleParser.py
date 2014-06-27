@@ -195,14 +195,8 @@ def get_nearby_station_by_specific_station(lat, long, station_list):
     return nearby_station
 
 
-def get_nearby_station_by_direction(lat, long, station_list, direction):
-    meet_direction_station_list = []
-    nearby_station = station_list[0]
-    for station in station_list:
-        dir = get_direction_type(lat, long, station.latitude, station.longitude)
-        if dir == direction:
-            meet_direction_station_list.append(station)
-    nearby_station = get_nearby_station_by_specific_station(lat, long, meet_direction_station_list)
+def get_nearby_station_by_direction(lat, long, station_list):
+    nearby_station = get_nearby_station_by_specific_station(lat, long, station_list)
     return nearby_station
 
 
@@ -263,10 +257,11 @@ def get_to_station(lat1, lat2, direction):
         station_list.append(schedule.train_station)
 
 
-def get_station_list_from_schedule(schedule_list):
+def get_station_list_from_schedule(schedule_list, direction):
     station_list = []
     for schedule in schedule_list:
-        station_list.append(schedule.train_station)
+        if schedule.direction == direction:
+            station_list.append(schedule.train_station)
     return station_list
 
 
@@ -292,9 +287,9 @@ def get_your_train(lat, long, heading):
     direction_type = get_direction_type_by_heading(heading)
 
     schedule_list = get_running_train_schedule()
-    station_list = get_station_list_from_schedule(schedule_list)
+    station_list = get_station_list_from_schedule(schedule_list, direction_type)
 
-    nearby_station = get_nearby_station_by_direction(lat, long, station_list, direction_type)
+    nearby_station = get_nearby_station_by_direction(lat, long, station_list)
     print 'nearby station is:', nearby_station.name.encode('utf-8')
 
     dist = get_dist(lat, long, nearby_station.latitude, nearby_station.longitude)
