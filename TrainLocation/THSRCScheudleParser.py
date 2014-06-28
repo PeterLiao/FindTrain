@@ -314,40 +314,63 @@ def get_schedule_list_by_station(schedule_list, station):
 
 def get_your_train(lat, long, heading):
     now = get_utc_now()+timedelta(hours=8)
-
     direction_type = get_direction_type_by_heading(heading)
-
     schedule_list = get_running_train_schedule_by_direction(direction_type)
-    station_list = get_station_list_from_schedule(schedule_list)
+    #station_list = get_station_list_from_schedule(schedule_list)
 
-    nearby_station = get_nearby_station_by_specific_station_list(lat, long, station_list)
-    print 'nearby station is:', nearby_station.name.encode('utf-8')
+    ex_schedule_list = []
+    for schedule in schedule_list:
+        station = schedule.train_station
+        station_direction_type = get_direction_type(lat, long, station.latitude, station.longitude)
+        if station_direction_type == direction_type:
+            your_dist = get_dist(lat, long, station.latitude, station.longitude)
+            train_dist = schedule.train.average_speed_in_minute * ((schedule.arrive_time-now).sceonds/60)
+            dist_diff = abs(your_dist - train_dist)
+            ex_schedule_list.append({schedule, dist_diff})
+            print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
+            print 'train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
 
-    station_direction_type = get_direction_type(lat, long, nearby_station.latitude, nearby_station.longitude)
-    print 'nearby station is at your(0: North, 1: South, 2: Others): ', station_direction_type
 
-    if direction_type != station_direction_type:
+    if ex_schedule_list.count() == 0:
         print 'your train direction is not meet with the direction to nearby station'
         return None
+    else:
+        your_schedule = ex_schedule_list[0][0]
+        min_dist_diff = ex_schedule_list[0][1]
 
-    dist = get_dist(lat, long, nearby_station.latitude, nearby_station.longitude)
-    print 'your train is still ', dist, ' away from ', nearby_station.name.encode('utf-8')
+        for ex_schedule in ex_schedule_list:
+            if ex_schedule[1] < min_dist_diff:
+                your_schedule = ex_schedule[0]
 
-    train_list = get_train_list_from_schedule(schedule_list, nearby_station)
-    schedule_list = get_schedule_list_by_station(schedule_list, nearby_station)
+    #nearby_station = get_nearby_station_by_specific_station_list(lat, long, station_list)
+    #print 'nearby station is:', nearby_station.name.encode('utf-8')
 
-    you_schedule = schedule_list[0]
-    dist_to_nearby_station = ((you_schedule.arrive_time - now).seconds/60) * you_schedule.train.average_speed_in_minute
-    diff_between_yours_and_schedule = abs(dist - dist_to_nearby_station)
+    #station_direction_type = get_direction_type(lat, long, nearby_station.latitude, nearby_station.longitude)
+    #print 'nearby station is at your(0: North, 1: South, 2: Others): ', station_direction_type
 
-    for schedule in schedule_list:
-        d = ((schedule.arrive_time - now).seconds/60) * schedule.train.average_speed_in_minute
-        print 'By train:', schedule.train.train_number, ', to ', schedule.train_station.name.encode('utf-8'), ' it is still ', d, ' away'
-        if abs(dist - d) < diff_between_yours_and_schedule:
-            you_schedule = schedule
-            diff_between_yours_and_schedule = abs(dist - d)
+    #if direction_type != station_direction_type:
+    #    print 'your train direction is not meet with the direction to nearby station'
+    #    return None
 
-    print 'your train is:', you_schedule.train.train_number
-    return you_schedule
+    #dist = get_dist(lat, long, nearby_station.latitude, nearby_station.longitude)
+    #print 'your train is still ', dist, ' away from ', nearby_station.name.encode('utf-8')
+
+    #train_list = get_train_list_from_schedule(schedule_list, nearby_station)
+    #schedule_list = get_schedule_list_by_station(schedule_list, nearby_station)
+
+    #you_schedule = schedule_list[0]
+    #dist_to_nearby_station = ((you_schedule.arrive_time - now).seconds/60) * you_schedule.train.average_speed_in_minute
+
+    #diff_between_yours_and_schedule = abs(dist - dist_to_nearby_station)
+
+    #for schedule in schedule_list:
+    #    d = ((schedule.arrive_time - now).seconds/60) * schedule.train.average_speed_in_minute
+    #    print 'By train:', schedule.train.train_number, ', to ', schedule.train_station.name.encode('utf-8'), ' it is still ', d, ' away'
+    #    if abs(dist - d) < diff_between_yours_and_schedule:
+    #        you_schedule = schedule
+    #        diff_between_yours_and_schedule = abs(dist - d)
+
+    print 'your train is:', your_schedule.train.train_number
+    return your_schedule
 
 
