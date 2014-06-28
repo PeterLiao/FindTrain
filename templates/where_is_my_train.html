@@ -8,6 +8,7 @@
     <script src="./static/uikit-2.6.0/js/uikit.min.js"></script>
     <link rel="stylesheet" href="./static/uikit-2.6.0/css/uikit.min.css"/>
     <link rel="stylesheet" href="./static/uikit-2.6.0/css/uikit.css" />
+    <link rel="stylesheet" href="./static/font-awesome-4.1.0/css/font-awesome.css" />
 </head>
 <body class="tm-background">
 <script>
@@ -80,16 +81,15 @@
                             {% elif err_code == -1%}
                                 <h1 id="msg" class="uk-heading-large">查無符合你的方向與位置的班次，請確認你已經在列車上</h1>
                             {% else %}
-                                <h1 id="msg" class="uk-heading-large">知道你現在搭乘的班次嗎？</h1>
+                                <h1 id="msg" class="uk-heading-large">知道你正在搭乘的班次與時刻表嗎？</h1>
                             {% endif %}
                             <p class="uk-text-large"></p>
                             <p>
-                                <a class="uk-button uk-button-primary uk-button-large" href="javascript:getTrain();">立即確認</a>
+                                <a class="uk-button uk-button-primary uk-button-large" href="javascript:getTrain();"><i class="fa fa-search"></i> 立即搜尋</a>
                             </p>
                             <i id="spinner" style="display:none" class="uk-icon-spinner uk-icon-large uk-icon-spin"></i>
                         </div>
                     </div>
-
                 </div>
             </div>
     </div>
