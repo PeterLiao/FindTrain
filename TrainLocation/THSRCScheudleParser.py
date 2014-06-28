@@ -331,7 +331,7 @@ def get_your_train(lat, long, heading):
             print 'train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
 
 
-    if ex_schedule_list.count() == 0:
+    if len(ex_schedule_list) == 0:
         print 'your train direction is not meet with the direction to nearby station'
         return None
     else:
