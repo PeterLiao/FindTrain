@@ -324,7 +324,7 @@ def get_your_train(lat, long, heading):
         station_direction_type = get_direction_type(lat, long, station.latitude, station.longitude)
         if station_direction_type == direction_type:
             your_dist = get_dist(lat, long, station.latitude, station.longitude)
-            train_dist = schedule.train.average_speed_in_minute * ((schedule.arrive_time-now).sceonds/60)
+            train_dist = schedule.train.average_speed_in_minute * ((schedule.arrive_time-now).seconds/60)
             dist_diff = abs(your_dist - train_dist)
             ex_schedule_list.append({schedule, dist_diff})
             print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
