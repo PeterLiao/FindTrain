@@ -326,10 +326,12 @@ def get_your_train(lat, long, heading):
             your_dist = get_dist(lat, long, station.latitude, station.longitude)
             train_dist = schedule.train.average_speed_in_minute * ((schedule.arrive_time-now).seconds/60)
             dist_diff = abs(your_dist - train_dist)
+            print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
             if dist_diff < 5.0:
                 ex_schedule_list.append([schedule, dist_diff])
-                print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
-                print 'train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
+                print '[< 5KM] train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
+            else:
+                print '[> 5KM]train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
 
 
     if len(ex_schedule_list) == 0:
