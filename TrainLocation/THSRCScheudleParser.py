@@ -341,6 +341,7 @@ def get_your_train(lat, long, heading):
         for ex_schedule in ex_schedule_list:
             if ex_schedule[1] < min_dist_diff:
                 your_schedule = ex_schedule[0]
+                min_dist_diff = ex_schedule[1]
 
     #nearby_station = get_nearby_station_by_specific_station_list(lat, long, station_list)
     #print 'nearby station is:', nearby_station.name.encode('utf-8')
