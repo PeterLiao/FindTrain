@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from THSRCScheudleParser import *
 from TrainLocation.forms import *
 from django.contrib.auth import authenticate, login
-
+from django.shortcuts import redirect
 
 @csrf_exempt
 def show_running_train(request):
@@ -56,6 +56,7 @@ def show_distance_between_station(request):
 def show_your_train(request):
     train_form = TrainForm()
     train_schedule = TrainSchedule()
+    nearby_station = TrainStation()
     err_code = 0
     if request.method == 'POST':
         train_form = TrainForm(request.POST)
@@ -64,6 +65,7 @@ def show_your_train(request):
             long = float(train_form.cleaned_data['long'])
             heading = float(train_form.cleaned_data['heading'])
             train_schedule = get_your_train(lat, long, heading)
+            nearby_station = get_nearby_station(lat, long)
             if train_schedule == None:
                 err_code = -1
                 train_schedule = TrainSchedule()
@@ -72,6 +74,7 @@ def show_your_train(request):
                               {"train_form": train_form,
                                "train_schedule": train_schedule,
                                "station_list": station_list,
+                               "nearby_station:": nearby_station,
                                "err_code": err_code},
                                context_instance = RequestContext(request))
 
@@ -86,3 +89,15 @@ def show_station(request, station_id):
     station_list = TrainStation.objects.all().order_by("-latitude")
     return render_to_response("station.html", {"schedule_list": schedule_list,
                                                "station_list": station_list})
+
+
+@csrf_exempt
+def show_nearby_station(request):
+    if request.method == 'POST':
+        train_form = TrainForm(request.POST)
+        if train_form.is_valid():
+            lat = float(train_form.cleaned_data['lat'])
+            long = float(train_form.cleaned_data['long'])
+            nearby_station = get_nearby_station(lat, long)
+            return redirect('/station/', nearby_station.id, '/')
+    return render_to_response("nearby.html", {})

@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^$', show_your_train),
     url(r'^train/(?P<train_id>[0-9]+)/$', show_train_schedule),
     url(r'^station/(?P<station_id>[0-9]+)/$', show_station),
+    url(r'^nearby/', show_nearby_station),
 )

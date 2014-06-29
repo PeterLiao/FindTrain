@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>你搭哪班車</title>
-    <script src="./static/jquery.js"></script>
-    <script src="./static/uikit-2.6.0/js/uikit.min.js"></script>
-    <link rel="stylesheet" href="./static/uikit-2.6.0/css/uikit.min.css"/>
-    <link rel="stylesheet" href="./static/uikit-2.6.0/css/uikit.css" />
-    <link rel="stylesheet" href="./static/font-awesome-4.1.0/css/font-awesome.css" />
+    <script src="../static/jquery.js"></script>
+    <script src="../static/uikit-2.6.0/js/uikit.min.js"></script>
+    <link rel="stylesheet" href="../static/uikit-2.6.0/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../static/uikit-2.6.0/css/uikit.css" />
+    <link rel="stylesheet" href="../static/font-awesome-4.1.0/css/font-awesome.css" />
 </head>
 <body class="tm-background">
 <script>
@@ -63,7 +63,6 @@
                 <div class="uk-width-medium-1-1">
                     <ul class="uk-subnav uk-subnav-pill">
                         <li class="uk-active"><a href="/">你的列車</a></li>
-                        <li><a href="/nearby/">最近車站</a></li>
                         <li><a href="/running/">行駛中列車</a></li>
                         <li data-uk-dropdown="{mode:'click'}">
                             <a href="#">時刻表 <i class="uk-icon-caret-down"></i></a>
@@ -90,9 +89,9 @@
                             {% if train_schedule.train %}
                                 <h3 id="msg" class="uk-heading-large">你搭乘的班次為 <a href="/train/{{ train_schedule.train.train_number}}">{{ train_schedule.train.train_number }} </a>{% if train_schedule.direction == 0 %} 北上列車{% else %} 南下列車{% endif %}<br>下一個停靠站為 {{ train_schedule.train_station.name }}<br>停靠時間為 {{ train_schedule.arrive_time_str }}</h3>
                             {% elif err_code == -1%}
-                                <h3 id="msg" class="uk-heading-large">查無符合你的方向與位置的班次</h3>
+                                <h3 id="msg" class="uk-heading-large">查無符合你的方向與位置的班次，請確認你已經在列車上</h3>
                             {% else %}
-                                <h3 id="msg" class="uk-heading-large">知道你正在搭乘的班次與時刻表嗎？</h3>
+                                <h3 id="msg" class="uk-heading-large">最近車站與時刻表？</h3>
                             {% endif %}
                             <p class="uk-text-large"></p>
                             <p>
@@ -111,7 +110,7 @@
                 </div>
             </div>
     </div>
-    <form id="train_form" style="display:none" action="/" method="post">
+    <form id="train_form" style="display:none" action="/nearby" method="post">
         {% csrf_token %}
         {{ train_form.as_p }}
     </form>
