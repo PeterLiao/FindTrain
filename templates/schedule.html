@@ -40,6 +40,16 @@
                 </ul>
             </div>
         </li>
+        <li data-uk-dropdown="{mode:'click'}">
+            <a href="#">車站 <i class="uk-icon-caret-down"></i></a>
+            <div class="uk-dropdown uk-dropdown-small">
+                <ul class="uk-nav uk-nav-dropdown">
+                    {% for station in station_list %}
+                        <li><a href="/station/{{ station.id }}/">{{ station.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
     </ul>
     <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
         {% if direction_id == 0 %}

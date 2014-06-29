@@ -35,6 +35,16 @@
                 </ul>
             </div>
         </li>
+        <li data-uk-dropdown="{mode:'click'}">
+            <a href="#">車站 <i class="uk-icon-caret-down"></i></a>
+            <div class="uk-dropdown uk-dropdown-small">
+                <ul class="uk-nav uk-nav-dropdown">
+                    {% for station in station_list %}
+                        <li><a href="/station/{{ station.id }}/">{{ station.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
     </ul>
     <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
         <caption>行駛中的列車</caption>
@@ -44,6 +54,7 @@
                 <th>方向</th>
                 <th>下一個停靠站</th>
                 <th>時間</th>
+                <th>剩餘時間</th>
             </tr>
         </thead>
         <tbody>
@@ -57,6 +68,7 @@
                     {% endif %}
                     <td><a href = '/station/{{ schedule.train_station.id }}'>{{ schedule.train_station.name }}</a></td>
                     <td>{{ schedule.arrive_time_str }}</td>
+                    <td>{{ schedule.arrive_timedelta_str }}</td>
                 </tr>
             {% endfor %}
         </tbody>

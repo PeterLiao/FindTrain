@@ -15,7 +15,9 @@ from django.contrib.auth import authenticate, login
 @csrf_exempt
 def show_running_train(request):
     schedule_list = get_running_train_schedule()
-    return render_to_response("running.html", {"schedule_list": schedule_list})
+    station_list = TrainStation.objects.all().order_by("-latitude")
+    return render_to_response("running.html", {"schedule_list": schedule_list,
+                                               "station_list": station_list})
 
 
 @csrf_exempt
@@ -65,9 +67,11 @@ def show_your_train(request):
             if train_schedule == None:
                 err_code = -1
                 train_schedule = TrainSchedule()
+    station_list = TrainStation.objects.all().order_by("-latitude")
     return render_to_response("where_is_my_train.html",
                               {"train_form": train_form,
                                "train_schedule": train_schedule,
+                               "station_list": station_list,
                                "err_code": err_code},
                                context_instance = RequestContext(request))
 
@@ -75,5 +79,10 @@ def show_your_train(request):
 @csrf_exempt
 def show_station(request, station_id):
     station_id_int = int(station_id)
-    schedule_list = get_running_train_schedule_by_station(station_id_int)
-    return render_to_response("station.html", {"schedule_list": schedule_list})
+    #schedule_list = get_running_train_schedule_by_station(station_id_int)
+    station = TrainStation.objects.filter(id=station_id_int)
+    now = get_utc_now()+timedelta(hours=8)
+    schedule_list = TrainSchedule.objects.filter(train_station=station, arrive_time__gte=now)
+    station_list = TrainStation.objects.all().order_by("-latitude")
+    return render_to_response("station.html", {"schedule_list": schedule_list,
+                                               "station_list": station_list})

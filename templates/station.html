@@ -25,7 +25,7 @@
 <div class="uk-width-medium-1-1">
     <ul class="uk-subnav uk-subnav-pill">
         <li><a href="/">你的列車</a></li>
-        <li class="uk-active"><a href="/running/">行駛中列車</a></li>
+        <li><a href="/running/">行駛中列車</a></li>
         <li data-uk-dropdown="{mode:'click'}">
             <a href="#">時刻表 <i class="uk-icon-caret-down"></i></a>
             <div class="uk-dropdown uk-dropdown-small">
@@ -35,21 +35,32 @@
                 </ul>
             </div>
         </li>
+        <li class="uk-active" data-uk-dropdown="{mode:'click'}">
+            <a href="#">車站 <i class="uk-icon-caret-down"></i></a>
+            <div class="uk-dropdown uk-dropdown-small">
+                <ul class="uk-nav uk-nav-dropdown">
+                    {% for station in station_list %}
+                        <li><a href="/station/{{ station.id }}/">{{ station.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
     </ul>
     <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
-        <caption>行駛中的列車</caption>
+        <caption>車站時刻表</caption>
         <thead>
             <tr>
                 <th>車次</th>
                 <th>方向</th>
                 <th>下一個停靠站</th>
                 <th>時間</th>
+                <th>剩餘時間</th>
             </tr>
         </thead>
         <tbody>
             {% for schedule in schedule_list %}
-                <tr onclick="window.location.href='/train/{{ schedule.train.train_number }}';">
-                    <td>{{ schedule.train.train_number }}</td>
+                <tr>
+                    <td><a href = '/train/{{ schedule.train.train_number }}'>{{ schedule.train.train_number }}</a></td>
                     {% if schedule.direction == 0 %}
                         <td>北上</td>
                         {% else %}
@@ -57,6 +68,7 @@
                     {% endif %}
                     <td>{{ schedule.train_station.name }}</td>
                     <td>{{ schedule.arrive_time_str }}</td>
+                    <td>{{ schedule.arrive_timedelta_str }}</td>
                 </tr>
             {% endfor %}
         </tbody>

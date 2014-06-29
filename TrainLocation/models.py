@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from utils import *
 
@@ -22,8 +23,17 @@ class Train(models.Model):
         else:
             return self.arrive_time.strftime("%H:%M")
 
+
+    def get_arrive_timedelta_str(self):
+        if self.arrive_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):
+            return " - "
+        else:
+            return get_formatted_timedelta_by_now(self.arrive_time)
+
+
     departure_time_str = property(get_departure_str)
     arrive_time_str = property(get_arrive_str)
+    arrive_timedelta_str = property(get_arrive_timedelta_str)
 
 
 class TrainStation(models.Model):
@@ -46,4 +56,11 @@ class TrainSchedule(models.Model):
         else:
             return self.arrive_time.strftime("%H:%M")
 
+    def get_arrive_timedelta_str(self):
+        if self.arrive_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):
+            return " - "
+        else:
+            return get_formatted_timedelta_by_now(self.arrive_time)
+
     arrive_time_str = property(get_arrive_str)
+    arrive_timedelta_str = property(get_arrive_timedelta_str)
