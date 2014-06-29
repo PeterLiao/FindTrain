@@ -99,5 +99,7 @@ def show_nearby_station(request):
             lat = float(train_form.cleaned_data['lat'])
             long = float(train_form.cleaned_data['long'])
             nearby_station = get_nearby_station(lat, long)
-            return redirect('/station/', nearby_station.id, '/')
+            print 'nearby_station:', nearby_station.name
+            url = '/station/', nearby_station.id
+            return redirect(url)
     return render_to_response("nearby.html", {})
