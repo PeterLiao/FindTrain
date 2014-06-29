@@ -102,4 +102,4 @@ def show_nearby_station(request):
             print 'nearby_station:', nearby_station.name
             url = '/station/', nearby_station.id
             return redirect(url)
-    return render_to_response("nearby.html", {})
+    return render_to_response("nearby.html", {}, context_instance = RequestContext(request))
