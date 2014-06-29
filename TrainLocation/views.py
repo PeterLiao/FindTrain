@@ -100,7 +100,7 @@ def show_nearby_station(request):
             lat = float(train_form.cleaned_data['lat'])
             long = float(train_form.cleaned_data['long'])
             nearby_station = get_nearby_station(lat, long)
-            print 'nearby_station:', nearby_station.name
+            print 'nearby_station:', nearby_station.name.encode('utf-8')
             url = '/station/', nearby_station.id
             return redirect(url)
     return render_to_response("nearby.html", {"train_form": train_form}, context_instance = RequestContext(request))
