@@ -93,6 +93,7 @@ def show_station(request, station_id):
 
 @csrf_exempt
 def show_nearby_station(request):
+    train_form = TrainForm()
     if request.method == 'POST':
         train_form = TrainForm(request.POST)
         if train_form.is_valid():
@@ -102,4 +103,4 @@ def show_nearby_station(request):
             print 'nearby_station:', nearby_station.name
             url = '/station/', nearby_station.id
             return redirect(url)
-    return render_to_response("nearby.html", {}, context_instance = RequestContext(request))
+    return render_to_response("nearby.html", {"train_form": train_form}, context_instance = RequestContext(request))
