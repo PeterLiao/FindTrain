@@ -90,7 +90,7 @@
                             {% if train_schedule.train %}
                                 <h3 id="msg" class="uk-heading-large">你搭乘的班次為 <a href="/train/{{ train_schedule.train.train_number}}">{{ train_schedule.train.train_number }} </a>{% if train_schedule.direction == 0 %} 北上列車{% else %} 南下列車{% endif %}<br>下一個停靠站為 {{ train_schedule.train_station.name }}<br>停靠時間為 {{ train_schedule.arrive_time_str }}</h3>
                             {% elif err_code == -1%}
-                                <h3 id="msg" class="uk-heading-large">沒有任何行駛中的班次符合你現在位置</h3>
+                                <h3 id="msg" class="uk-heading-large">沒有任何行駛中的班次符合你現在的位置</h3>
                             {% else %}
                                 <h3 id="msg" class="uk-heading-large">知道你正在搭乘的班次與時刻表嗎？</h3>
                             {% endif %}

@@ -54,7 +54,7 @@ class TrainSchedule(models.Model):
         if self.arrive_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):
             return " - "
         else:
-            return self.arrive_time.strftime("%H:%M")
+            return self.arrive_time.strftime("%A %H:%M")
 
     def get_arrive_timedelta_str(self):
         if self.arrive_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):
