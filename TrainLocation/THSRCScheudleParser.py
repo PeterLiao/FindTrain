@@ -100,16 +100,6 @@ def update_location_info_to_station():
     TrainStation.objects.filter(name=u"左營站").update(latitude=22.686927, longitude=120.307827)
 
 
-def parse_datetime(datetime_str):
-    time_list = datetime_str.split(":")
-    if len(time_list) < 2:
-        return datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
-    d = timedelta(hours=int(time_list[0]), minutes = int(time_list[1]))
-    d2 = timedelta(hours=get_utc_now().hour, minutes=get_utc_now().minute, seconds=get_utc_now().second, microseconds=get_utc_now().microsecond)
-    today = datetime.datetime.utcnow().replace(tzinfo=utc) - d2
-    return today + d
-
-
 def add_train_if_not_exist(train_number, direction):
         train_list = Train.objects.filter(train_number=train_number)
         if train_list.count() == 0:
@@ -199,9 +189,9 @@ def get_nearby_station_by_specific_station_list(lat, long, station_list):
 
 def get_running_train_schedule():
     running_schedule_list = []
-    now = get_utc_now()+timedelta(hours=8)
+    now = get_local_now()
     if debug:
-        print '+8 now is:', now
+        print 'now is:', now
     train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now)
     for train in train_list:
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
@@ -215,9 +205,9 @@ def get_running_train_schedule():
 
 def get_running_train_schedule_by_direction(direction):
     running_schedule_list = []
-    now = get_utc_now()+timedelta(hours=8)
+    now = get_local_now()
     if debug:
-        print '+8 now is:', now
+        print 'now is:', now
     train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now, direction=direction)
     for train in train_list:
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
@@ -230,9 +220,9 @@ def get_running_train_schedule_by_direction(direction):
 
 def get_running_train_schedule_by_station(station_id):
     running_schedule_list = []
-    now = get_utc_now()+timedelta(hours=8)
+    now = get_local_now()
     if debug:
-        print '+8 now is:', now
+        print 'now is:', now
     train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now)
     for train in train_list:
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")

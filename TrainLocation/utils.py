@@ -10,9 +10,8 @@ def get_utc_now():
     return datetime.datetime.utcnow().replace(tzinfo=utc)
 
 
-def utc_to_local(t):
-    utc_offset = datetime.datetime.utcnow() - datetime.datetime.now()
-    return t - utc_offset
+def get_local_now():
+    return get_utc_now() + timedelta(hours=8)
 
 
 def get_dist(lat1, long1, lat2, long2):
@@ -80,3 +79,14 @@ def get_formatted_timedelta_by_now(date):
     elif tdelta.days < 1:
         return strfdelta(tdelta, "還有 {hours} 小時 {minutes} 分")
     return strfdelta(tdelta, "還有 {days} 天")
+
+
+def parse_datetime(datetime_str):
+    time_list = datetime_str.split(":")
+    if len(time_list) < 2:
+        return datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
+    d = timedelta(hours=int(time_list[0]), minutes = int(time_list[1]))
+    #d2 = timedelta(hours=get_utc_now().hour, minutes=get_utc_now().minute, seconds=get_utc_now().second, microseconds=get_utc_now().microsecond)
+    d2 = timedelta(hours=get_local_now().hour, minutes=get_local_now().minute)
+    today = get_local_now() - d2 + d
+    return today
