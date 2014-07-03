@@ -14,9 +14,14 @@ from django.shortcuts import redirect
 
 @csrf_exempt
 def show_running_train(request):
-    schedule_list = get_running_train_schedule()
+    direction = Direction.NORTH
+    direction_str = request.GET.get('direction')
+    if direction_str:
+        direction = int(direction_str)
+    schedule_list = get_running_train_schedule_by_direction(direction)
     station_list = TrainStation.objects.all().order_by("-latitude")
     return render_to_response("running.html", {"schedule_list": schedule_list,
+                                               "direction": direction,
                                                "station_list": station_list})
 
 
@@ -85,12 +90,16 @@ def show_your_train(request):
 @csrf_exempt
 def show_station(request, station_id):
     station_id_int = int(station_id)
-    #schedule_list = get_running_train_schedule_by_station(station_id_int)
     station = TrainStation.objects.filter(id=station_id_int)
+    direction = Direction.NORTH
+    direction_str = request.GET.get('direction')
+    if direction_str:
+        direction = int(direction_str)
     now = get_utc_now()+timedelta(hours=8)
-    schedule_list = TrainSchedule.objects.filter(train_station=station, arrive_time__gte=now)
+    schedule_list = TrainSchedule.objects.filter(train_station=station, arrive_time__gte=now, direction=direction)
     station_list = TrainStation.objects.all().order_by("-latitude")
     return render_to_response("station.html", {"schedule_list": schedule_list,
+                                               "direction": direction,
                                                "station_list": station_list})
 
 
