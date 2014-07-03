@@ -58,12 +58,14 @@ def show_your_train(request):
     train_schedule = TrainSchedule()
     nearby_station = TrainStation()
     err_code = 0
+    direction = Direction.OTHERS
     if request.method == 'POST':
         train_form = TrainForm(request.POST)
         if train_form.is_valid():
             lat = float(train_form.cleaned_data['lat'])
             long = float(train_form.cleaned_data['long'])
             heading = float(train_form.cleaned_data['heading'])
+            direction = get_train_direction(get_geo_direction(heading))
             train_schedule = get_your_train(lat, long, heading)
             nearby_station = get_nearby_station(lat, long)
             if train_schedule == None:
@@ -74,7 +76,8 @@ def show_your_train(request):
                               {"train_form": train_form,
                                "train_schedule": train_schedule,
                                "station_list": station_list,
-                               "nearby_station:": nearby_station,
+                               "nearby_station": nearby_station,
+                               "direction": direction,
                                "err_code": err_code},
                                context_instance = RequestContext(request))
 

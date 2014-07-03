@@ -184,8 +184,9 @@ def get_running_train_schedule_by_direction(direction):
     if debug:
         print 'now is:', now
     train_list = Train.objects.filter(departure_time__lte=now, arrive_time__gte=now, direction=direction)
+    d = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
     for train in train_list:
-        schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).order_by("arrive_time")
+        schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).exclude(arrive_time=d).order_by("arrive_time")
         schedule = schedule_list[0]
         running_schedule_list.append(schedule)
         if debug:
@@ -259,7 +260,7 @@ def get_your_train(lat, long, heading):
             train_dist = schedule.average_speed_in_minute * (time_diff.seconds/60.0)
             dist_diff = abs(your_dist - train_dist)
             print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
-            if dist_diff < 6.0:
+            if dist_diff < 7.0:
                 ex_schedule_list.append([schedule, dist_diff])
                 print '[< 6km] train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
             else:
