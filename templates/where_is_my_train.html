@@ -69,6 +69,10 @@
         {% else %}
                 $("#spinner").css("display", "");
                 $("#find_train_btn").hide();
+                window.onload = function()
+                {
+                    getTrain();
+                }
         {% endif %}
     </script>
     <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
