@@ -30,10 +30,14 @@
         }, false);
         function getTrain() {
             $("#spinner").css("display", "");
+            $("#find_train_btn_text")[0].innerHTML = "定位中...";
+            $("#find_train_btn").hide();
             getLocation();
         }
         function errorHandler(err) {
             $("#spinner").css("display", "none");
+            $("#find_train_btn_text")[0].innerHTML = "再次定位";
+            $("#find_train_btn").show();
             if(err.code == 1) {
                 console.log("Error: Access is denied!");
                 $("#msg")[0].innerHTML="錯誤: Access is denied! 請確定你已開啟GPS";
@@ -43,20 +47,31 @@
             }
         }
         function getLocation() {
-            if (navigator.geolocation) {
+            if (navigator.geolocation)
+            {
                 navigator.geolocation.getCurrentPosition(setPosition, errorHandler);
             } else {
                 console.log("Geolocation is not supported by this browser.");
                 $("#msg")[0].innerHTML="錯誤: Geolocation is not supported by this browser.";
                 $("#spinner").css("display", "none");
+                $("#find_train_btn_text")[0].innerHTML = "再次定位";
+                $("#find_train_btn").show();
             }
         }
         function setPosition(position) {
             $("#spinner").css("display", "none");
+            $("#find_train_btn_text")[0].innerHTML = "再次定位";
+            $("#find_train_btn").show();
             $("#train_form")[0].id_lat.value = position.coords.latitude;
             $("#train_form")[0].id_long.value = position.coords.longitude;
             $("#train_form").submit();
         }
+        {% if not train_schedule.train and err_code != -1 %}
+            window.onload = function()
+            {
+                getTrain();
+            }
+        {% endif %}
     </script>
     <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
         <div class="uk-grid" data-uk-grid-margin="">
@@ -92,17 +107,13 @@
                             {% elif err_code == -1%}
                                 <h3 id="msg" class="uk-heading-large">沒有任何行駛中的班次符合你現在的位置</h3>
                             {% else %}
-                                <h3 id="msg" class="uk-heading-large">知道你正在搭乘的班次與時刻表嗎？</h3>
+                                <h3 id="msg" class="uk-heading-large">定位你所搭乘的列車</h3>
                             {% endif %}
                             <p class="uk-text-large"></p>
                             <p>
-                                <a class="uk-button uk-button-primary uk-button-large" href="javascript:getTrain();">
+                                <a id="find_train_btn" style="display:none" class="uk-button uk-button-primary uk-button-large" href="javascript:getTrain();">
                                     <i class="fa fa-search"></i>
-                                {% if err_code != -1 or not train_schedule.train %}
-                                    立即確認
-                                {%  else %}
-                                    再次確認
-                                {% endif %}
+                                    <span id="find_train_btn_text">再次定位</span>
                                 </a>
                             </p>
                             <i id="spinner" style="display:none" class="uk-icon-spinner uk-icon-large uk-icon-spin"></i>

@@ -57,6 +57,12 @@
             $("#train_form")[0].id_long.value = position.coords.longitude;
             $("#train_form").submit();
         }
+        {% if not train_schedule.train and err_code != -1 %}
+            window.onload = function()
+            {
+                getTrain();
+            }
+        {% endif %}
     </script>
     <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
         <div class="uk-grid" data-uk-grid-margin="">
@@ -92,7 +98,7 @@
                             {% elif err_code == -1%}
                                 <h3 id="msg" class="uk-heading-large">查無符合你的方向與位置的班次，請確認你已經在列車上</h3>
                             {% else %}
-                                <h3 id="msg" class="uk-heading-large">最近車站與時刻表？</h3>
+                                <h3 id="msg" class="uk-heading-large">尋找最近車站時刻表</h3>
                             {% endif %}
                             <p class="uk-text-large"></p>
                             <p>
