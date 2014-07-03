@@ -242,6 +242,7 @@ def get_schedule_list_by_station(schedule_list, station):
 
 
 def get_your_train(lat, long, heading):
+    print '---------------------------------------------------------------------------------'
     now = get_utc_now()+timedelta(hours=8)
     geo_direction = get_geo_direction(heading)
     train_direction = get_train_direction(geo_direction)
