@@ -255,6 +255,7 @@ def get_your_train(lat, long, heading):
             time_diff = schedule.arrive_time - now - timedelta(minutes=1)
             if now > (schedule.arrive_time - timedelta(minutes=1)):
                 time_diff = timedelta(minutes=1)
+            print 'time_diff:', time_diff.seconds/60.0, ' minutes, average speed:', schedule.average_speed_in_minute
             train_dist = schedule.average_speed_in_minute * (time_diff.seconds/60.0)
             dist_diff = abs(your_dist - train_dist)
             print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
