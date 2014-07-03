@@ -252,6 +252,7 @@ def get_your_train(lat, long, heading):
         station = schedule.train_station
         station_direction = get_train_direction_by_moving(lat, long, station.latitude, station.longitude)
         if station_direction == train_direction:
+            print '---------------------------------------------------------------------------------'
             your_dist = get_dist(lat, long, station.latitude, station.longitude)
             time_diff = schedule.arrive_time - now - timedelta(minutes=1)
             if now > (schedule.arrive_time - timedelta(minutes=1)):
@@ -260,7 +261,7 @@ def get_your_train(lat, long, heading):
             train_dist = schedule.average_speed_in_minute * (time_diff.seconds/60.0)
             dist_diff = abs(your_dist - train_dist)
             print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
-            if dist_diff < 7.0:
+            if dist_diff < 6.0:
                 ex_schedule_list.append([schedule, dist_diff])
                 print '[< 6km] train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
             else:
@@ -308,7 +309,7 @@ def calculate_train_speed_base_on_each_station():
     for train in train_list:
         d = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
         train_schedule_list = TrainSchedule.objects.filter(train=train).exclude(arrive_time=d).order_by('arrive_time')
-        for i in range(1, len(train_schedule_list)-1):
+        for i in range(1, len(train_schedule_list)):
             time_diff = train_schedule_list[i].arrive_time - train_schedule_list[i-1].arrive_time - timedelta(minutes=2)
             dist_diff = get_dist(train_schedule_list[i].train_station.latitude,
                                  train_schedule_list[i].train_station.longitude,
@@ -316,5 +317,5 @@ def calculate_train_speed_base_on_each_station():
                                  train_schedule_list[i-1].train_station.longitude)
             speed = dist_diff/(time_diff.seconds/60.0)
             TrainSchedule.objects.filter(id=train_schedule_list[i].id).update(average_speed_in_minute = speed)
-            if debug:
-                print 'train:', train.train_number, ' speed is:', speed, ' between ', train_schedule_list[i].train_station.name.encode('utf-8'), ' and ', train_schedule_list[i-1].train_station.name.encode('utf-8')
+            #if debug:
+            print 'train:', train.train_number, ' speed is:', speed, ' between ', train_schedule_list[i].train_station.name.encode('utf-8'), ' and ', train_schedule_list[i-1].train_station.name.encode('utf-8')
