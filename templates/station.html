@@ -25,11 +25,11 @@
 <div class="uk-width-medium-1-1">
     <nav class="uk-navbar">
         <ul class="uk-navbar-nav">
-            <li><a href="/">你的列車</a></li>
+            <li><a href="/">定位</a></li>
             <li><a href="/nearby/">最近車站</a></li>
-            <li><a href="/running/">行駛中列車</a></li>
+            <li><a href="/running/">行駛中</a></li>
             <li data-uk-dropdown="{mode:'click'}">
-                <a href="#">時刻表 <i class="uk-icon-caret-down"></i></a>
+                <a href="#">時刻 <i class="uk-icon-caret-down"></i></a>
                 <div class="uk-dropdown uk-dropdown-small">
                     <ul class="uk-nav uk-nav-dropdown">
                         <li><a href="/schedule/0/">北上</a></li>
@@ -48,7 +48,7 @@
                 </div>
             </li>
         </ul>
-        <div class="uk-navbar-content uk-hidden-small">
+        <div class="uk-navbar-content uk-navbar-flip uk-hidden-small">
             <div class="uk-button-group">
                 {% if direction == 0%}
                     <a class="uk-button uk-button-primary uk-active" href="./?direction=0">北上</a>
