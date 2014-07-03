@@ -63,9 +63,9 @@ def get_dist(lat1, long1, lat2, long2):
 
 def get_train_direction(geo__direction):
     train_direction = Direction.OTHERS
-    if geo__direction in [GeoDirection.N, GeoDirection.NE, GeoDirection.NW, GeoDirection.W]:
+    if geo__direction in [GeoDirection.N, GeoDirection.NE, GeoDirection.NW, GeoDirection.E]:
         train_direction = Direction.NORTH
-    elif geo__direction in [GeoDirection.S, GeoDirection.SE, GeoDirection.SW, GeoDirection.E]:
+    elif geo__direction in [GeoDirection.S, GeoDirection.SE, GeoDirection.SW, GeoDirection.W]:
         train_direction = Direction.SOUTH
     print 'train direction:', train_direction
     return train_direction

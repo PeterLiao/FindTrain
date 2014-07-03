@@ -48,7 +48,7 @@ def show_distance_between_station(request):
     station_list = TrainStation.objects.all().order_by("-latitude")
     for x in range(len(station_list)-1):
         print get_dist(station_list[x].latitude, station_list[x].longitude, station_list[x+1].latitude, station_list[x+1].longitude)
-        print get_direction(station_list[x].latitude, station_list[x].longitude, station_list[x+1].latitude, station_list[x+1].longitude)
+        print get_geo_direction_by_moving(station_list[x].latitude, station_list[x].longitude, station_list[x+1].latitude, station_list[x+1].longitude)
     return HttpResponse('OK')
 
 
