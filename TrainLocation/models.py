@@ -49,6 +49,7 @@ class TrainSchedule(models.Model):
     arrive_time = models.DateTimeField()
     pub_date = models.DateTimeField('date published')
     direction = models.IntegerField()
+    average_speed_in_minute = models.FloatField()
 
     def get_arrive_str(self):
         if self.arrive_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):

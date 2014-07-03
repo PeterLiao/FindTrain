@@ -99,7 +99,8 @@ def add_train_if_not_exist(train_number, direction):
         if train_list.count() == 0:
             train = Train(train_number=train_number, direction=direction, pub_date=get_utc_now(), departure_time=get_utc_now(), arrive_time=get_utc_now(), average_speed_in_minute=0.0)
             train.save()
-            print 'create new train:', train.train_number
+            if debug:
+                print 'create new train:', train.train_number
 
 
 def add_train_station_if_not_exist(name):
@@ -124,7 +125,7 @@ def get_schedule_list_and_save(direction):
 
         arrive_time = parse_datetime(item["arrive_time"])
 
-        train_schedule_list.append(TrainSchedule(train=train, train_station=train_station, direction=direction, arrive_time=arrive_time,pub_date=get_utc_now()))
+        train_schedule_list.append(TrainSchedule(train=train, train_station=train_station, direction=direction, arrive_time=arrive_time,pub_date=get_utc_now(), average_speed_in_minute=0.0))
         if debug:
             print 'create new schedule:', train.train_number, ',', train_station.name.encode('utf-8'), ',', arrive_time
 
@@ -135,26 +136,6 @@ def download_schedule_and_save():
     TrainSchedule.objects.all().delete()
     get_schedule_list_and_save(Direction.NORTH) #北上列車
     get_schedule_list_and_save(Direction.SOUTH) #南下列車
-
-
-def calculate_train_info():
-    train_list = Train.objects.all()
-    for train in train_list:
-        d = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
-        train_schedule_list = TrainSchedule.objects.filter(train=train).exclude(arrive_time=d).order_by('arrive_time')
-        departure_time = train_schedule_list[0].arrive_time
-        arrive_time = train_schedule_list[train_schedule_list.count()-1].arrive_time
-        dist = get_dist(train_schedule_list[0].train_station.latitude,
-                        train_schedule_list[0].train_station.longitude,
-                        train_schedule_list[len(train_schedule_list)-1].train_station.latitude,
-                        train_schedule_list[len(train_schedule_list)-1].train_station.longitude)
-        if debug:
-            print 'dist:', dist
-        running_time = arrive_time - departure_time
-        speed = dist/(running_time.seconds/60.0)
-        Train.objects.filter(train_number=train.train_number).update(departure_time=departure_time, arrive_time=arrive_time, average_speed_in_minute=speed)
-        if debug:
-            print 'update train:', train.train_number, ' departure_time: ', departure_time, ' arrive_time:', arrive_time, ' total_time:', running_time, ' speed:', speed
 
 
 def get_nearby_station(lat, long):
@@ -274,7 +255,7 @@ def get_your_train(lat, long, heading):
             time_diff = schedule.arrive_time - now - timedelta(minutes=1)
             if now > (schedule.arrive_time - timedelta(minutes=1)):
                 time_diff = timedelta(minutes=1)
-            train_dist = schedule.train.average_speed_in_minute * (time_diff.seconds/60)
+            train_dist = schedule.average_speed_in_minute * (time_diff.seconds/60)
             dist_diff = abs(your_dist - train_dist)
             print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
             if dist_diff < 6.0:
@@ -299,4 +280,39 @@ def get_your_train(lat, long, heading):
     print 'your train is:', your_schedule.train.train_number
     return your_schedule
 
+def calculate_train_info():
+    train_list = Train.objects.all()
+    for train in train_list:
+        d = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
+        train_schedule_list = TrainSchedule.objects.filter(train=train).exclude(arrive_time=d).order_by('arrive_time')
+        if len(train_schedule_list) > 0:
+            departure_time = train_schedule_list[0].arrive_time
+            arrive_time = train_schedule_list[train_schedule_list.count()-1].arrive_time
+            dist = get_dist(train_schedule_list[0].train_station.latitude,
+                            train_schedule_list[0].train_station.longitude,
+                            train_schedule_list[len(train_schedule_list)-1].train_station.latitude,
+                            train_schedule_list[len(train_schedule_list)-1].train_station.longitude)
+            if debug:
+                print 'dist:', dist
+            running_time = arrive_time - departure_time
+            speed = dist/(running_time.seconds/60.0)
+            Train.objects.filter(train_number=train.train_number).update(departure_time=departure_time, arrive_time=arrive_time, average_speed_in_minute=speed)
+            if debug:
+                print 'update train:', train.train_number, ' departure_time: ', departure_time, ' arrive_time:', arrive_time, ' total_time:', running_time, ' speed:', speed
 
+
+def calculate_train_speed_base_on_each_station():
+    train_list = Train.objects.all()
+    for train in train_list:
+        d = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
+        train_schedule_list = TrainSchedule.objects.filter(train=train).exclude(arrive_time=d).order_by('arrive_time')
+        for i in range(1, len(train_schedule_list)-1):
+            time_diff = train_schedule_list[i].arrive_time - train_schedule_list[i-1].arrive_time - timedelta(minutes=2)
+            dist_diff = get_dist(train_schedule_list[i].train_station.latitude,
+                                 train_schedule_list[i].train_station.longitude,
+                                 train_schedule_list[i-1].train_station.latitude,
+                                 train_schedule_list[i-1].train_station.longitude)
+            speed = dist_diff/(time_diff.seconds/60.0)
+            TrainSchedule.objects.filter(id=train_schedule_list[i].id).update(average_speed_in_minute = speed)
+            if debug:
+                print 'train:', train.train_number, ' speed is:', speed, ' between ', train_schedule_list[i].train_station.name.encode('utf-8'), ' and ', train_schedule_list[i-1].train_station.name.encode('utf-8')
