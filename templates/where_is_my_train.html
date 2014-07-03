@@ -61,11 +61,13 @@
             $("#train_form").submit();
         }
         {% if not train_schedule.train and err_code != -1 %}
+            alert('show spinner');
             window.onload = function()
             {
                 getTrain();
             }
         {% else %}
+            alert('hide spinner');
             $("#find_train_btn").show();
             $("#spinner").css("display", "none");
         {% endif %}
