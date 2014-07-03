@@ -242,7 +242,7 @@ def get_schedule_list_by_station(schedule_list, station):
 
 
 def get_your_train(lat, long, heading):
-    print '---------------------------------------------------------------------------------'
+    print '-----------------------------------------'
     now = get_utc_now()+timedelta(hours=8)
     geo_direction = get_geo_direction(heading)
     train_direction = get_train_direction(geo_direction)
@@ -253,24 +253,24 @@ def get_your_train(lat, long, heading):
         station = schedule.train_station
         station_direction = get_train_direction_by_moving(lat, long, station.latitude, station.longitude)
         if station_direction == train_direction:
-            print '---------------------------------------------------------------------------------'
+            print '-----------------------------------------'
             your_dist = get_dist(lat, long, station.latitude, station.longitude)
-            time_diff = schedule.arrive_time - now - timedelta(minutes=1)
-            if now > (schedule.arrive_time - timedelta(minutes=1)):
+            time_diff = schedule.arrive_time - now - timedelta(minutes=2)
+            if now > (schedule.arrive_time - timedelta(minutes=2)):
                 time_diff = timedelta(minutes=1)
             print 'time_diff:', time_diff.seconds/60.0, ' minutes, average speed:', schedule.average_speed_in_minute
             train_dist = schedule.average_speed_in_minute * (time_diff.seconds/60.0)
             dist_diff = abs(your_dist - train_dist)
             print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
-            if dist_diff < 6.0:
+            if dist_diff < 8.0:
                 ex_schedule_list.append([schedule, dist_diff])
-                print '[< 6km] train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
+                print '[< 8km] train [', schedule.train.train_number, '] is ', train_dist, ' away from ', station.name.encode('utf-8')
             else:
-                print '[> 6km] train ', schedule.train.train_number, ' is ', train_dist, ' away from ', station.name.encode('utf-8')
+                print '[> 8km] train [', schedule.train.train_number, '] is ', train_dist, ' away from ', station.name.encode('utf-8')
 
 
     if len(ex_schedule_list) == 0:
-        print 'no train schedule meet your position and direction'
+        print '[warning] no train schedule meet your position and direction'
         return None
     else:
         your_schedule = ex_schedule_list[0][0]
@@ -281,7 +281,7 @@ def get_your_train(lat, long, heading):
                 your_schedule = ex_schedule[0]
                 min_dist_diff = ex_schedule[1]
 
-    print 'your train is:', your_schedule.train.train_number
+    print '[success] your train is:[', your_schedule.train.train_number, ']'
     return your_schedule
 
 def calculate_train_info():
@@ -318,5 +318,5 @@ def calculate_train_speed_base_on_each_station():
                                  train_schedule_list[i-1].train_station.longitude)
             speed = dist_diff/(time_diff.seconds/60.0)
             TrainSchedule.objects.filter(id=train_schedule_list[i].id).update(average_speed_in_minute = speed)
-            #if debug:
-            print 'train:', train.train_number, ' speed is:', speed, ' between ', train_schedule_list[i].train_station.name.encode('utf-8'), ' and ', train_schedule_list[i-1].train_station.name.encode('utf-8')
+            if debug:
+                print 'train:', train.train_number, ' speed is:', speed, ' between ', train_schedule_list[i].train_station.name.encode('utf-8'), ' and ', train_schedule_list[i-1].train_station.name.encode('utf-8')
