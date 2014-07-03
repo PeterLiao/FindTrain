@@ -30,13 +30,11 @@
         }, false);
         function getTrain() {
             $("#spinner").css("display", "");
-            $("#find_train_btn_text")[0].innerHTML = "定位中...";
             $("#find_train_btn").hide();
             getLocation();
         }
         function errorHandler(err) {
             $("#spinner").css("display", "none");
-            $("#find_train_btn_text")[0].innerHTML = "再次定位";
             $("#find_train_btn").show();
             if(err.code == 1) {
                 console.log("Error: Access is denied!");
@@ -54,14 +52,10 @@
                 console.log("Geolocation is not supported by this browser.");
                 $("#msg")[0].innerHTML="錯誤: Geolocation is not supported by this browser.";
                 $("#spinner").css("display", "none");
-                $("#find_train_btn_text")[0].innerHTML = "再次定位";
                 $("#find_train_btn").show();
             }
         }
         function setPosition(position) {
-            $("#spinner").css("display", "none");
-            $("#find_train_btn_text")[0].innerHTML = "再次定位";
-            $("#find_train_btn").show();
             $("#train_form")[0].id_lat.value = position.coords.latitude;
             $("#train_form")[0].id_long.value = position.coords.longitude;
             $("#train_form").submit();
@@ -72,6 +66,7 @@
                 getTrain();
             }
         {% else %}
+            $("#find_train_btn").show();
             $("#spinner").css("display", "none");
         {% endif %}
     </script>
