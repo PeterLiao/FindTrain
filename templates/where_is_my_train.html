@@ -60,16 +60,15 @@
             $("#train_form")[0].id_long.value = position.coords.longitude;
             $("#train_form").submit();
         }
-        {% if not train_schedule.train and err_code != -1 %}
-            alert('show spinner');
-            window.onload = function()
-            {
-                getTrain();
-            }
+        {% if train_schedule.train %}
+                $("#spinner").css("display", "none");
+                $("#find_train_btn").show();
+        {% elif err_code == -1%}
+                $("#spinner").css("display", "none");
+                $("#find_train_btn").show();
         {% else %}
-            alert('hide spinner');
-            $("#find_train_btn").show();
-            $("#spinner").css("display", "none");
+                $("#spinner").css("display", "");
+                $("#find_train_btn").hide();
         {% endif %}
     </script>
     <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
