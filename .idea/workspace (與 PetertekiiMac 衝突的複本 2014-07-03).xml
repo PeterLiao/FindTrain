@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="53541513-8d77-4494-9421-133ca8c025ff" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/FindTrain.iml" afterPath="$PROJECT_DIR$/.idea/FindTrain.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TrainLocation/THSRCScheudleParser.py" afterPath="$PROJECT_DIR$/TrainLocation/THSRCScheudleParser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TrainLocation/models.py" afterPath="$PROJECT_DIR$/TrainLocation/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TrainLocation/utils.py" afterPath="$PROJECT_DIR$/TrainLocation/utils.py" />
+    </list>
+    <ignored path="FindTrain.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/FindTrain$schedule.coverage" NAME="schedule Coverage Results" MODIFIED="1403581102506" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TrainLocation" />
+    <SUITE FILE_PATH="coverage/FindTrain$fetch_train_schedule_info.coverage" NAME="fetch_train_schedule_info Coverage Results" MODIFIED="1403583874907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TrainLocation/management/commands" />
+    <SUITE FILE_PATH="coverage/FindTrain$utils.coverage" NAME="utils Coverage Results" MODIFIED="1404175775451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TrainLocation" />
+    <SUITE FILE_PATH="coverage/FindTrain$THSRCScheudleParser.coverage" NAME="THSRCScheudleParser Coverage Results" MODIFIED="1403173866178" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TrainLocation" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="FindTrain" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TrainLocation/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="0" selection-start="24" selection-end="24" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1080">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TrainLocation/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1665">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TrainLocation/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="43" selection-start="573" selection-end="573" vertical-scroll-proportion="0.39672545" vertical-offset="0" max-vertical-offset="1410">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TrainLocation/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="station.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/station.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1290">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="schedule.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/schedule.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fetch_train_schedule_info.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TrainLocation/management/commands/fetch_train_schedule_info.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="THSRCScheudleParser.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TrainLocation/THSRCScheudleParser.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="5115">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="running.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/running.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1290">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="where_is_my_train.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/where_is_my_train.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="true" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/TrainLocation/__init__.py" />
+        <option value="$PROJECT_DIR$/TrainLocation/schedule.py" />
+        <option value="$PROJECT_DIR$/TrainLocation/management/commands/schedule.py" />
+        <option value="$PROJECT_DIR$/scheduler.sh" />
+        <option value="$PROJECT_DIR$/TrainLocation/forms.py" />
+        <option value="$PROJECT_DIR$/TrainLocation/management/commands/fetch_train_schedule_info.py" />
+        <option value="$PROJECT_DIR$/FindTrain/urls.py" />
+        <option value="$PROJECT_DIR$/TrainLocation/views.py" />
+        <option value="$PROJECT_DIR$/templates/nearby.html" />
+        <option value="$PROJECT_DIR$/templates/running.html" />
+        <option value="$PROJECT_DIR$/templates/station.html" />
+        <option value="$PROJECT_DIR$/templates/where_is_my_train.html" />
+        <option value="$PROJECT_DIR$/templates/schedule.html" />
+        <option value="$PROJECT_DIR$/TrainLocation/utils.py" />
+        <option value="$PROJECT_DIR$/TrainLocation/models.py" />
+        <option value="$PROJECT_DIR$/TrainLocation/THSRCScheudleParser.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="25" />
+    <option name="y" value="22" />
+    <option name="width" value="1234" />
+    <option name="height" value="978" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TrainLocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TrainLocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TrainLocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="management" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commands" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FindTrain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="158" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="157" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="163" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="158" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="702" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="707" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="154" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="151" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FullScreen" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings />
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\PycharmProjects\FindTrain\TrainLocation\management\commands" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.utils">
+    <configuration default="false" name="THSRCScheudleParser" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/TrainLocation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TrainLocation/THSRCScheudleParser.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="schedule" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/TrainLocation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="D:\Dropbox\PycharmProjects\FindTrain\TrainLocation\management\commands\fetch_train_schedule_info.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="fetch_train_schedule_info" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/TrainLocation/management/commands" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TrainLocation/management/commands/fetch_train_schedule_info.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/TrainLocation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TrainLocation/utils.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
+      <option name="VM_PARAMETERS" value="" />
+      <option name="USER_CFG_CLASS" />
+      <option name="CONTEXT_PROVIDER" />
+      <method />
+    </configuration>
+    <configuration default="false" name="FindTrain" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="FindTrain.settings" />
+      </envs>
+      <option name="SDK_HOME" value="D:\Python27\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FindTrain" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Django server.FindTrain" />
+      <item index="1" class="java.lang.String" itemvalue="Python.THSRCScheudleParser" />
+      <item index="2" class="java.lang.String" itemvalue="Python.schedule" />
+      <item index="3" class="java.lang.String" itemvalue="Python.fetch_train_schedule_info" />
+      <item index="4" class="java.lang.String" itemvalue="Python.utils" />
+    </list>
+    <recent_temporary>
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Python.utils" />
+        <item index="1" class="java.lang.String" itemvalue="Python.fetch_train_schedule_info" />
+        <item index="2" class="java.lang.String" itemvalue="Python.schedule" />
+        <item index="3" class="java.lang.String" itemvalue="Python.THSRCScheudleParser" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="53541513-8d77-4494-9421-133ca8c025ff" name="Default" comment="" />
+      <created>1403154861057</created>
+      <updated>1403154861057</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Add project">
+      <created>1403511505066</created>
+      <updated>1403511505066</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Modify javascript">
+      <created>1403512891665</created>
+      <updated>1403512891665</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add alert for mobile debug">
+      <created>1403513461059</created>
+      <updated>1403513461059</updated>
+    </task>
+    <task id="LOCAL-00004" summary="for debug">
+      <created>1403513673115</created>
+      <updated>1403513673115</updated>
+    </task>
+    <task id="LOCAL-00005" summary="for debug">
+      <created>1403513902367</created>
+      <updated>1403513902367</updated>
+    </task>
+    <task id="LOCAL-00006" summary="for debug">
+      <created>1403513958956</created>
+      <updated>1403513958956</updated>
+    </task>
+    <task id="LOCAL-00007" summary="for debug">
+      <created>1403514095987</created>
+      <updated>1403514095987</updated>
+    </task>
+    <task id="LOCAL-00008" summary="for debug">
+      <created>1403514205382</created>
+      <updated>1403514205382</updated>
+    </task>
+    <task id="LOCAL-00009" summary="for debug">
+      <created>1403514475145</created>
+      <updated>1403514475145</updated>
+    </task>
+    <task id="LOCAL-00010" summary="for debug">
+      <created>1403514618936</created>
+      <updated>1403514618936</updated>
+    </task>
+    <task id="LOCAL-00011" summary="for debug">
+      <created>1403514715594</created>
+      <updated>1403514715594</updated>
+    </task>
+    <task id="LOCAL-00012" summary="for debug">
+      <created>1403514854620</created>
+      <updated>1403514854620</updated>
+    </task>
+    <task id="LOCAL-00013" summary="for debug">
+      <created>1403514913605</created>
+      <updated>1403514913605</updated>
+    </task>
+    <task id="LOCAL-00014" summary="for debug">
+      <created>1403515010567</created>
+      <updated>1403515010567</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add static files">
+      <created>1403515237120</created>
+      <updated>1403515237120</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix static file error">
+      <created>1403515670266</created>
+      <updated>1403515670266</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fix static file error">
+      <created>1403515827223</created>
+      <updated>1403515827223</updated>
+    </task>
+    <task id="LOCAL-00018" summary="for debug">
+      <created>1403515991935</created>
+      <updated>1403515991935</updated>
+    </task>
+    <task id="LOCAL-00019" summary="for debug">
+      <created>1403516086306</created>
+      <updated>1403516086306</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix ascii error">
+      <created>1403516329566</created>
+      <updated>1403516329566</updated>
+    </task>
+    <task id="LOCAL-00021" summary="for debug">
+      <created>1403516538269</created>
+      <updated>1403516538269</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fix ascii issue">
+      <created>1403516941488</created>
+      <updated>1403516941488</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fix ascii issue">
+      <created>1403517132320</created>
+      <updated>1403517132320</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fix ascii issue">
+      <created>1403517700275</created>
+      <updated>1403517700275</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix utc time issue">
+      <created>1403517864314</created>
+      <updated>1403517864314</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fix utc time issue">
+      <created>1403518005963</created>
+      <updated>1403518005963</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix utc time issue">
+      <created>1403518115384</created>
+      <updated>1403518115384</updated>
+    </task>
+    <task id="LOCAL-00028" summary="fix utc time issue">
+      <created>1403518971775</created>
+      <updated>1403518971775</updated>
+    </task>
+    <task id="LOCAL-00029" summary="fix find wrong train problem">
+      <created>1403519178067</created>
+      <updated>1403519178067</updated>
+    </task>
+    <task id="LOCAL-00030" summary="fix find wrong train problem">
+      <created>1403519449291</created>
+      <updated>1403519449291</updated>
+    </task>
+    <task id="LOCAL-00031" summary="detect gps">
+      <created>1403519535548</created>
+      <updated>1403519535548</updated>
+    </task>
+    <task id="LOCAL-00032" summary="refine UI">
+      <created>1403520286815</created>
+      <updated>1403520286815</updated>
+    </task>
+    <task id="LOCAL-00033" summary="refine UI">
+      <created>1403520724255</created>
+      <updated>1403520724255</updated>
+    </task>
+    <task id="LOCAL-00034" summary="not support north train so far">
+      <created>1403520977307</created>
+      <updated>1403520977307</updated>
+    </task>
+    <task id="LOCAL-00035" summary="refine UI">
+      <created>1403521148001</created>
+      <updated>1403521148001</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Add new command to manage.py">
+      <created>1403582677423</created>
+      <updated>1403582677423</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Show error message on UI">
+      <created>1403584960142</created>
+      <updated>1403584960142</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Support north train">
+      <created>1403590258088</created>
+      <updated>1403590258088</updated>
+    </task>
+    <task id="LOCAL-00039" summary="fix submit issue">
+      <created>1403591197337</created>
+      <updated>1403591197337</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Add schedule page">
+      <created>1403607871038</created>
+      <updated>1403607871038</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Fix scheduler script">
+      <created>1403663138953</created>
+      <updated>1403663138953</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Fix scheduler script">
+      <created>1403667822529</created>
+      <updated>1403667822529</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Add batch file for schedule task">
+      <created>1403668133768</created>
+      <updated>1403668133768</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Remove int to test if django1.6 is ok on server">
+      <created>1403668392842</created>
+      <updated>1403668392842</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Remove int to test if django1.6 is ok on server">
+      <created>1403668520934</created>
+      <updated>1403668520934</updated>
+    </task>
+    <task id="LOCAL-00046" summary="update db">
+      <created>1403669777265</created>
+      <updated>1403669777265</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Add direction enum">
+      <created>1403670531315</created>
+      <updated>1403670531315</updated>
+    </task>
+    <task id="LOCAL-00048" summary="fix bug">
+      <created>1403670643776</created>
+      <updated>1403670643776</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Support single train page">
+      <created>1403671884268</created>
+      <updated>1403671884268</updated>
+    </task>
+    <task id="LOCAL-00050" summary="redirect to train info page">
+      <created>1403672120092</created>
+      <updated>1403672120092</updated>
+    </task>
+    <task id="LOCAL-00051" summary="refine UI">
+      <created>1403672303747</created>
+      <updated>1403672303747</updated>
+    </task>
+    <task id="LOCAL-00052" summary="refine wording">
+      <created>1403672930491</created>
+      <updated>1403672930491</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Add nav link">
+      <created>1403673830645</created>
+      <updated>1403673830645</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Add google analystic">
+      <created>1403674163444</created>
+      <updated>1403674163445</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Refine wording">
+      <created>1403674336254</created>
+      <updated>1403674336254</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Add web site title">
+      <created>1403682172077</created>
+      <updated>1403682172077</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Add web site title">
+      <created>1403845401399</created>
+      <updated>1403845401399</updated>
+    </task>
+    <task id="LOCAL-00058" summary="for debug">
+      <created>1403845695690</created>
+      <updated>1403845695690</updated>
+    </task>
+    <task id="LOCAL-00059" summary="for debug">
+      <created>1403846049181</created>
+      <updated>1403846049181</updated>
+    </task>
+    <task id="LOCAL-00060" summary="for debug">
+      <created>1403846892092</created>
+      <updated>1403846892092</updated>
+    </task>
+    <task id="LOCAL-00061" summary="for debug">
+      <created>1403847421474</created>
+      <updated>1403847421474</updated>
+    </task>
+    <task id="LOCAL-00062" summary="for debug">
+      <created>1403847519020</created>
+      <updated>1403847519020</updated>
+    </task>
+    <task id="LOCAL-00063" summary="for debug">
+      <created>1403847911323</created>
+      <updated>1403847911323</updated>
+    </task>
+    <task id="LOCAL-00064" summary="for debug">
+      <created>1403849492823</created>
+      <updated>1403849492823</updated>
+    </task>
+    <task id="LOCAL-00065" summary="support andriod">
+      <created>1403850370016</created>
+      <updated>1403850370016</updated>
+    </task>
+    <task id="LOCAL-00066" summary="support andriod">
+      <created>1403851017251</created>
+      <updated>1403851017252</updated>
+    </task>
+    <task id="LOCAL-00067" summary="support andriod">
+      <created>1403857303641</created>
+      <updated>1403857303641</updated>
+    </task>
+    <task id="LOCAL-00068" summary="support andriod">
+      <created>1403857606685</created>
+      <updated>1403857606685</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Fix direction issue">
+      <created>1403858467725</created>
+      <updated>1403858467725</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Fix direction issue">
+      <created>1403861017807</created>
+      <updated>1403861017807</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Fix direction issue">
+      <created>1403861534081</created>
+      <updated>1403861534081</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Fix direction issue">
+      <created>1403861851333</created>
+      <updated>1403861851333</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Fix direction issue">
+      <created>1403862130557</created>
+      <updated>1403862130557</updated>
+    </task>
+    <task id="LOCAL-00074" summary="add station page">
+      <created>1403865986303</created>
+      <updated>1403865986303</updated>
+    </task>
+    <task id="LOCAL-00075" summary="refine wording">
+      <created>1403866437403</created>
+      <updated>1403866437403</updated>
+    </task>
+    <task id="LOCAL-00076" summary="fix algorithm">
+      <created>1403938478762</created>
+      <updated>1403938478762</updated>
+    </task>
+    <task id="LOCAL-00077" summary="fix error">
+      <created>1403938610725</created>
+      <updated>1403938610725</updated>
+    </task>
+    <task id="LOCAL-00078" summary="fix error">
+      <created>1403938754640</created>
+      <updated>1403938754640</updated>
+    </task>
+    <task id="LOCAL-00079" summary="fix error">
+      <created>1403939073426</created>
+      <updated>1403939073426</updated>
+    </task>
+    <task id="LOCAL-00080" summary="fix algorithm">
+      <created>1403939397356</created>
+      <updated>1403939397356</updated>
+    </task>
+    <task id="LOCAL-00081" summary="fix algorithm">
+      <created>1403939552056</created>
+      <updated>1403939552056</updated>
+    </task>
+    <task id="LOCAL-00082" summary="add debug info">
+      <created>1403943028879</created>
+      <updated>1403943028879</updated>
+    </task>
+    <task id="LOCAL-00083" summary="modify uikit reference">
+      <created>1403943678510</created>
+      <updated>1403943678510</updated>
+    </task>
+    <task id="LOCAL-00084" summary="refine Ui for phone">
+      <created>1403945894804</created>
+      <updated>1403945894804</updated>
+    </task>
+    <task id="LOCAL-00085" summary="refine Ui for phone">
+      <created>1403947928592</created>
+      <updated>1403947928592</updated>
+    </task>
+    <task id="LOCAL-00086" summary="refine Ui for phone">
+      <created>1403949500367</created>
+      <updated>1403949500368</updated>
+    </task>
+    <task id="LOCAL-00087" summary="refine Ui for phone">
+      <created>1403949621578</created>
+      <updated>1403949621578</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Change time format">
+      <created>1404036112993</created>
+      <updated>1404036112993</updated>
+    </task>
+    <task id="LOCAL-00089" summary="add nearby station">
+      <created>1404037026098</created>
+      <updated>1404037026098</updated>
+    </task>
+    <task id="LOCAL-00090" summary="add nearby station">
+      <created>1404037611311</created>
+      <updated>1404037611311</updated>
+    </task>
+    <task id="LOCAL-00091" summary="add nearby station">
+      <created>1404037703105</created>
+      <updated>1404037703105</updated>
+    </task>
+    <task id="LOCAL-00092" summary="add nearby station">
+      <created>1404037811886</created>
+      <updated>1404037811886</updated>
+    </task>
+    <task id="LOCAL-00093" summary="add nearby station">
+      <created>1404037888416</created>
+      <updated>1404037888416</updated>
+    </task>
+    <task id="LOCAL-00094" summary="add nearby station">
+      <created>1404038026436</created>
+      <updated>1404038026437</updated>
+    </task>
+    <task id="LOCAL-00095" summary="add nearby station">
+      <created>1404038220922</created>
+      <updated>1404038220922</updated>
+    </task>
+    <task id="LOCAL-00096" summary="add nearby station">
+      <created>1404038286192</created>
+      <updated>1404038286192</updated>
+    </task>
+    <task id="LOCAL-00097" summary="add nearby station">
+      <created>1404039506036</created>
+      <updated>1404039506037</updated>
+    </task>
+    <task id="LOCAL-00098" summary="fix nearby station">
+      <created>1404094463567</created>
+      <updated>1404094463567</updated>
+    </task>
+    <task id="LOCAL-00099" summary="1. add nearby station tag&#10;2. - 2 minutes to estimate the distance">
+      <created>1404094665321</created>
+      <updated>1404094665322</updated>
+    </task>
+    <task id="LOCAL-00100" summary="refine wording">
+      <created>1404119738711</created>
+      <updated>1404119738711</updated>
+    </task>
+    <task id="LOCAL-00101" summary="for debug">
+      <created>1404174678871</created>
+      <updated>1404174678871</updated>
+    </task>
+    <task id="LOCAL-00102" summary="fix update train info utc time problem">
+      <created>1404175877362</created>
+      <updated>1404175877363</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="25" y="22" width="1234" height="978" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1758509" sideWeight="0.7204546" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31638417" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2248394" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="false" />
+    <MESSAGE value="update db" />
+    <MESSAGE value="Add direction enum" />
+    <MESSAGE value="fix bug" />
+    <MESSAGE value="Support single train page" />
+    <MESSAGE value="redirect to train info page" />
+    <MESSAGE value="refine UI" />
+    <MESSAGE value="Add nav link" />
+    <MESSAGE value="Add google analystic" />
+    <MESSAGE value="Refine wording" />
+    <MESSAGE value="Add web site title" />
+    <MESSAGE value="support andriod" />
+    <MESSAGE value="Fix direction issue" />
+    <MESSAGE value="add station page" />
+    <MESSAGE value="fix error" />
+    <MESSAGE value="fix algorithm" />
+    <MESSAGE value="add debug info" />
+    <MESSAGE value="modify uikit reference" />
+    <MESSAGE value="refine Ui for phone" />
+    <MESSAGE value="Change time format" />
+    <MESSAGE value="add nearby station" />
+    <MESSAGE value="fix nearby station" />
+    <MESSAGE value="1. add nearby station tag&#10;2. - 2 minutes to estimate the distance" />
+    <MESSAGE value="refine wording" />
+    <MESSAGE value="for debug" />
+    <MESSAGE value="fix update train info utc time problem" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix update train info utc time problem" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/TrainLocation/THSRCScheudleParser.py</url>
+          <line>2</line>
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/templates/where_is_my_train.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FindTrain/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FindTrain/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrainLocation/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FindTrain/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/nearby.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/running.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/station.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/where_is_my_train.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrainLocation/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrainLocation/management/commands/fetch_train_schedule_info.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/schedule.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrainLocation/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrainLocation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="24" selection-end="24" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1080">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrainLocation/THSRCScheudleParser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrainLocation/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="43" selection-start="573" selection-end="573" vertical-scroll-proportion="0.39672545" vertical-offset="0" max-vertical-offset="1410">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

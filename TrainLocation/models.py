@@ -63,5 +63,14 @@ class TrainSchedule(models.Model):
         else:
             return get_formatted_timedelta_by_now(self.arrive_time)
 
+    def is_passed(self):
+        if self.arrive_time == datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc):
+            return True
+        elif self.arrive_time > get_local_now():
+            return False
+        else:
+            return True
+
     arrive_time_str = property(get_arrive_str)
     arrive_timedelta_str = property(get_arrive_timedelta_str)
+    is_passed = property(is_passed)

@@ -41,6 +41,7 @@ class THSRCHTMLParser(HTMLParser):
                         if debug:
                             print "train_station:", value
                     else:
+                        self.in_train_station = False
                         self.in_applicable_train = True
                         self.first_applicable_matched_count += 1
                     break
