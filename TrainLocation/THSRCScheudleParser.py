@@ -209,10 +209,11 @@ def get_running_train_schedule_by_direction(direction):
     d = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
     for train in train_list:
         schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=now).exclude(arrive_time=d).order_by("arrive_time")
-        schedule = schedule_list[0]
-        running_schedule_list.append(schedule)
-        if debug:
-            print 'train:', train.train_number, ' is going to ', schedule.train_station.name.encode('utf-8')
+        if schedule_list.count() > 0:
+            schedule = schedule_list[0]
+            running_schedule_list.append(schedule)
+            if debug:
+                print 'train:', train.train_number, ' is going to ', schedule.train_station.name.encode('utf-8')
     return running_schedule_list
 
 
