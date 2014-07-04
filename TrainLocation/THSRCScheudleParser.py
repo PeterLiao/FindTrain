@@ -17,11 +17,14 @@ debug = False
 class THSRCHTMLParser(HTMLParser):
     schedule_item = {"train_number": "", "train_station": "", "arrive_time": ""}
     schedule_list = []
+    applicable_list = []
     in_table = False
     in_tr = False
     in_td = False
     in_train_number = False
     in_train_station = False
+    in_applicable_train = False
+    first_applicable_matched_count = 0
 
     def handle_starttag(self, tag, attrs):
         if tag == "table":
@@ -31,11 +34,15 @@ class THSRCHTMLParser(HTMLParser):
         if tag == "td":
             self.in_td = True
             for key, value in attrs:
-                if key == 'title' and self.in_train_number and value != "":
-                    self.in_train_station = True
-                    if debug:
-                        print "train_station:", value
-                    self.schedule_item["train_station"] = value
+                if key == 'title' and self.in_train_number:
+                    if value != "":
+                        self.in_train_station = True
+                        self.schedule_item["train_station"] = value
+                        if debug:
+                            print "train_station:", value
+                    else:
+                        self.in_applicable_train = True
+                        self.first_applicable_matched_count += 1
                     break
 
     def handle_endtag(self, tag):
@@ -45,9 +52,12 @@ class THSRCHTMLParser(HTMLParser):
             self.in_tr = False
             self.in_train_number = False
             self.in_train_station = False
+            self.in_applicable_train = False
+            self.first_applicable_matched_count = 0
         if tag == "td":
             self.in_td = False
             self.in_train_station = False
+            self.in_applicable_train = False
 
     def handle_data(self, data):
         if self.in_table and self.in_tr and self.in_td:
@@ -61,12 +71,20 @@ class THSRCHTMLParser(HTMLParser):
                     print "arrive_time:", data
                 self.schedule_item["arrive_time"] = data
                 self.schedule_list.append(self.schedule_item.copy())
+            elif self.in_applicable_train and self.first_applicable_matched_count == 1:
+                if debug:
+                    print "This train not running today"
+                self.applicable_list.append(self.schedule_item["train_number"])
 
     def get_schedule_list(self):
         return list(self.schedule_list)
 
+    def get_applicable_list(self):
+        return list(self.applicable_list)
+
     def clean_schedule_list(self):
         del self.schedule_list[:]
+        del self.applicable_list[:]
 
 
 def get_schedule_list(direction):
@@ -78,9 +96,10 @@ def get_schedule_list(direction):
     parser = THSRCHTMLParser()
     parser.feed(src)
     schedule_list = parser.get_schedule_list()
+    applicable_list = parser.get_applicable_list()
     #show_schedule_list(schedule_list)
     parser.clean_schedule_list()
-    return schedule_list
+    return [schedule_list, applicable_list]
 
 
 def update_location_info_to_station():
@@ -114,20 +133,23 @@ def add_train_station_if_not_exist(name):
 
 def get_schedule_list_and_save(direction):
     train_schedule_list = []
-    schedule_list = get_schedule_list(direction)
+    result = get_schedule_list(direction)
+    schedule_list = result[0]
+    applicable_list = result[1]
     for item in schedule_list:
 
-        add_train_if_not_exist(item["train_number"], direction)
-        train = Train.objects.filter(train_number=item["train_number"])[0]
+        if item["train_number"] not in applicable_list:
+            add_train_if_not_exist(item["train_number"], direction)
+            train = Train.objects.filter(train_number=item["train_number"])[0]
 
-        add_train_station_if_not_exist(item["train_station"])
-        train_station = TrainStation.objects.filter(name=item["train_station"])[0]
+            add_train_station_if_not_exist(item["train_station"])
+            train_station = TrainStation.objects.filter(name=item["train_station"])[0]
 
-        arrive_time = parse_datetime(item["arrive_time"])
+            arrive_time = parse_datetime(item["arrive_time"])
 
-        train_schedule_list.append(TrainSchedule(train=train, train_station=train_station, direction=direction, arrive_time=arrive_time,pub_date=get_utc_now(), average_speed_in_minute=0.0))
-        if debug:
-            print 'create new schedule:', train.train_number, ',', train_station.name.encode('utf-8'), ',', arrive_time
+            train_schedule_list.append(TrainSchedule(train=train, train_station=train_station, direction=direction, arrive_time=arrive_time,pub_date=get_utc_now(), average_speed_in_minute=0.0))
+            if debug:
+                print 'create new schedule:', train.train_number, ',', train_station.name.encode('utf-8'), ',', arrive_time
 
     TrainSchedule.objects.bulk_create(train_schedule_list)
 
