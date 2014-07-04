@@ -89,7 +89,7 @@
                     {% for item in train.list %}
                         <div class="uk-width-medium-1-4">
                             <div class="uk-thumbnail">
-                                <img src="/static/img/台北站.jpg" width="600" height="100" alt="" {% if item.is_passed %} class="wrapper" {% endif %}>
+                                <img src="/static/img/{{ item.train_station.name }}.jpg" width="600" height="400" alt="" {% if item.is_passed %} class="wrapper" {% endif %}>
                                 <div class="uk-thumbnail-caption {% if item.is_passed %}uk-text-muted{% else %}uk-text-bold{% endif %}">{{ item.train_station.name }} - {% if item.arrive_time_str == " - " %}不停站{% elif item.is_passed%}已過站{% else %}{{ item.arrive_timedelta_str }}{% endif %}
                                 </div>
                             </div>
