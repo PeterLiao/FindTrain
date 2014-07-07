@@ -71,6 +71,16 @@ def get_train_direction(geo__direction):
     return train_direction
 
 
+def get_train_direction_for_taoyuan_above(geo__direction):
+    train_direction = Direction.OTHERS
+    if geo__direction in [GeoDirection.N, GeoDirection.NE, GeoDirection.E, GeoDirection.SE]:
+        train_direction = Direction.NORTH
+    elif geo__direction in [GeoDirection.S, GeoDirection.SW, GeoDirection.W, GeoDirection.NW]:
+        train_direction = Direction.SOUTH
+    print '[taoyuan above] train direction:', train_direction
+    return train_direction
+
+
 def get_geo_direction_by_moving(lat1, long1, lat2, long2):
     radians = math.atan2((long2 - long1), (lat2 - lat1))
     compassReading = radians * (180 / math.pi);

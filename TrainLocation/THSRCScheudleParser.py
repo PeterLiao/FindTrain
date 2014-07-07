@@ -266,10 +266,16 @@ def get_schedule_list_by_station(schedule_list, station):
 
 
 def get_your_train(lat, long, heading):
-    print '-----------------------------------------'
+    print '[start]'
     now = get_utc_now()+timedelta(hours=8)
     geo_direction = get_geo_direction(heading)
-    train_direction = get_train_direction(geo_direction)
+    taoyuan_station = TrainStation.objects.filter(name="桃園站")[0]
+    geo_direction_between_you_and_station = get_geo_direction_by_moving(lat, long, taoyuan_station.latitude, taoyuan_station.longitude)
+    train_direction = Direction.OTHERS
+    if geo_direction_between_you_and_station in [GeoDirection.NW, GeoDirection.W, GeoDirection.SW]:
+        train_direction = get_train_direction_for_taoyuan_above(geo_direction)
+    else:
+        train_direction = get_train_direction(geo_direction)
     schedule_list = get_running_train_schedule_by_direction(train_direction)
 
     ex_schedule_list = []
@@ -277,20 +283,18 @@ def get_your_train(lat, long, heading):
         station = schedule.train_station
         station_direction = get_train_direction_by_moving(lat, long, station.latitude, station.longitude)
         if station_direction == train_direction:
-            print '-----------------------------------------'
             your_dist = get_dist(lat, long, station.latitude, station.longitude)
             time_diff = schedule.arrive_time - now - timedelta(minutes=2)
             if now > (schedule.arrive_time - timedelta(minutes=2)):
                 time_diff = timedelta(minutes=1)
-            print 'time_diff:', time_diff.seconds/60.0, ' minutes, average speed:', schedule.average_speed_in_minute
             train_dist = schedule.average_speed_in_minute * (time_diff.seconds/60.0)
             dist_diff = abs(your_dist - train_dist)
             print 'you are ', your_dist, ' away from ', station.name.encode('utf-8')
-            if dist_diff < 8.0:
+            if dist_diff < 10.0:
                 ex_schedule_list.append([schedule, dist_diff])
-                print '[< 8km] train [', schedule.train.train_number, '] is ', train_dist, ' away from ', station.name.encode('utf-8')
+                print '[< 10km] train [', schedule.train.train_number, '] is ', train_dist, ' away from ', station.name.encode('utf-8')
             else:
-                print '[> 8km] train [', schedule.train.train_number, '] is ', train_dist, ' away from ', station.name.encode('utf-8')
+                print '[> 10km] train [', schedule.train.train_number, '] is ', train_dist, ' away from ', station.name.encode('utf-8')
 
 
     if len(ex_schedule_list) == 0:
