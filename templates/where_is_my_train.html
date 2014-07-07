@@ -23,10 +23,13 @@
 </script>
     <script>
         window.addEventListener('deviceorientation', function(e) {
-            if(e.webkitCompassHeading)
+            if (e.webkitCompassHeading) {
                 $("#train_form")[0].id_heading.value = e.webkitCompassHeading;
-            else
+                $("#debug_msg")[0].innerHTML = e.webkitCompassHeading;
+            } else {
                 $("#train_form")[0].id_heading.value = e.alpha;
+                $("#debug_msg")[0].innerHTML = e.alpha;
+            }
         }, false);
         function getTrain() {
             $("#spinner").css("display", "");
@@ -123,7 +126,7 @@
                             <i id="spinner" style="display:" class="uk-icon-spinner uk-icon-large uk-icon-spin"></i>
                         </div>
                     </div>
-
+                    <p>Heading:<div id="debug_msg"></div></p>
                 </div>
             </div>
     </div>
