@@ -61,7 +61,6 @@
         function setPosition(position) {
             $("#train_form")[0].id_lat.value = position.coords.latitude;
             $("#train_form")[0].id_long.value = position.coords.longitude;
-            $("#train_form").submit();
         }
         window.onload = function()
         {
@@ -72,9 +71,9 @@
                     $("#spinner").hide();
                     $("#find_train_btn").show();
             {% else %}
-                        $("#spinner").show();
-                        $("#find_train_btn").hide();
-                        getTrain();
+                    $("#spinner").show();
+                    $("#find_train_btn").hide();
+                    getTrain();
             {% endif %}
         }
     </script>
@@ -83,6 +82,13 @@
                 <div class="uk-width-medium-1-1">
                     <nav class="uk-navbar">
                         <ul class="uk-navbar-nav">
+                            <li>
+                                <a href="http://petercliao.pythonanywhere.com" style="text-decoration: none">
+                                    <!--span class="uk-text-bold uk-text-rose-red uk-text-large">Point</span>
+                                    <span class="uk-text-large"></span-->
+                                    <span class="uk-text-sky-blue uk-text-bold uk-text-large">Point</span>
+                                </a>
+                            </li>
                             <li class="uk-active"><a href="/">定位</a></li>
                             <li><a href="/nearby/">最近車站</a></li>
                             <li><a href="/running/">行駛中</a></li>
@@ -126,7 +132,7 @@
                             <i id="spinner" style="display:" class="uk-icon-spinner uk-icon-large uk-icon-spin"></i>
                         </div>
                     </div>
-                    <p>Heading:<div id="debug_msg"></div></p>
+                    <p style="display: none">Heading:<div id="debug_msg"></div></p>
                 </div>
             </div>
     </div>

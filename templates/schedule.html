@@ -25,6 +25,13 @@
 <div class="uk-width-medium-1-1">
     <nav class="uk-navbar">
         <ul class="uk-navbar-nav">
+           <li>
+                <a href="http://petercliao.pythonanywhere.com" style="text-decoration: none">
+                    <!--span class="uk-text-bold uk-text-rose-red uk-text-large">Point</span>
+                    <span class="uk-text-large"></span-->
+                    <span class="uk-text-sky-blue uk-text-bold uk-text-large">Point</span>
+                </a>
+            </li>
             <li><a href="/">定位</a></li>
             <li><a href="/nearby/">最近車站</a></li>
             <li><a href="/running/">行駛中</a></li>
@@ -71,8 +78,8 @@
         {% regroup schedule_list by train as train_list %}
         <tbody>
             {% for train in train_list %}
-                <tr onclick="window.location.href='/train/{{ train.grouper.train_number }}';">
-                    <td>{{ train.grouper.train_number }}</td>
+                <tr>
+                    <td><a href = '/train/{{ train.grouper.train_number }}'>{{ train.grouper.train_number }}</a></td>
                     {% for item in train.list %}
                         <td>{{ item.arrive_time_str }}</td>
                     {% endfor %}

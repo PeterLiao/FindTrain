@@ -28,6 +28,13 @@
         <div class="uk-width-medium-1-1">
             <nav class="uk-navbar">
                 <ul class="uk-navbar-nav">
+                   <li>
+                        <a href="http://petercliao.pythonanywhere.com" style="text-decoration: none">
+                            <!--span class="uk-text-bold uk-text-rose-red uk-text-large">Point</span>
+                            <span class="uk-text-large"></span-->
+                            <span class="uk-text-sky-blue uk-text-bold uk-text-large">Point</span>
+                        </a>
+                    </li>
                     <li><a href="/">定位</a></li>
                     <li><a href="/nearby/">最近車站</a></li>
                     <li><a href="/running/">行駛中</a></li>
@@ -85,17 +92,15 @@
             </table>
 
             <div class="uk-grid">
-                {% for train in train_list %}
-                    {% for item in train.list %}
+                    {% for schedule in schedule_list %}
                         <div class="uk-width-medium-1-4">
                             <div class="uk-thumbnail">
-                                <img src="/static/img/{{ item.train_station.name }}.jpg" width="600" height="400" alt="" {% if item.is_passed %} class="wrapper" {% endif %}>
-                                <div class="uk-thumbnail-caption {% if item.is_passed %}uk-text-muted{% else %}uk-text-bold{% endif %}">{{ item.train_station.name }} - {% if item.arrive_time_str == " - " %}不停站{% elif item.is_passed%}已過站{% else %}{{ item.arrive_timedelta_str }}{% endif %}
+                                <img src="/static/img/{{ schedule.train_station.name }}.jpg" width="600" height="400" alt="" {% if schedule.is_passed %} class="wrapper" {% endif %}>
+                                <div class="uk-thumbnail-caption {% if schedule.is_passed %}uk-text-muted{% else %}uk-text-bold{% endif %}">{{ schedule.train_station.name }} - {% if schedule.arrive_time_str == " - " %}不停靠{% elif schedule.is_passed%}已經過站{% else %}{{ schedule.arrive_timedelta_str }}{% endif %}
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
-               {% endfor %}
              </div>
 
 
