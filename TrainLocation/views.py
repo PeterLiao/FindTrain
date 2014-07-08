@@ -77,7 +77,7 @@ def show_your_train(request):
                 err_code = -1
                 train_schedule = TrainSchedule()
     station_list = TrainStation.objects.all().order_by("-latitude")
-    if len(train_schedule) > 0:
+    if train_schedule == None or not train_schedule.train:
         return render_to_response("where_is_my_train.html",
                                   {"train_form": train_form,
                                    "train_schedule": train_schedule,
