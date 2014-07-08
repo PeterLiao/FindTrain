@@ -62,8 +62,9 @@ def show_your_train(request):
     train_form = TrainForm()
     train_schedule = TrainSchedule()
     nearby_station = TrainStation()
-    err_code = 0
+    err_code = -1
     direction = Direction.OTHERS
+
     if request.method == 'POST':
         train_form = TrainForm(request.POST)
         if train_form.is_valid():
@@ -76,8 +77,10 @@ def show_your_train(request):
             if train_schedule == None:
                 err_code = -1
                 train_schedule = TrainSchedule()
+
     station_list = TrainStation.objects.all().order_by("-latitude")
-    if train_schedule == None:
+
+    if err_code == -1:
         return render_to_response("where_is_my_train.html",
                                   {"train_form": train_form,
                                    "train_schedule": train_schedule,
