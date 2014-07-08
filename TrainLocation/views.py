@@ -77,6 +77,8 @@ def show_your_train(request):
             if train_schedule == None:
                 err_code = -1
                 train_schedule = TrainSchedule()
+            else:
+                err_code = 0
 
     station_list = TrainStation.objects.all().order_by("-latitude")
 
