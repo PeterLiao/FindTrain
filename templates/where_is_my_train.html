@@ -61,6 +61,7 @@
         function setPosition(position) {
             $("#train_form")[0].id_lat.value = position.coords.latitude;
             $("#train_form")[0].id_long.value = position.coords.longitude;
+            $("#train_form").submit();
         }
         window.onload = function()
         {

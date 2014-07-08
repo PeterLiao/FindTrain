@@ -137,12 +137,12 @@ def strfdelta(tdelta, fmt):
 def get_formatted_timedelta_by_now(date):
     tdelta = date - get_utc_now() - timedelta(hours=8)
     if tdelta.days < 1 and tdelta.seconds < 60:
-        return strfdelta(tdelta, "還有 {seconds} 秒")
+        return strfdelta(tdelta, "{seconds} 秒")
     elif tdelta.days < 1 and tdelta.seconds < 60*60:
-        return strfdelta(tdelta, "還有 {minutes} 分鐘")
+        return strfdelta(tdelta, "{minutes} 分鐘")
     elif tdelta.days < 1:
-        return strfdelta(tdelta, "還有 {hours} 小時 {minutes} 分")
-    return strfdelta(tdelta, "還有 {days} 天")
+        return strfdelta(tdelta, "{hours} 小時 {minutes} 分")
+    return strfdelta(tdelta, "{days} 天")
 
 
 def parse_datetime(datetime_str):

@@ -116,3 +116,9 @@ def show_nearby_station(request):
             url = '/station/%d/' % nearby_station.id
             return HttpResponseRedirect(url)
     return render_to_response("nearby.html", {"train_form": train_form}, context_instance = RequestContext(request))
+
+
+@csrf_exempt
+def show_weather(request):
+    weather_list = Weather.objects.all()
+    return HttpResponse(weather_list)

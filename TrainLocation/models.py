@@ -2,6 +2,18 @@
 from django.db import models
 from utils import *
 
+class Weather(models.Model):
+    name = models.CharField(max_length=10)
+    day_wx = models.CharField(max_length=30)
+    night_wx = models.CharField(max_length=30)
+    day_maxt = models.IntegerField()
+    night_maxt = models.IntegerField()
+    day_mint = models.IntegerField()
+    night_mint = models.IntegerField()
+    day_ci = models.CharField(max_length=30)
+    night_ci = models.CharField(max_length=30)
+    pub_date = models.DateTimeField('date published')
+
 
 class Train(models.Model):
     train_number = models.CharField(max_length=4)
@@ -40,6 +52,7 @@ class TrainStation(models.Model):
     name = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    weather = models.ForeignKey(Weather)
     pub_date = models.DateTimeField('date published')
 
 
