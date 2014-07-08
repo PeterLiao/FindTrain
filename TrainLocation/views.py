@@ -77,14 +77,18 @@ def show_your_train(request):
                 err_code = -1
                 train_schedule = TrainSchedule()
     station_list = TrainStation.objects.all().order_by("-latitude")
-    return render_to_response("where_is_my_train.html",
-                              {"train_form": train_form,
-                               "train_schedule": train_schedule,
-                               "station_list": station_list,
-                               "nearby_station": nearby_station,
-                               "direction": direction,
-                               "err_code": err_code},
-                               context_instance = RequestContext(request))
+    if len(train_schedule) > 0:
+        return render_to_response("where_is_my_train.html",
+                                  {"train_form": train_form,
+                                   "train_schedule": train_schedule,
+                                   "station_list": station_list,
+                                   "nearby_station": nearby_station,
+                                   "direction": direction,
+                                   "err_code": err_code},
+                                   context_instance = RequestContext(request))
+    else:
+        url = '/train/%d/' % train_schedule[0].train.train_number
+        return HttpResponseRedirect(url)
 
 
 @csrf_exempt
