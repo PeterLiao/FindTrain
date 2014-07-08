@@ -62,7 +62,7 @@ def show_your_train(request):
     train_form = TrainForm()
     train_schedule = TrainSchedule()
     nearby_station = TrainStation()
-    err_code = -1
+    err_code = -2
     direction = Direction.OTHERS
 
     if request.method == 'POST':
