@@ -92,7 +92,7 @@ def show_your_train(request):
                                    "err_code": err_code},
                                    context_instance = RequestContext(request))
     else:
-        url = '/train/%d/' % train_schedule.train.train_number
+        url = '/train/%s/' % train_schedule.train.train_number
         return HttpResponseRedirect(url)
 
 
