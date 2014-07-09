@@ -53,9 +53,9 @@ def show_train_schedule(request, train_id):
     end_station = station_list[len(station_list)-1]
     return render_to_response("train.html", {"schedule_list": schedule_list,
                                              "station_list": station_list,
-                                             "train": train,
+                                             "train_number": train_number,
                                              "end_station": end_station,
-                                             "direction_id": train.direction} )
+                                             "direction_id": train.direction})
 
 
 @csrf_exempt
