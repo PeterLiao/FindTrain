@@ -84,8 +84,15 @@ class TrainSchedule(models.Model):
         else:
             return True
 
+    def is_day(self):
+        if self.arrive_time.hour in range(6, 18):
+            return True
+        else:
+            return False
+
     arrive_time_str = property(get_arrive_str)
     arrive_timedelta_str = property(get_arrive_timedelta_str)
+    is_day = property(is_day)
     is_passed = property(is_passed)
 
 

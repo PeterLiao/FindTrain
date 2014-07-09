@@ -117,9 +117,15 @@
                                 </div>
                                 <div class="uk-thumbnail-caption {% if schedule.is_passed %}uk-text-muted{% endif %}">
                                     <span class="uk-text-bold">{{ schedule.train_station.name }}</span> - {% if schedule.arrive_time_str == " - " %}不停靠{% elif schedule.is_passed%}已經過站{% else %}還有<span class="uk-text-primary uk-text-bold">{{ schedule.arrive_timedelta_str }}</span>抵達{% endif %}<br>
-                                    {{ schedule.train_station.weather.day_wx }}<br>
-                                    {{ schedule.train_station.weather.day_mint }} ~ {{ schedule.train_station.weather.day_maxt }}°C<br>
-                                    {{ schedule.train_station.weather.day_ci }}<br>
+                                    {% if schedule.is_day%}
+                                        {{ schedule.train_station.weather.day_wx }}<br>
+                                        {{ schedule.train_station.weather.day_mint }} ~ {{ schedule.train_station.weather.day_maxt }}°C<br>
+                                        {{ schedule.train_station.weather.day_ci }}<br>
+                                    {% else %}
+                                        {{ schedule.train_station.weather.night_wx }}<br>
+                                        {{ schedule.train_station.weather.night_mint }} ~ {{ schedule.train_station.weather.night_maxt }}°C<br>
+                                        {{ schedule.train_station.weather.night_ci }}<br>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
