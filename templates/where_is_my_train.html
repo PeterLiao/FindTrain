@@ -75,7 +75,7 @@
             {% else %}
                     $("#spinner").show();
                     $("#find_train_btn").hide();
-                    window.setTimeout(getTrain(), 10000);
+                    window.setTimeout("getTrain();", 10000);
             {% endif %}
         }
     </script>
