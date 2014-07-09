@@ -92,7 +92,7 @@ def show_your_train(request):
 
     station_list = TrainStation.objects.all().order_by("-latitude")
 
-    if not STATUS.ERROR_SUCCESS:
+    if err_code != STATUS.ERROR_SUCCESS:
         return render_to_response("where_is_my_train.html",
                                   {"train_form": train_form,
                                    "train_schedule": train_schedule,
