@@ -10,4 +10,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         import_weather_list()
+        update_station_weather()
         print 'update weather finished'
