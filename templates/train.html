@@ -64,9 +64,11 @@
                     </li>
                 </ul>
             </nav>
+
             <article class="uk-article">
 
-                <p class="uk-article-lead uk-text-bold">列車</p>
+                <p class="uk-article-lead uk-text-bold">列車{{ train.train_number }}</p>
+
                 <div class="uk-margin-left">
                     此列車為<span class="uk-text-bold"> {{ train.train_number }} </span>車次
                     {% if direction_id == 0 %}
@@ -74,7 +76,7 @@
                     {% else %}
                         <span class="uk-text-bold"> 南下列車 </span>
                     {% endif %}
-                    ，終點站為<span class="uk-text-bold"> {{ end_station.name }}</span>
+                    ，終點站為<span class="uk-text-bold"> {{ end_station.name }} </span>
                 </div>
 
                 <p class="uk-article-lead uk-text-bold">時刻表</p>
