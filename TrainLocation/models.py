@@ -87,3 +87,17 @@ class TrainSchedule(models.Model):
     arrive_time_str = property(get_arrive_str)
     arrive_timedelta_str = property(get_arrive_timedelta_str)
     is_passed = property(is_passed)
+
+
+class User(models.Model):
+    name = models.CharField(max_length=30)
+    password = models.CharField(max_length=30)
+    email = models.EmailField()
+    fb_id = models.IntegerField(primary_key=True)
+    pub_date = models.DateTimeField('date published')
+
+
+class TrainCheckIn(models.Model):
+    user = models.ForeignKey(User)
+    train = models.ForeignKey(Train)
+    pub_date = models.DateTimeField('date published')
