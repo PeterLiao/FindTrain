@@ -13,4 +13,5 @@ class Command(BaseCommand):
         update_location_info_to_station()
         calculate_train_info()
         calculate_train_speed_base_on_each_station()
+        update_station_weather()
         print 'update train info finished'
