@@ -13,6 +13,7 @@ def getText(nodelist):
     return ''.join(rc)
 
 def import_weather_list():
+    Weather.objects.all().delete()
     weather_list = []
     src = urllib2.urlopen('http://opendata.cwb.gov.tw/opendata/MFC/F-C0032-001.xml').read()
     xml_doc = minidom.parseString(src)
@@ -84,26 +85,27 @@ def update_station_weather():
     for station in station_list:
         if station.name == u"台北站":
             weather = Weather.objects.filter(name=u"臺北市")[0]
-            station.objects.update(weather=weather)
+            print weather
+            TrainStation.objects.filter(name=u"台北站").update(weather=weather)
         elif station.name == u"板橋站":
             weather = Weather.objects.filter(name=u"新北市")[0]
-            station.objects.update(weather=weather)
+            TrainStation.objects.filter(name=u"板橋站").update(weather=weather)
         elif station.name == u"桃園站":
             weather = Weather.objects.filter(name=u"桃園縣")[0]
-            station.objects.update(weather=weather)
+            TrainStation.objects.filter(name=u"桃園站").update(weather=weather)
         elif station.name == u"新竹站":
             weather = Weather.objects.filter(name=u"新竹市")[0]
-            station.objects.update(weather=weather)
+            TrainStation.objects.filter(name=u"新竹站").update(weather=weather)
         elif station.name == u"台中站":
             weather = Weather.objects.filter(name=u"臺中市")[0]
-            station.objects.update(weather=weather)
+            TrainStation.objects.filter(name=u"台中站").update(weather=weather)
         elif station.name == u"嘉義站":
             weather = Weather.objects.filter(name=u"嘉義市")[0]
-            station.objects.update(weather=weather)
+            TrainStation.objects.filter(name=u"嘉義站").update(weather=weather)
         elif station.name == u"台南站":
             weather = Weather.objects.filter(name=u"臺南市")[0]
-            station.objects.update(weather=weather)
+            TrainStation.objects.filter(name=u"台南站").update(weather=weather)
         elif station.name == u"左營站":
             weather = Weather.objects.filter(name=u"高雄市")[0]
-            station.objects.update(weather=weather)
+            TrainStation.objects.filter(name=u"左營站").update(weather=weather)
 
