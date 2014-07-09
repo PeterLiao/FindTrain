@@ -61,49 +61,49 @@ def import_weather_list():
 def get_weather(station_name):
     weather = Weather()
     station_list = TrainStation.objects.all()
-    if station_name == "台北站":
-        weather = Weather.objects.filter(name="臺北市")[0]
-    elif station_name == "板橋站":
-        weather = Weather.objects.filter(name="新北市")[0]
-    elif station_name == "桃園站":
-        weather = Weather.objects.filter(name="桃園縣")[0]
-    elif station_name == "新竹站":
-        weather = Weather.objects.filter(name="新竹市")[0]
-    elif station_name == "台中站":
-        weather = Weather.objects.filter(name="臺中市")[0]
-    elif station_name == "嘉義站":
-        weather = Weather.objects.filter(name="嘉義市")[0]
-    elif station_name == "台南站":
-        weather = Weather.objects.filter(name="臺南市")[0]
-    elif station_name == "左營站":
-        weather = Weather.objects.filter(name="高雄市")[0]
+    if station_name == u"台北站":
+        weather = Weather.objects.filter(name=u"臺北市")[0]
+    elif station_name == u"板橋站":
+        weather = Weather.objects.filter(name=u"新北市")[0]
+    elif station_name == u"桃園站":
+        weather = Weather.objects.filter(name=u"桃園縣")[0]
+    elif station_name == u"新竹站":
+        weather = Weather.objects.filter(name=u"新竹市")[0]
+    elif station_name == u"台中站":
+        weather = Weather.objects.filter(name=u"臺中市")[0]
+    elif station_name == u"嘉義站":
+        weather = Weather.objects.filter(name=u"嘉義市")[0]
+    elif station_name == u"台南站":
+        weather = Weather.objects.filter(name=u"臺南市")[0]
+    elif station_name == u"左營站":
+        weather = Weather.objects.filter(name=u"高雄市")[0]
     return weather
 
 def update_station_weather():
     station_list = TrainStation.objects.all()
     for station in station_list:
-        if station.name == "台北站":
-            weather = Weather.objects.filter(name="臺北市")
+        if station.name == u"台北站":
+            weather = Weather.objects.filter(name=u"臺北市")
             station.objects.update(weather=weather)
-        elif station.name == "板橋站":
-            weather = Weather.objects.filter(name="新北市")
+        elif station.name == u"板橋站":
+            weather = Weather.objects.filter(name=u"新北市")
             station.objects.update(weather=weather)
-        elif station.name == "桃園站":
-            weather = Weather.objects.filter(name="桃園縣")
+        elif station.name == u"桃園站":
+            weather = Weather.objects.filter(name=u"桃園縣")
             station.objects.update(weather=weather)
-        elif station.name == "新竹站":
-            weather = Weather.objects.filter(name="新竹市")
+        elif station.name == u"新竹站":
+            weather = Weather.objects.filter(name=u"新竹市")
             station.objects.update(weather=weather)
-        elif station.name == "台中站":
-            weather = Weather.objects.filter(name="臺中市")
+        elif station.name == u"台中站":
+            weather = Weather.objects.filter(name=u"臺中市")
             station.objects.update(weather=weather)
-        elif station.name == "嘉義站":
-            weather = Weather.objects.filter(name="嘉義市")
+        elif station.name == u"嘉義站":
+            weather = Weather.objects.filter(name=u"嘉義市")
             station.objects.update(weather=weather)
-        elif station.name == "台南站":
-            weather = Weather.objects.filter(name="臺南市")
+        elif station.name == u"台南站":
+            weather = Weather.objects.filter(name=u"臺南市")
             station.objects.update(weather=weather)
-        elif station.name == "左營站":
-            weather = Weather.objects.filter(name="高雄市")
+        elif station.name == u"左營站":
+            weather = Weather.objects.filter(name=u"高雄市")
             station.objects.update(weather=weather)
 
