@@ -12,6 +12,12 @@ from TrainLocation.forms import *
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 
+class STATUS:
+    ERROR_SUCCESS = 0
+    ERROR_FIND_NO_TRAIN = -1
+    ERROR_OTHERS = -2
+
+
 @csrf_exempt
 def show_running_train(request):
     direction = Direction.NORTH
@@ -62,7 +68,7 @@ def show_your_train(request):
     train_form = TrainForm()
     train_schedule = TrainSchedule()
     nearby_station = TrainStation()
-    err_code = -2
+    err_code = STATUS.ERROR_OTHERS
     direction = Direction.OTHERS
 
     if request.method == 'POST':
@@ -75,14 +81,14 @@ def show_your_train(request):
             train_schedule = get_your_train(lat, long, heading)
             nearby_station = get_nearby_station(lat, long)
             if train_schedule == None:
-                err_code = -1
+                err_code = STATUS.ERROR_FIND_NO_TRAIN
                 train_schedule = TrainSchedule()
             else:
-                err_code = 0
+                err_code = STATUS.ERROR_SUCCESS
 
     station_list = TrainStation.objects.all().order_by("-latitude")
 
-    if err_code == -1 or err_code == -2:
+    if not STATUS.ERROR_SUCCESS:
         return render_to_response("where_is_my_train.html",
                                   {"train_form": train_form,
                                    "train_schedule": train_schedule,
@@ -92,7 +98,7 @@ def show_your_train(request):
                                    "err_code": err_code},
                                    context_instance = RequestContext(request))
     else:
-        url = '/train/%s/' % train_schedule.train.train_number
+        url = '/train/%d/' % train_schedule.train.train_number
         return HttpResponseRedirect(url)
 
 
