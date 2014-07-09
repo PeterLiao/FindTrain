@@ -128,7 +128,6 @@ def add_train_station_if_not_exist(name):
         train_station_list = TrainStation.objects.filter(name=name)
         if train_station_list.count() == 0:
             weather = get_weather(name)
-            print weather.name.encode('utf-8')
             train_station = TrainStation(name=name, pub_date=get_utc_now(), latitude=0.0, longitude=0.0, weather=weather)
             train_station.save()
             if debug:
