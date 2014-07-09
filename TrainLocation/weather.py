@@ -53,6 +53,13 @@ def import_weather_list():
                 night_ci = getText(weather.childNodes[3].childNodes[1].childNodes)
                 new_weather.day_ci = day_ci
                 new_weather.night_ci = night_ci
+            if weather.nodeName == 'PoP':
+                #白天降雨機率
+                day_pop = getText(weather.childNodes[1].childNodes[1].childNodes)
+                #夜晚降雨機率
+                night_pop = getText(weather.childNodes[3].childNodes[1].childNodes)
+                new_weather.day_pop = day_pop
+                new_weather.night_pop = night_pop
 
         if Weather.objects.filter(name=name).count() > 0:
             Weather.objects.filter(name=name).update(day_wx=new_weather.day_wx,
@@ -62,7 +69,9 @@ def import_weather_list():
                                                      day_mint=new_weather.day_mint,
                                                      night_mint=new_weather.night_mint,
                                                      day_ci=new_weather.day_ci,
-                                                     night_ci=new_weather.night_ci)
+                                                     night_ci=new_weather.night_ci,
+                                                     day_pop=new_weather.day_pop,
+                                                     night_pop=new_weather.night_pop)
         else:
             weather_list.append(new_weather)
     Weather.objects.bulk_create(weather_list)

@@ -12,6 +12,8 @@ class Weather(models.Model):
     night_mint = models.IntegerField()
     day_ci = models.CharField(max_length=30)
     night_ci = models.CharField(max_length=30)
+    day_pop = models.IntegerField()
+    night_pop = models.IntegerField()
     pub_date = models.DateTimeField('date published')
 
 
