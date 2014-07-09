@@ -9,6 +9,8 @@ class Command(BaseCommand):
     help = 'Fetch today weather information'
 
     def handle(self, *args, **options):
+        print 'import_weather_list...'
         import_weather_list()
+        print 'update_station_weather...'
         update_station_weather()
         print 'update weather finished'

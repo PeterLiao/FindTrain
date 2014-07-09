@@ -13,7 +13,6 @@ def getText(nodelist):
     return ''.join(rc)
 
 def import_weather_list():
-    Weather.objects.all().delete()
     weather_list = []
     src = urllib2.urlopen('http://opendata.cwb.gov.tw/opendata/MFC/F-C0032-001.xml').read()
     xml_doc = minidom.parseString(src)
@@ -55,7 +54,17 @@ def import_weather_list():
                 new_weather.day_ci = day_ci
                 new_weather.night_ci = night_ci
 
-        weather_list.append(new_weather)
+        if Weather.objects.filter(name=name).count() > 0:
+            Weather.objects.filter(name=name).update(day_wx=new_weather.day_wx,
+                                                     night_wx=new_weather.night_wx,
+                                                     day_maxt=new_weather.day_maxt,
+                                                     night_maxt=new_weather.night_maxt,
+                                                     day_mint=new_weather.day_mint,
+                                                     night_mint=new_weather.night_mint,
+                                                     day_ci=new_weather.day_ci,
+                                                     night_ci=new_weather.night_ci)
+        else:
+            weather_list.append(new_weather)
     Weather.objects.bulk_create(weather_list)
 
 
