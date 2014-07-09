@@ -26,7 +26,7 @@
     <div class="uk-grid" data-uk-grid-margin="">
 
         <div class="uk-width-medium-1-1">
-            <nav class="uk-navbar">
+            <nav class="uk-navbar uk-margin-bottom">
                 <ul class="uk-navbar-nav">
                    <li>
                         <a href="http://petercliao.pythonanywhere.com" style="text-decoration: none">
@@ -64,34 +64,48 @@
                     </li>
                 </ul>
             </nav>
-            <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
-                {% if direction_id == 0 %}
-                    <caption>北上列車</caption>
-                {% else %}
-                    <caption>南下列車</caption>
-                {% endif %}
-                <thead>
-                    <tr>
-                        <th>車次</th>
-                        {% for station in station_list %}
-                            <th>{{ station.name }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                {% regroup schedule_list by train as train_list %}
-                <tbody>
-                    {% for train in train_list %}
-                        <tr onclick="window.location.href='/train/{{ train.grouper.train_number }}';">
-                            <td>{{ train.grouper.train_number }}</td>
-                            {% for item in train.list %}
-                                <td>{{ item.arrive_time_str }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <article class="uk-article">
 
-            <div class="uk-grid">
+                <p class="uk-article-lead uk-text-bold">列車</p>
+                <div class="uk-margin-left">
+                    此列車為<span class="uk-text-bold"> {{ train.train_number }} </span>車次
+                    {% if direction_id == 0 %}
+                        <span class="uk-text-bold"> 北上列車 </span>
+                    {% else %}
+                        <span class="uk-text-bold"> 南下列車 </span>
+                    {% endif %}
+                    ，終點站為<span class="uk-text-bold"> {{ end_station.name }}</span>
+                </div>
+
+                <p class="uk-article-lead uk-text-bold">時刻表</p>
+
+                <div class="uk-margin-left">
+                    <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
+                        <thead>
+                            <tr>
+                                <th>車次</th>
+                                {% for station in station_list %}
+                                    <th>{{ station.name }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        {% regroup schedule_list by train as train_list %}
+                        <tbody>
+                            {% for train in train_list %}
+                                <tr onclick="window.location.href='/train/{{ train.grouper.train_number }}';">
+                                    <td>{{ train.grouper.train_number }}</td>
+                                    {% for item in train.list %}
+                                        <td>{{ item.arrive_time_str }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="uk-article-lead uk-text-bold">各站資訊</p>
+
+                <div class="uk-grid">
                     {% for schedule in schedule_list %}
                         <div class="uk-width-medium-1-4">
                             <div class="uk-thumbnail">
@@ -108,9 +122,9 @@
                             </div>
                         </div>
                     {% endfor %}
-             </div>
+                </div>
 
-
+            </article>
 
         </div>
     </div>

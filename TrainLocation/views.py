@@ -50,8 +50,11 @@ def show_train_schedule(request, train_id):
     station_list = TrainStation.objects.all()
     if train.direction == Direction.SOUTH:
         station_list = station_list.order_by("-latitude")
+    end_station = station_list[len(station_list)-1]
     return render_to_response("train.html", {"schedule_list": schedule_list,
                                                 "station_list": station_list,
+                                                "train": train,
+                                                "end_station": end_station,
                                                 "direction_id": train.direction})
 
 @csrf_exempt
