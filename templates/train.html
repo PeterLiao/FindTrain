@@ -112,7 +112,7 @@
                         <div class="uk-width-medium-1-4">
                             <div class="uk-thumbnail">
                                 <div class="uk-overlay">
-                                    <img src="/static/img/{{ schedule.train_station.name }}.jpg" width="600" height="400" alt="" {% if schedule.is_passed %} class="wrapper" {% endif %}>
+                                    <img src="/static/img/{{ schedule.train_station.name }}.jpg" width="600" height="400" alt="" {% if schedule.is_passed %} class="grayImg" {% endif %}>
                                     <div class="uk-overlay-caption">{{ schedule.train_station.name }}</div>
                                 </div>
                                 <div class="uk-thumbnail-caption {% if schedule.is_passed %}uk-text-muted{% endif %}">
