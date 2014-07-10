@@ -48,6 +48,11 @@ def show_train_schedule(request, train_id):
     train = Train.objects.filter(train_number=train_number)[0]
     schedule_list = TrainSchedule.objects.filter(train=train)
     station_list = TrainStation.objects.all()
+    d = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
+    running_schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=get_local_now()).exclude(arrive_time=d).order_by("arrive_time")
+    running_schedule = None
+    if len(running_schedule_list) > 0:
+        running_schedule = running_schedule_list[0]
     if train.direction == Direction.SOUTH:
         station_list = station_list.order_by("-latitude")
     end_station = station_list[len(station_list)-1]
@@ -55,6 +60,7 @@ def show_train_schedule(request, train_id):
                                              "station_list": station_list,
                                              "train": train,
                                              "end_station": end_station,
+                                             "running_schedule:": running_schedule,
                                              "direction_id": train.direction})
 
 
