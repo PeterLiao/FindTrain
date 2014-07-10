@@ -10,8 +10,12 @@
     <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.gradient.css" />
     <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.docs.min.css" />
     <link rel="stylesheet" href="../../static/common.css" />
+    <link rel="stylesheet" href="../../static/font-awesome-4.1.0/css/font-awesome.css" />
+    <script src="../../static/fb.js"></script>
+    <script src="../../static/carhartl-jquery-cookie-92b7715/jquery.cookie.js"></script>
 </head>
 <body>
+<div id="fb-root"></div>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -21,7 +25,147 @@
   ga('create', 'UA-52264439-1', 'pythonanywhere.com');
   ga('send', 'pageview');
 
+    var modal;
+    var checkin_modal;
+    function isLogged()
+    {
+        var user_id = $.cookie('user_id');
+        var logged = (user_id == null)? false : true;
+        return logged;
+    }
+    function fb_status_change_callback(fb_connected, response_data)
+    {
+        console.log('fb_status_change_callback');
+        if(fb_connected)
+        {
+            console.log(response_data.authResponse.userID);
+            $.cookie('user_id', '' + response_data.authResponse.userID, {path: '/'});
+            if(modal && modal.isActive()) {
+                modal.hide();
+            }
+        }
+        else
+        {
+            $.removeCookie('user_id', { path: '/' });
+        }
+    }
+    function fb_profile_ready_callback(response_data)
+    {
+        console.log('fb_profile_ready_callback');
+        $("#user_form")[0].id_name.value = response_data.name;
+        $("#user_form")[0].id_email.value = response_data.email;
+        $("#user_form")[0].id_user_id.value = response_data.id;
+
+        $.ajax({
+              type: 'POST',
+              url: '/user/add/',
+              data: $("#user_form").serialize(),
+              success: function(data)
+              {
+                  console.log(data);
+              },
+              error: function(err)
+              {
+                  console.log(err);
+              }
+            });
+    }
+    function fb_login_callback(fb_logged, response_data)
+    {
+        console.log('fb_login_callback');
+        fb_status_change_callback(fb_logged, response_data);
+    }
+    function fb_logout_callback()
+    {
+        console.log('fb_login_callback');
+        fb_status_change_callback(false,{});
+    }
+    function btn_on_mouse_over(self)
+    {
+        if(self.className.indexOf('checked') < 0) {
+            self.className = self.className.split(" uk-text-muted").join("");
+            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag-o ").join("");
+            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag ";
+        } else {
+            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag ").join("");
+            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag-o ";
+            self.className = self.className + " uk-text-muted";
+        }
+    }
+    function btn_on_mouse_out(self)
+    {
+        if(self.className.indexOf('checked') >= 0) {
+            self.className = self.className.split(" uk-text-muted").join("");
+            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag-o ").join("");
+            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag ";
+        } else {
+            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag ").join("");
+            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag-o ";
+            self.className = self.className + " uk-text-muted";
+        }
+    }
+    function popup_cehckin_alert(msg)
+    {
+        $("#checkin_msg")[0].innerHTML = msg;
+        if(!checkin_modal)
+            checkin_modal = new $.UIkit.modal.Modal("#checkin_alert");
+        if( checkin_modal.isActive() == false)
+        {
+          checkin_modal.show();
+        }
+    }
+    function checkIn(self, checkin)
+    {
+        if(!isLogged())
+        {
+            if(!modal)
+                modal = new $.UIkit.modal.Modal("#popup_alert");
+            if( modal.isActive() == false)
+            {
+                modal.show();
+            }
+        }
+        else
+        {
+            var action_url = '/checkin/add/{{ train.train_number }}';
+            if(checkin == false)
+                action_url = '/checkin/delete/{{ train.train_number }}';
+            $.ajax({
+                  type: 'GET',
+                  url: action_url,
+                  success: function(data)
+                  {
+                      console.log(data);
+                      if(data["result"] == 3)
+                      {
+                          popup_cehckin_alert("列車已結束服務，無法再簽到了喔");
+                      }
+                      window.location.href = "/train/{{ train.train_number }}";
+                  },
+                  error: function(err)
+                  {
+                      console.log(err);
+                      popup_cehckin_alert(err.toString());
+                  }
+            });
+        }
+    }
+
 </script>
+<!-- This is the modal -->
+<div id="popup_alert" class="uk-modal">
+    <div class="uk-modal-dialog uk-text-center uk-article-lead">
+        <a class="uk-modal-close uk-close"></a>
+        <p>請先登入再打卡喔　：）</p>
+        <button class="uk-button uk-button-primary" onclick="loginToFB()">登入facebook</button>
+    </div>
+</div>
+<div id="checkin_alert" class="uk-modal">
+    <div class="uk-modal-dialog uk-text-center uk-article-lead">
+        <a class="uk-modal-close uk-close"></a>
+        <p id="checkin_msg"></p>
+    </div>
+</div>
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
     <div class="uk-grid" data-uk-grid-margin="">
 
@@ -30,12 +174,10 @@
                 <ul class="uk-navbar-nav">
                    <li>
                         <a href="http://petercliao.pythonanywhere.com" style="text-decoration: none">
-                            <!--span class="uk-text-bold uk-text-rose-red uk-text-large">Point</span>
-                            <span class="uk-text-large"></span-->
                             <span class="uk-text-sky-blue uk-text-bold uk-text-large">Point</span>
                         </a>
                     </li>
-                    <li><a href="/">定位</a></li>
+                    <li><a href="/"><i class="fa fa-crosshairs fa-1x"></i> 定位</a></li>
                     <li><a href="/nearby/">最近車站</a></li>
                     <li><a href="/running/">行駛中</a></li>
                     <li data-uk-dropdown="{mode:'click'}" class="uk-active">
@@ -62,6 +204,7 @@
                             </ul>
                         </div>
                     </li>
+                    <li><a href="javascript:logoutFB()">登出</a></li>
                 </ul>
             </nav>
 
@@ -70,6 +213,17 @@
                 <p class="uk-article-lead uk-text-bold">列車資訊</p>
 
                 <div class="uk-margin-left uk-article-lead">
+
+                    {% if checked %}
+                       <a class="uk-icon checked" href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
+                            <i id="checkin_icon" class="fa fa-lg fa-flag "></i>
+                        </a>
+                    {% else %}
+                        <a class="uk-icon uk-text-muted" href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true);">
+                            <i id="checkin_icon" class="fa fa-lg fa-flag-o "></i>
+                        </a>
+                    {% endif %}
+
                     {% if running_schedule %}
 
                         你現在搭乘的列車為
@@ -95,6 +249,21 @@
 
                     {% endif %}
                 </div>
+
+                <p class="uk-article-lead uk-text-bold">
+
+                    {% if checkins.count == 0 %}
+                        還沒有人簽到此列車
+                    {% else %}
+                        有 {{ checkins.count }} 個人簽到此列車
+                    {% endif %}
+
+                </p>
+               <div class="uk-margin-left ">
+                    {% for checkin in checkins %}
+                        <img id="img_{{ checkin.user.fb_id }}" class="uk-icon-button-40 uk-animation-scale-up" width="40px" height="40px" src="https://graph.facebook.com/{{ checkin.user.fb_id }}/picture?type=square" alt="">
+                    {%  endfor %}
+               </div>
 
                 <p class="uk-article-lead uk-text-bold">到站時刻表</p>
 
@@ -127,10 +296,10 @@
                 <div class="uk-grid">
                     {% for schedule in schedule_list %}
                         <div class="uk-width-medium-1-4">
-                            <div class="uk-thumbnail">
+                            <div class="uk-thumbnail" width="100%">
                                 <div class="uk-overlay">
-                                    <img src="/static/img/{{ schedule.train_station.name }}.jpg" width="600" height="400" alt="" {% if schedule.is_passed %} class="grayImg" {% endif %}>
-                                    <div class="uk-overlay-caption">{{ schedule.train_station.name }}</div>
+                                        <img src="/static/img/{{ schedule.train_station.name }}.jpg" width="600" height="400" alt="" {% if schedule.is_passed %} class="grayImg" {% endif %}>
+                                        <div class="uk-overlay-caption">{{ schedule.train_station.name }}</div>
                                 </div>
                                 <div class="uk-thumbnail-caption {% if schedule.is_passed %}uk-text-muted{% endif %}">
                                     <span class="uk-text-bold">{{ schedule.train_station.name }}</span> - {% if schedule.arrive_time_str == " - " %}不停靠{% elif schedule.is_passed%}已經過站{% else %}還有<span class="uk-text-primary uk-text-bold">{{ schedule.arrive_timedelta_str }}</span>抵達{% endif %}<br>
@@ -161,5 +330,11 @@
         </div>
     </div>
 </div>
+
+    <form id="user_form" style="display:none" action="/user/add/" method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+    </form>
+
 </body>
 </html>

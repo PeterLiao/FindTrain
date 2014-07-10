@@ -18,6 +18,16 @@ class STATUS:
     ERROR_OTHERS = -2
 
 
+class HTTP_STATUS:
+    ERROR_SUCCESS = 0
+    ERROR_INVALID_DATA = 1
+    ERROR_CHECKED_ALREADY = 2
+    ERROR_TRAIN_STOPPED = 3
+    ERROR_NOT_LOGIN = 4
+    ERROR_FIND_NO_TRAIN = 5
+    ERROR_UNCHECKED_ALREADY = 6
+
+
 @csrf_exempt
 def show_running_train(request):
     direction = Direction.NORTH
@@ -44,6 +54,9 @@ def show_trains_schedule(request, direction_id):
 
 @csrf_exempt
 def show_train_schedule(request, train_id):
+    user_id = 0
+    if 'user_id' in request.COOKIES:
+        user_id = request.COOKIES.get('user_id')
     train_number = train_id
     train = Train.objects.filter(train_number=train_number)[0]
     schedule_list = TrainSchedule.objects.filter(train=train)
@@ -56,11 +69,25 @@ def show_train_schedule(request, train_id):
     if train.direction == Direction.SOUTH:
         station_list = station_list.order_by("-latitude")
     end_station = station_list[len(station_list)-1]
+    checkins = TrainCheckIn.objects.filter(train=train)
+    checked = False
+    if user_id != 0:
+        users = User.objects.filter(fb_id=user_id)
+        if users.count() > 0:
+            user = users[0]
+            curr_checkins = TrainCheckIn.objects.filter(user=user, train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
+            print curr_checkins
+            if curr_checkins.count() > 0:
+                checked = True
+
     return render_to_response("train.html", {"schedule_list": schedule_list,
                                              "station_list": station_list,
                                              "train": train,
                                              "end_station": end_station,
                                              "running_schedule": running_schedule,
+                                             "user_form": UserForm(),
+                                             "checkins": checkins,
+                                             "checked": checked,
                                              "direction_id": train.direction})
 
 
@@ -147,3 +174,81 @@ def show_nearby_station(request):
 def show_weather(request):
     weather_list = Weather.objects.all()
     return HttpResponse(weather_list)
+
+
+@csrf_exempt
+def add_user(request):
+    result = HTTP_STATUS.ERROR_INVALID_DATA
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = User(name=form.cleaned_data['name'],
+                        fb_id=form.cleaned_data['user_id'],
+                        email=form.cleaned_data['email'],
+                        pub_date=get_utc_now())
+            user.save()
+            result = HTTP_STATUS.ERROR_SUCCESS
+
+    response_data = {"result": result}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@csrf_exempt
+def add_checkin(request, train_id):
+    result = HTTP_STATUS.ERROR_INVALID_DATA
+    user_id = 0
+    if 'user_id' in request.COOKIES:
+        user_id = request.COOKIES.get('user_id')
+    if user_id != 0:
+        train_list = Train.objects.filter(train_number=train_id)
+        if train_list.count() > 0:
+            train = train_list[0]
+            if not train.is_stopped:
+                user_list = User.objects.filter(fb_id=user_id)
+                if user_list.count() > 0:
+                    user = user_list[0]
+                    today_checkin_list = TrainCheckIn.objects.filter(user=user, train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
+                    if today_checkin_list.count() == 0:
+                        train_checkin = TrainCheckIn(user=user, train=train, pub_date=get_local_now())
+                        train_checkin.save()
+                        result = HTTP_STATUS.ERROR_SUCCESS
+                    else:
+                        result = HTTP_STATUS.ERROR_CHECKED_ALREADY
+            else:
+                result = HTTP_STATUS.ERROR_TRAIN_STOPPED
+        else:
+            result = HTTP_STATUS.ERROR_FIND_NO_TRAIN
+    else:
+        result = HTTP_STATUS.ERROR_NOT_LOGIN
+
+    response_data = {"result": result}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@csrf_exempt
+def delete_checkin(request, train_id):
+    result = HTTP_STATUS.ERROR_INVALID_DATA
+    user_id = 0
+    if 'user_id' in request.COOKIES:
+        user_id = request.COOKIES.get('user_id')
+    if user_id != 0:
+        train_list = Train.objects.filter(train_number=train_id)
+        if train_list.count() > 0:
+            train = train_list[0]
+            user_list = User.objects.filter(fb_id=user_id)
+            if user_list.count() > 0:
+                user = user_list[0]
+                today_checkin_list = TrainCheckIn.objects.filter(user=user, train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
+                if today_checkin_list.count() != 0:
+                    train_checkin = today_checkin_list[0]
+                    train_checkin.delete()
+                    result = HTTP_STATUS.ERROR_SUCCESS
+                else:
+                    result = HTTP_STATUS.ERROR_UNCHECKED_ALREADY
+        else:
+            result = HTTP_STATUS.ERROR_FIND_NO_TRAIN
+    else:
+        result = HTTP_STATUS.ERROR_NOT_LOGIN
+
+    response_data = {"result": result}
+    return HttpResponse(json.dumps(response_data), content_type="application/json")

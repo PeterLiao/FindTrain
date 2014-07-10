@@ -13,4 +13,7 @@ urlpatterns = patterns('',
     url(r'^station/(?P<station_id>[0-9]+)/$', show_station),
     url(r'^nearby/', show_nearby_station),
     url(r'^weather/', show_weather),
+    url(r'^user/add/', add_user),
+    url(r'^checkin/add/(?P<train_id>[0-9]+)/$', add_checkin),
+    url(r'^checkin/delete/(?P<train_id>[0-9]+)/$', delete_checkin),
 )
