@@ -134,20 +134,22 @@
                                 </div>
                                 <div class="uk-thumbnail-caption {% if schedule.is_passed %}uk-text-muted{% endif %}">
                                     <span class="uk-text-bold">{{ schedule.train_station.name }}</span> - {% if schedule.arrive_time_str == " - " %}不停靠{% elif schedule.is_passed%}已經過站{% else %}還有<span class="uk-text-primary uk-text-bold">{{ schedule.arrive_timedelta_str }}</span>抵達{% endif %}<br>
-                                    <hr/>
-                                    <table width="100%">
-                                        {% if schedule.is_day%}
-                                            <tr><td align="left" width="30%">天氣概況:</td><td align="right">{{ schedule.train_station.weather.day_wx }}</td></tr>
-                                            <tr><td align="left" width="30%">氣溫(°C):</td><td align="right">{{ schedule.train_station.weather.day_mint }} ~ {{ schedule.train_station.weather.day_maxt }}</td></tr>
-                                            <tr><td align="left" width="30%">舒適度:</td><td align="right">{{ schedule.train_station.weather.day_ci }}</td></tr>
-                                            <tr><td align="left" width="30%">降雨機率(%):</td><td align="right">{{ schedule.train_station.weather.day_pop }}</td></tr>
-                                        {% else %}
-                                            <tr><td align="left" width="30%">天氣概況:</td><td align="right">{{ schedule.train_station.weather.night_wx }}</td></tr>
-                                            <tr><td align="left" width="30%">氣溫(°C):</td><td align="right">{{ schedule.train_station.weather.night_mint }} ~ {{ schedule.train_station.weather.night_maxt }}</td></tr>
-                                            <tr><td align="left" width="30%">舒適度:</td><td align="right">{{ schedule.train_station.weather.night_ci }}</td></tr>
-                                            <tr><td align="left" width="30%">降雨機率(%):</td><td align="right">{{ schedule.train_station.weather.night_pop }}</td></tr>
-                                        {% endif %}
-                                    </table>
+                                    {% if not schedule.is_passed %}
+                                        <table width="100%">
+                                            <hr/>
+                                            {% if schedule.is_day%}
+                                                <tr><td align="left" width="45%">天氣概況:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_wx }}</td></tr>
+                                                <tr><td align="left" width="45%">氣溫(°C):</td><td align="right" width="55%">{{ schedule.train_station.weather.day_mint }} ~ {{ schedule.train_station.weather.day_maxt }}</td></tr>
+                                                <tr><td align="left" width="45%">舒適度:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_ci }}</td></tr>
+                                                <tr><td align="left" width="45%">降雨機率(%):</td><td align="right" width="55%">{{ schedule.train_station.weather.day_pop }}</td></tr>
+                                            {% else %}
+                                                <tr><td align="left" width="45%">天氣概況:</td><td align="right" width="55%">{{ schedule.train_station.weather.night_wx }}</td></tr>
+                                                <tr><td align="left" width="45%">氣溫(°C):</td><td align="right" width="55%">{{ schedule.train_station.weather.night_mint }} ~ {{ schedule.train_station.weather.night_maxt }}</td></tr>
+                                                <tr><td align="left" width="45%">舒適度:</td><td align="right" width="55%">{{ schedule.train_station.weather.night_ci }}</td></tr>
+                                                <tr><td align="left" width="45%">降雨機率(%):</td><td align="right" width="55%">{{ schedule.train_station.weather.night_pop }}</td></tr>
+                                            {% endif %}
+                                        </table>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
