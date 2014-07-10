@@ -60,7 +60,7 @@ def show_train_schedule(request, train_id):
                                              "station_list": station_list,
                                              "train": train,
                                              "end_station": end_station,
-                                             "running_schedule:": running_schedule,
+                                             "running_schedule": running_schedule,
                                              "direction_id": train.direction})
 
 
