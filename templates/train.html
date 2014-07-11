@@ -43,10 +43,12 @@
             if(modal && modal.isActive()) {
                 modal.hide();
             }
+            $("#logout_btn").css("display", "")
         }
         else
         {
             $.removeCookie('user_id', { path: '/' });
+            $("#logout_btn").css("display", "none")
         }
     }
     function fb_profile_ready_callback(response_data)
@@ -79,6 +81,7 @@
     {
         console.log('fb_login_callback');
         fb_status_change_callback(false,{});
+        window.location.href = "/train/{{ train.train_number }}";
     }
     function btn_on_mouse_over(self)
     {
@@ -138,7 +141,7 @@
                       console.log(data);
                       if(data["result"] == 3)
                       {
-                          popup_cehckin_alert("列車已結束服務，無法再簽到了喔");
+                          popup_cehckin_alert("此列車目前未提供服務，無法簽到喔");
                       }
                       if(data["result"] == 0) {
                           window.location.href = "/train/{{ train.train_number }}";
@@ -206,7 +209,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li><a href="javascript:logoutFB()">登出</a></li>
+                    <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
                 </ul>
             </nav>
 
@@ -216,15 +219,7 @@
 
                 <div class="uk-margin-left uk-article-lead">
 
-                    {% if checked %}
-                       <a class="uk-icon checked" href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
-                            <i id="checkin_icon" class="fa fa-lg fa-flag "></i>
-                        </a>
-                    {% else %}
-                        <a class="uk-icon uk-text-muted" href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true);">
-                            <i id="checkin_icon" class="fa fa-lg fa-flag-o "></i>
-                        </a>
-                    {% endif %}
+
 
                     {% if running_schedule %}
 
@@ -253,14 +248,33 @@
                 </div>
 
                 <p class="uk-article-lead uk-text-bold">
-
-                    {% if checkins.count == 0 %}
-                        還沒有人簽到此列車
-                    {% else %}
-                        有 {{ checkins.count }} 個人簽到此列車
-                    {% endif %}
-
+                    簽到簿
                 </p>
+
+                <div class="uk-margin-left uk-article-lead">
+                    <p>
+                    {% if checked %}
+                       <a class="uk-icon checked" href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
+                            <i id="checkin_icon" class="fa fa-lg fa-flag "></i>
+                        </a>
+                    {% else %}
+                        <a class="uk-icon uk-text-muted" href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true);">
+                            <i id="checkin_icon" class="fa fa-lg fa-flag-o "></i>
+                        </a>
+                    {% endif %}
+                    {% if checkins.count == 0 %}
+                        還沒有人簽到此列車，來成為第一個簽到者!
+                    {% else %}
+                        {% if checked %}
+                            包含您在內，已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到
+                        {% else %}
+                            已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到，您也來簽到吧
+                        {% endif %}
+                    {% endif %}
+                    </p>
+                </div>
+
+
                <div class="uk-margin-left ">
                     {% for checkin in checkins %}
                         <img id="img_{{ checkin.user.fb_id }}" class="uk-icon-button-40 uk-animation-scale-up" width="40px" height="40px" src="https://graph.facebook.com/{{ checkin.user.fb_id }}/picture?type=square" alt="">
