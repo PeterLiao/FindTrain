@@ -140,7 +140,9 @@
                       {
                           popup_cehckin_alert("列車已結束服務，無法再簽到了喔");
                       }
-                      window.location.href = "/train/{{ train.train_number }}";
+                      if(data["result"] == 0) {
+                          window.location.href = "/train/{{ train.train_number }}";
+                      }
                   },
                   error: function(err)
                   {
