@@ -134,33 +134,87 @@
                 modal.show();
             }
         }
-        else
-        {
-            var action_url = '/checkin/add/{{ train.train_number }}';
-            if(checkin == false)
-                action_url = '/checkin/delete/{{ train.train_number }}';
-            $.ajax({
-                  type: 'GET',
-                  url: action_url,
-                  success: function(data)
-                  {
-                      console.log(data);
-                      if(data["result"] == 3)
-                      {
-                          popup_cehckin_alert("此列車目前未提供服務，無法簽到喔");
-                      }
-                      if(data["result"] == 0) {
-                          window.location.href = "/train/{{ train.train_number }}";
-                      }
-                  },
-                  error: function(err)
-                  {
-                      console.log(err);
-                      popup_cehckin_alert(err.toString());
-                  }
-            });
+        else {
+            fb_post_msg(checkin);
         }
     }
+     function fb_post_msg(checkin) {
+         if(checkin)
+         {
+               FB.ui(
+               {
+                 method: 'stream.publish',
+                 message: 'this is message',
+                 attachment: {
+                   name: 'FindTrain',
+                   caption: '{{ user.name }} 正在搭乘高鐵{% if direction_id == 0 %}北上{% else %}南下{% endif %}列車',
+                   description: (
+                     '列車車次為{{ train.train_number }}，下一個停靠站是{{ running_schedule.train_station.name }}，終點站是{{ end_station.name }}'
+                   ),
+                   href: 'http://petercliao.pythonanywhere.com/train/{{ train.train_number }}'
+                 },
+                 action_links: [
+                   { text: 'Code', href: 'action url here' }
+                 ],
+                 user_prompt_message: 'Personal message here'
+               },
+               function(response) {
+                 if (response && response.post_id) {
+                   console.log('Post was published.');
+
+                            var action_url = '/checkin/add/{{ train.train_number }}';
+                            $.ajax({
+                                  type: 'GET',
+                                  url: action_url,
+                                  success: function(data)
+                                  {
+                                      console.log(data);
+                                      if(data["result"] == 3)
+                                      {
+                                          popup_cehckin_alert("此列車目前未提供服務，無法簽到喔");
+                                      }
+                                      if(data["result"] == 0) {
+                                          window.location.href = "/train/{{ train.train_number }}";
+                                      }
+                                  },
+                                  error: function(err)
+                                  {
+                                      console.log(err);
+                                      popup_cehckin_alert(err.toString());
+                                  }
+                            });
+
+                 } else {
+                   console.log('Post was not published.');
+                 }
+               }
+             );
+         }
+         else
+         {
+                var action_url = '/checkin/delete/{{ train.train_number }}';
+                $.ajax({
+                      type: 'GET',
+                      url: action_url,
+                      success: function(data)
+                      {
+                          console.log(data);
+                          if(data["result"] == 3)
+                          {
+                              popup_cehckin_alert("此列車目前未提供服務，無法簽到喔");
+                          }
+                          if(data["result"] == 0) {
+                              window.location.href = "/train/{{ train.train_number }}";
+                          }
+                      },
+                      error: function(err)
+                      {
+                          console.log(err);
+                          popup_cehckin_alert(err.toString());
+                      }
+                });
+         }
+     }
 
 </script>
 <!-- This is the modal -->
@@ -220,7 +274,6 @@
             </nav>
 
             <article class="uk-article">
-
                 {% if checkins.count != 0 %}
                     <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-trophy "></i> 排行榜</p>
                 {% endif %}
@@ -229,7 +282,7 @@
                     <div class="uk-margin-left uk-article-lead">
                         {% for i in top_checkins_range %}
                             <img id="img_{{ top_checkins|get_user:i }}" class="uk-icon-button-40 uk-animation-scale-up" width="40px" height="40px" src="https://graph.facebook.com/{{ top_checkins|get_user:i }}/picture?type=square" alt="">
-                                簽到<span class="uk-text-bold uk-text-sky-blue"> {{ top_checkins|get_count:i }} </span>次，是本車的
+                                共簽到了此列車<span class="uk-text-bold uk-text-sky-blue"> {{ top_checkins|get_count:i }} </span>次，是本車的
                                 <span class="uk-text-bold uk-text-sky-blue">
                                     {% if i == 0 %}
                                         列車長
@@ -274,26 +327,36 @@
                     {% endif %}
                 </div>
 
-                <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 簽到簿</p>
+                <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 本日簽到簿</p>
 
                 <div class="uk-margin-left uk-article-lead">
                     <p>
-                    {% if checked %}
-                       <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
-                            <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
-                        </a>
-                    {% else %}
-                        <a class="uk-icon uk-text-muted " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true);">
-                            <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
-                        </a>
+                    {% if running_schedule %}
+                        {% if checked %}
+                           <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
+                                <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
+                            </a>
+                        {% else %}
+                            <a class="uk-icon uk-text-muted " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true);">
+                                <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
+                            </a>
+                        {% endif %}
                     {% endif %}
                     {% if checkins.count == 0 %}
-                        還沒有人簽到此列車，來成為第一個簽到者!
+                        {% if running_schedule %}
+                            還沒有人簽到此列車，來成為第一個簽到者!
+                        {% else %}
+                            沒有人簽到此列車
+                        {% endif %}
                     {% else %}
                         {% if checked %}
                             包含您在內，已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了
                         {% else %}
-                            已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了，您也來簽到吧
+                            {% if running_schedule %}
+                                今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了，您也來簽到吧
+                            {% else %}
+                                今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                     </p>

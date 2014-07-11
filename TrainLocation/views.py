@@ -71,6 +71,7 @@ def show_train_schedule(request, train_id):
     end_station = station_list[len(station_list)-1]
     checkins = TrainCheckIn.objects.filter(train=train)
     checked = False
+    user = None
     if user_id != 0:
         users = User.objects.filter(fb_id=user_id)
         if users.count() > 0:
@@ -92,6 +93,7 @@ def show_train_schedule(request, train_id):
                                              "checkins": checkins,
                                              "checked": checked,
                                              "top_checkins": top_checkins,
+                                             "user": user,
                                              'top_checkins_range': range(top_checkins.count()),
                                              "direction_id": train.direction})
 
