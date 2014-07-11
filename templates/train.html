@@ -27,6 +27,7 @@
 
     var modal;
     var checkin_modal;
+
     function isLogged()
     {
         var user_id = $.cookie('user_id');
@@ -87,11 +88,13 @@
     {
         if(self.className.indexOf('checked') < 0) {
             self.className = self.className.split(" uk-text-muted").join("");
-            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag-o ").join("");
-            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag ";
+            self.className = self.className + " uk-text-danger";
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag-o ").join("");
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag ";
         } else {
-            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag ").join("");
-            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag-o ";
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag ").join("");
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag-o ";
+            self.className = self.className.split(" uk-text-danger").join("");
             self.className = self.className + " uk-text-muted";
         }
     }
@@ -99,11 +102,13 @@
     {
         if(self.className.indexOf('checked') >= 0) {
             self.className = self.className.split(" uk-text-muted").join("");
-            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag-o ").join("");
-            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag ";
+            self.className = self.className + " uk-text-danger";
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag-o ").join("");
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag ";
         } else {
-            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag ").join("");
-            $("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag-o ";
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag ").join("");
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag-o ";
+            self.className = self.className.split(" uk-text-danger").join("");
             self.className = self.className + " uk-text-muted";
         }
     }
@@ -161,7 +166,7 @@
 <div id="popup_alert" class="uk-modal">
     <div class="uk-modal-dialog uk-text-center uk-article-lead">
         <a class="uk-modal-close uk-close"></a>
-        <p>請先登入再打卡喔　：）</p>
+        <p>請先登入再打卡喔</p>
         <button class="uk-button uk-button-primary" onclick="loginToFB()">登入facebook</button>
     </div>
 </div>
@@ -182,7 +187,7 @@
                             <span class="uk-text-sky-blue uk-text-bold uk-text-large">Point</span>
                         </a>
                     </li>
-                    <li><a href="/"><i class="fa fa-crosshairs fa-1x"></i> 定位</a></li>
+                    <li><a href="/">定位</a></li>
                     <li><a href="/nearby/">最近車站</a></li>
                     <li><a href="/running/">行駛中</a></li>
                     <li data-uk-dropdown="{mode:'click'}" class="uk-active">
@@ -215,7 +220,28 @@
 
             <article class="uk-article">
 
-                <p class="uk-article-lead uk-text-bold">列車資訊</p>
+                {% if checkins.count != 0 %}
+                    <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-trophy "></i> 排行榜</p>
+                {% endif %}
+
+                {% load dictionary_extras %}
+                    <div class="uk-margin-left uk-article-lead">
+                        {% for i in top_checkins_range %}
+                            <img id="img_{{ top_checkins|get_user:i }}" class="uk-icon-button-40 uk-animation-scale-up" width="40px" height="40px" src="https://graph.facebook.com/{{ top_checkins|get_user:i }}/picture?type=square" alt="">
+                                簽到<span class="uk-text-bold uk-text-sky-blue"> {{ top_checkins|get_count:i }} </span>次，是本車的
+                                <span class="uk-text-bold uk-text-sky-blue">
+                                    {% if i == 0 %}
+                                        列車長
+                                    {% elif i == 1 %}
+                                        駕駛員
+                                    {% else %}
+                                        服務員
+                                    {% endif %}
+                                </span>
+                        {% endfor %}
+                    </div>
+
+                <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-info-circle "></i> 列車資訊</p>
 
                 <div class="uk-margin-left uk-article-lead">
 
@@ -247,28 +273,26 @@
                     {% endif %}
                 </div>
 
-                <p class="uk-article-lead uk-text-bold">
-                    簽到簿
-                </p>
+                <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 簽到簿</p>
 
                 <div class="uk-margin-left uk-article-lead">
                     <p>
                     {% if checked %}
-                       <a class="uk-icon checked" href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
-                            <i id="checkin_icon" class="fa fa-lg fa-flag "></i>
+                       <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
+                            <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
                         </a>
                     {% else %}
-                        <a class="uk-icon uk-text-muted" href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true);">
-                            <i id="checkin_icon" class="fa fa-lg fa-flag-o "></i>
+                        <a class="uk-icon uk-text-muted " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true);">
+                            <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
                         </a>
                     {% endif %}
                     {% if checkins.count == 0 %}
                         還沒有人簽到此列車，來成為第一個簽到者!
                     {% else %}
                         {% if checked %}
-                            包含您在內，已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到
+                            包含您在內，已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了
                         {% else %}
-                            已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到，您也來簽到吧
+                            已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了，您也來簽到吧
                         {% endif %}
                     {% endif %}
                     </p>
@@ -281,7 +305,7 @@
                     {%  endfor %}
                </div>
 
-                <p class="uk-article-lead uk-text-bold">到站時刻表</p>
+                <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-clock-o"></i> 到站時刻表</p>
 
                 <div class="uk-margin-left">
                     <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
@@ -307,7 +331,7 @@
                     </table>
                 </div>
 
-                <p class="uk-article-lead uk-text-bold">各站資訊</p>
+                <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-building-o"></i> 各站資訊</p>
 
                 <div class="uk-grid">
                     {% for schedule in schedule_list %}

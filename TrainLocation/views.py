@@ -76,9 +76,12 @@ def show_train_schedule(request, train_id):
         if users.count() > 0:
             user = users[0]
             curr_checkins = TrainCheckIn.objects.filter(user=user, train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
-            print curr_checkins
             if curr_checkins.count() > 0:
                 checked = True
+
+    top_checkins = TrainCheckIn.objects.values('user').annotate(
+        checkin_count=models.Count("user")
+    ).filter(train=train).order_by("-checkin_count")[:3]
 
     return render_to_response("train.html", {"schedule_list": schedule_list,
                                              "station_list": station_list,
@@ -88,6 +91,8 @@ def show_train_schedule(request, train_id):
                                              "user_form": UserForm(),
                                              "checkins": checkins,
                                              "checked": checked,
+                                             "top_checkins": top_checkins,
+                                             'top_checkins_range': range(top_checkins.count()),
                                              "direction_id": train.direction})
 
 
