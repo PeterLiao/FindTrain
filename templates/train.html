@@ -329,6 +329,8 @@
 
                 {% if train.is_started and not train.is_stopped %}
                     <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 本日簽到簿</p>
+                {% elif not train.is_started and not train.is_stopped%}
+                    <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 本日簽到簿(尚未開始)</p>
                 {% else %}
                     <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 本日簽到簿(已結束)</p>
                 {% endif %}
