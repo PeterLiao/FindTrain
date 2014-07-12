@@ -353,12 +353,12 @@
                         {% endif %}
                     {% else %}
                         {% if checked %}
-                            包含您在內，已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了
+                            包含您在內，已經有<span class="uk-text-bold uk-text-sky-blue"> {{ curr_checkins.count }} </span>位乘客簽到了
                         {% else %}
                             {% if train.is_started and not train.is_stopped%}
-                                今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了，您也來簽到吧
+                                今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ curr_checkins.count }} </span>位乘客簽到了，您也來簽到吧
                             {% else %}
-                                今天共有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到
+                                今天共有<span class="uk-text-bold uk-text-sky-blue"> {{ curr_checkins.count }} </span>位乘客簽到
                             {% endif %}
                         {% endif %}
                     {% endif %}

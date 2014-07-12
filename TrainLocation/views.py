@@ -72,6 +72,7 @@ def show_train_schedule(request, train_id):
     checkins = TrainCheckIn.objects.filter(train=train)
     checked = False
     user = None
+    curr_checkins = None
     if user_id != 0:
         users = User.objects.filter(fb_id=user_id)
         if users.count() > 0:
@@ -94,6 +95,7 @@ def show_train_schedule(request, train_id):
                                              "checked": checked,
                                              "top_checkins": top_checkins,
                                              "user": user,
+                                             "curr_checkins": curr_checkins,
                                              'top_checkins_range': range(top_checkins.count()),
                                              "direction_id": train.direction})
 
