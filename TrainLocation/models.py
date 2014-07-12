@@ -44,13 +44,13 @@ class Train(models.Model):
             return get_formatted_timedelta_by_now(self.arrive_time)
 
     def is_stopped(self):
-        if self.arrive_time > get_local_now():
+        if self.arrive_time >= get_local_now():
             return False
         else:
             return True
 
     def is_started(self):
-        if self.departure_time > get_local_now():
+        if self.departure_time <= get_local_now():
             return True
         else:
             return False
