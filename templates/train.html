@@ -282,7 +282,7 @@
                     <div class="uk-margin-left uk-article-lead">
                         {% for i in top_checkins_range %}
                             <img id="img_{{ top_checkins|get_user:i }}" class="uk-icon-button-40 uk-animation-scale-up" width="40px" height="40px" src="https://graph.facebook.com/{{ top_checkins|get_user:i }}/picture?type=square" alt="">
-                                共簽到了此列車<span class="uk-text-bold uk-text-sky-blue"> {{ top_checkins|get_count:i }} </span>次，是本車的
+                                {{ user.name }} 總共簽到了此列車<span class="uk-text-bold uk-text-sky-blue"> {{ top_checkins|get_count:i }} </span>次，是本車的
                                 <span class="uk-text-bold uk-text-sky-blue">
                                     {% if i == 0 %}
                                         列車長
@@ -327,8 +327,11 @@
                     {% endif %}
                 </div>
 
-                <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 本日簽到簿</p>
-
+                {% if train.is_started and not train.is_stopped %}
+                    <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 本日簽到簿</p>
+                {% else %}
+                    <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-pencil-square-o "></i> 本日簽到簿(已結束)</p>
+                {% endif %}
                 <div class="uk-margin-left uk-article-lead">
                     <p>
                     {% if train.is_started and not train.is_stopped %}
@@ -355,7 +358,7 @@
                             {% if train.is_started and not train.is_stopped%}
                                 今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了，您也來簽到吧
                             {% else %}
-                                今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了
+                                今天共有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到
                             {% endif %}
                         {% endif %}
                     {% endif %}
