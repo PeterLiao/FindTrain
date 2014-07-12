@@ -62,7 +62,7 @@ def show_train_schedule(request, train_id):
     schedule_list = TrainSchedule.objects.filter(train=train)
     station_list = TrainStation.objects.all()
     d = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
-    running_schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=get_local_now(), departure_time__lte=get_local_now()).exclude(arrive_time=d).order_by("arrive_time")
+    running_schedule_list = TrainSchedule.objects.filter(train=train, arrive_time__gte=get_local_now()).exclude(arrive_time=d).order_by("arrive_time")
     running_schedule = None
     if len(running_schedule_list) > 0:
         running_schedule = running_schedule_list[0]

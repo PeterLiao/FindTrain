@@ -301,9 +301,9 @@
 
 
 
-                    {% if running_schedule %}
+                    {% if train.is_started and not train.is_stopped %}
 
-                        你現在搭乘的列車為
+                        行駛中的列車為
                         <span class="uk-text-bold uk-text-sky-blue"> {{ train.train_number }} </span>車次
                             {% if direction_id == 0 %}
                                 <span class="uk-text-bold uk-text-sky-blue"> 北上列車 </span>
@@ -331,7 +331,7 @@
 
                 <div class="uk-margin-left uk-article-lead">
                     <p>
-                    {% if running_schedule %}
+                    {% if train.is_started and not train.is_stopped %}
                         {% if checked %}
                            <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
                                 <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
@@ -343,7 +343,7 @@
                         {% endif %}
                     {% endif %}
                     {% if checkins.count == 0 %}
-                        {% if running_schedule %}
+                        {% if train.is_started and not train.is_stopped%}
                             還沒有人簽到此列車，來成為第一個簽到者!
                         {% else %}
                             沒有人簽到此列車
@@ -352,7 +352,7 @@
                         {% if checked %}
                             包含您在內，已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了
                         {% else %}
-                            {% if running_schedule %}
+                            {% if train.is_started and not train.is_stopped%}
                                 今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了，您也來簽到吧
                             {% else %}
                                 今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ checkins.count }} </span>位乘客簽到了

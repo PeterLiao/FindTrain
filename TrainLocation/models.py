@@ -49,10 +49,17 @@ class Train(models.Model):
         else:
             return True
 
+    def is_started(self):
+        if self.departure_time > get_local_now():
+            return True
+        else:
+            return False
+
     departure_time_str = property(get_departure_str)
     arrive_time_str = property(get_arrive_str)
     arrive_timedelta_str = property(get_arrive_timedelta_str)
     is_stopped = property(is_stopped)
+    is_started = property(is_started)
 
 
 class TrainStation(models.Model):
