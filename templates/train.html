@@ -336,6 +336,7 @@
                 {% endif %}
                 <div class="uk-margin-left uk-article-lead">
                     <p>
+
                     {% if train.is_started and not train.is_stopped %}
                         {% if checked %}
                            <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
@@ -347,13 +348,17 @@
                             </a>
                         {% endif %}
                     {% endif %}
-                    {% if checkins.count == 0 %}
+
+                    {% if curr_checkins.count == 0 %}
+
                         {% if train.is_started and not train.is_stopped%}
                             還沒有人簽到此列車，來成為第一個簽到者!
                         {% else %}
                             沒有人簽到此列車
                         {% endif %}
+
                     {% else %}
+
                         {% if checked %}
                             包含您在內，已經有<span class="uk-text-bold uk-text-sky-blue"> {{ curr_checkins.count }} </span>位乘客簽到了
                         {% else %}
@@ -363,7 +368,9 @@
                                 今天共有<span class="uk-text-bold uk-text-sky-blue"> {{ curr_checkins.count }} </span>位乘客簽到
                             {% endif %}
                         {% endif %}
+
                     {% endif %}
+
                     </p>
                 </div>
 
