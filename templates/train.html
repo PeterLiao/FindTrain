@@ -417,14 +417,14 @@
                                             <hr/>
                                             {% if schedule.is_day%}
                                                 <tr><td align="left" width="45%">天氣概況:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_wx }}</td></tr>
-                                                <tr><td align="left" width="45%">氣溫(°C):</td><td align="right" width="55%">{{ schedule.train_station.weather.day_mint }} ~ {{ schedule.train_station.weather.day_maxt }}</td></tr>
-                                                <tr><td align="left" width="45%">舒適度:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_ci }}</td></tr>
-                                                <tr><td align="left" width="45%">降雨機率(%):</td><td align="right" width="55%">{{ schedule.train_station.weather.day_pop }}</td></tr>
+                                                <tr><td align="left" width="45%">氣溫:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_mint }} ~ {{ schedule.train_station.weather.day_maxt }}°C</td></tr>
+                                                <!--tr><td align="left" width="45%">舒適度:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_ci }}</td></tr-->
+                                                <tr><td align="left" width="45%">降雨機率:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_pop }}%</td></tr>
                                             {% else %}
                                                 <tr><td align="left" width="45%">天氣概況:</td><td align="right" width="55%">{{ schedule.train_station.weather.night_wx }}</td></tr>
-                                                <tr><td align="left" width="45%">氣溫(°C):</td><td align="right" width="55%">{{ schedule.train_station.weather.night_mint }} ~ {{ schedule.train_station.weather.night_maxt }}</td></tr>
-                                                <tr><td align="left" width="45%">舒適度:</td><td align="right" width="55%">{{ schedule.train_station.weather.night_ci }}</td></tr>
-                                                <tr><td align="left" width="45%">降雨機率(%):</td><td align="right" width="55%">{{ schedule.train_station.weather.night_pop }}</td></tr>
+                                                <tr><td align="left" width="45%">氣溫:</td><td align="right" width="55%">{{ schedule.train_station.weather.night_mint }} ~ {{ schedule.train_station.weather.night_maxt }}°C</td></tr>
+                                                <!--tr><td align="left" width="45%">舒適度:</td><td align="right" width="55%">{{ schedule.train_station.weather.night_ci }}</td></tr-->
+                                                <tr><td align="left" width="45%">降雨機率:</td><td align="right" width="55%">{{ schedule.train_station.weather.night_pop }}%</td></tr>
                                             {% endif %}
                                         </table>
                                     {% endif %}
