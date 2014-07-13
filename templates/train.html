@@ -364,6 +364,8 @@
                         {% else %}
                             {% if train.is_started and not train.is_stopped%}
                                 今天已經有<span class="uk-text-bold uk-text-sky-blue"> {{ curr_checkins.count }} </span>位乘客簽到了，您也來簽到吧
+                            {% elif not train.is_started and not train.is_stopped%}
+                                列車尚未行駛，無法提供簽到服務
                             {% else %}
                                 今天共有<span class="uk-text-bold uk-text-sky-blue"> {{ curr_checkins.count }} </span>位乘客簽到
                             {% endif %}
