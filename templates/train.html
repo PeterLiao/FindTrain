@@ -136,30 +136,6 @@
         }
         else {
             fb_post_msg(checkin);
-
-            var action_url = '/checkin/add/{{ train.train_number }}';
-            if(!checkin)
-                action_url = '/checkin/delete/{{ train.train_number }}';
-            $.ajax({
-                  type: 'GET',
-                  url: action_url,
-                  success: function(data)
-                  {
-                      console.log(data);
-                      if(data["result"] == 3)
-                      {
-                          popup_cehckin_alert("此列車目前未提供服務，無法簽到喔");
-                      }
-                      if(data["result"] == 0) {
-                          window.location.href = "/train/{{ train.train_number }}";
-                      }
-                  },
-                  error: function(err)
-                  {
-                      console.log(err);
-                      popup_cehckin_alert(err.toString());
-                  }
-            });
         }
     }
      function fb_post_msg(checkin) {
@@ -188,6 +164,29 @@
                  }
                }
              );
+            var action_url = '/checkin/add/{{ train.train_number }}';
+            if(!checkin)
+                action_url = '/checkin/delete/{{ train.train_number }}';
+            $.ajax({
+                  type: 'GET',
+                  url: action_url,
+                  success: function(data)
+                  {
+                      console.log(data);
+                      if(data["result"] == 3)
+                      {
+                          popup_cehckin_alert("此列車目前未提供服務，無法簽到喔");
+                      }
+                      if(data["result"] == 0) {
+                          window.location.href = "/train/{{ train.train_number }}";
+                      }
+                  },
+                  error: function(err)
+                  {
+                      console.log(err);
+                      popup_cehckin_alert(err.toString());
+                  }
+            });
      }
 
 </script>
