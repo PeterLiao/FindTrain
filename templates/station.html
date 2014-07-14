@@ -8,6 +8,10 @@
     <script src="../../static/uikit-2.6.0/js/uikit.min.js"></script>
     <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.gradient.min.css" />
     <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.gradient.css" />
+    <link rel="stylesheet" href="../../static/common.css" />
+    <link rel="stylesheet" href="../../static/font-awesome-4.1.0/css/font-awesome.css" />
+    <script src="../../static/fb.js"></script>
+    <script src="../../static/carhartl-jquery-cookie-92b7715/jquery.cookie.js"></script>
 </head>
 <body>
 <script>
@@ -19,7 +23,175 @@
   ga('create', 'UA-52264439-1', 'pythonanywhere.com');
   ga('send', 'pageview');
 
+        var modal;
+    var checkin_modal;
+
+    function fb_status_change_callback(fb_connected, response_data)
+    {
+        if(fb_connected)
+        {
+            $.cookie('user_id', '' + response_data.authResponse.userID, {path: '/'});
+            if(modal && modal.isActive()) {
+                modal.hide();
+            }
+            $("#logout_btn").css("display", "")
+        }
+        else
+        {
+            $.removeCookie('user_id', { path: '/' });
+            $("#logout_btn").css("display", "none")
+        }
+    }
+    function fb_profile_ready_callback(response_data)
+    {
+        $("#user_form")[0].id_name.value = response_data.name;
+        $("#user_form")[0].id_email.value = response_data.email;
+        $("#user_form")[0].id_user_id.value = response_data.id;
+
+        $.ajax({
+              type: 'POST',
+              url: '/user/add/',
+              data: $("#user_form").serialize(),
+              success: function(data)
+              {
+                  console.log(data);
+              },
+              error: function(err)
+              {
+                  console.log(err);
+              }
+            });
+    }
+    function fb_login_callback(fb_logged, response_data)
+    {
+        fb_status_change_callback(fb_logged, response_data);
+        window.location.reload();
+    }
+    function fb_logout_callback()
+    {
+        fb_status_change_callback(false,{});
+        window.location.reload();
+    }
+
+    function isLogged()
+    {
+        var user_id = $.cookie('user_id');
+        var logged = (user_id == null)? false : true;
+        return logged;
+    }
+    function btn_on_mouse_over(self)
+    {
+        if(self.className.indexOf('checked') < 0) {
+            self.className = self.className.split(" uk-text-muted").join("");
+            self.className = self.className + " uk-text-danger";
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag-o ").join("");
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag ";
+        } else {
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag ").join("");
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag-o ";
+            self.className = self.className.split(" uk-text-danger").join("");
+            self.className = self.className + " uk-text-muted";
+        }
+    }
+    function btn_on_mouse_out(self)
+    {
+        if(self.className.indexOf('checked') >= 0) {
+            self.className = self.className.split(" uk-text-muted").join("");
+            self.className = self.className + " uk-text-danger";
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag-o ").join("");
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag ";
+        } else {
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className.split(" fa-flag ").join("");
+            //$("#checkin_icon")[0].className = $("#checkin_icon")[0].className + " fa-flag-o ";
+            self.className = self.className.split(" uk-text-danger").join("");
+            self.className = self.className + " uk-text-muted";
+        }
+    }
+    function checkIn(self, checkin, train_number)
+    {
+        if(!isLogged())
+        {
+            if(!modal)
+                modal = new $.UIkit.modal.Modal("#popup_alert");
+            if( modal.isActive() == false)
+            {
+                modal.show();
+            }
+        }
+        else {
+            if(checkin)
+                fb_post_msg(checkin, train_number);
+            else
+                do_checkin(checkin, train_number);
+        }
+    }
+    function do_checkin(checkin, train_number)
+    {
+            var action_url = '/checkin/add/' + train_number;
+            if(!checkin)
+                action_url = '/checkin/delete/' + train_number;
+            $.ajax({
+                  type: 'GET',
+                  url: action_url,
+                  success: function(data)
+                  {
+                      console.log(data);
+                      if(data["result"] == 3)
+                      {
+                          popup_cehckin_alert("此列車目前未提供服務，無法簽到喔");
+                      }
+                      if(data["result"] == 0) {
+                          window.location.reload()
+                      }
+                  },
+                  error: function(err)
+                  {
+                      console.log(err);
+                      popup_cehckin_alert(err.toString());
+                  }
+            });
+    }
+     function fb_post_msg(checkin, train_number) {
+               FB.ui(
+               {
+                 method: 'stream.publish',
+                 message: 'this is message',
+                 attachment: {
+                   name: 'FindTrain',
+                   caption: '{{ user.name }} 正在搭乘高鐵' + train_number + '車次{% if direction == 0 %}北上{% else %}南下{% endif %}列車',
+                   href: 'http://petercliao.pythonanywhere.com/train/' + train_number
+                 },
+                 action_links: [
+                   { text: 'Code', href: 'action url here' }
+                 ],
+                 user_prompt_message: 'Personal message here'
+               },
+               function(response) {
+                 if (response && response.post_id) {
+                   console.log('Post was published.');
+                     do_checkin(checkin, train_number);
+                 } else {
+                   console.log('Post was not published.');
+                     do_checkin(checkin, train_number);
+                 }
+               }
+             );
+     }
 </script>
+<!-- This is the modal -->
+<div id="popup_alert" class="uk-modal">
+    <div class="uk-modal-dialog uk-text-center uk-article-lead">
+        <a class="uk-modal-close uk-close"></a>
+        <p>請先登入再打卡喔</p>
+        <button class="uk-button uk-button-primary" onclick="loginToFB()">登入facebook</button>
+    </div>
+</div>
+<div id="checkin_alert" class="uk-modal">
+    <div class="uk-modal-dialog uk-text-center uk-article-lead">
+        <a class="uk-modal-close uk-close"></a>
+        <p id="checkin_msg"></p>
+    </div>
+</div>
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 <div class="uk-grid" data-uk-grid-margin="">
 <div class="uk-width-medium-1-1">
@@ -76,20 +248,60 @@
                 <th>下一個停靠站</th>
                 <th>時間</th>
                 <th>剩餘時間</th>
+                <th><i class="fa fa-1x fa-pencil-square-o "></i> 簽到</th>
             </tr>
         </thead>
         <tbody>
-            {% for schedule in schedule_list %}
+            {% for item in schedule_list_ex %}
                 <tr>
-                    <td><a href = '/train/{{ schedule.train.train_number }}'>{{ schedule.train.train_number }}</a></td>
-                    {% if schedule.direction == 0 %}
+                    <td><a href = '/train/{{ item.schedule.train.train_number }}'>{{ item.schedule.train.train_number }}</a></td>
+                    {% if item.schedule.direction == 0 %}
                         <td>北上</td>
                         {% else %}
                         <td>南下</td>
                     {% endif %}
-                    <td>{{ schedule.train_station.name }}</td>
-                    <td>{{ schedule.arrive_time_str }}</td>
-                    <td>{{ schedule.arrive_timedelta_str }}</td>
+                    <td><a href = '/station/{{ item.schedule.train_station.id }}'>{{ item.schedule.train_station.name }}</a></td>
+                    <td>{{ item.schedule.arrive_time_str }}</td>
+                    <td>{{ item.schedule.arrive_timedelta_str }}</td>
+                    <td>
+                        {% if item.schedule.train.is_started and not item.schedule.train.is_stopped %}
+                            {% if item.checked %}
+                               <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false, '{{ item.schedule.train.train_number }}');">
+                                    <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
+                                </a>
+                            {% else %}
+                                <a class="uk-icon uk-text-muted " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true, '{{ item.schedule.train.train_number }}');">
+                                    <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if item.checkins.count == 0 %}
+
+                            {% if item.schedule.train.is_started and not item.schedule.train.is_stopped%}
+                                來成為第一個簽到者
+                            {% elif not item.schedule.train.is_started and not item.schedule.train.is_stopped%}
+                                尚未發車
+                            {% else %}
+                                沒有人簽到此列車
+                            {% endif %}
+
+                        {% else %}
+
+                                {% if item.schedule.train.is_started and not item.schedule.train.is_stopped%}
+                                        {% if item.checked %}
+                                            包含您已有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到
+                                        {% else %}
+                                            已有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到，您也來簽到吧
+                                        {% endif %}
+                                {% elif not item.schedule.train.is_started and not item.schedule.train.is_stopped%}
+                                    列車尚未行駛，無法提供簽到
+                                {% else %}
+                                    今天共有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到
+                                {% endif %}
+
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
