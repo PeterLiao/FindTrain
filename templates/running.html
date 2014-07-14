@@ -288,17 +288,16 @@
 
                         {% else %}
 
-                            {% if item.checked %}
-                                包含您已有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到
-                            {% else %}
                                 {% if item.schedule.train.is_started and not item.schedule.train.is_stopped%}
-                                    已有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到，您也來簽到吧
+                                        {% if item.checked %}
+                                            包含您已有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到
+                                        {% else %}
+                                            已有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到，您也來簽到吧
+                                        {% endif %}
                                 {% elif not item.schedule.train.is_started and not item.schedule.train.is_stopped%}
                                     列車尚未行駛，無法提供簽到
                                 {% else %}
                                     今天共有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到
-                                {% endif %}
-                            {% endif %}
 
                         {% endif %}
                     </td>
