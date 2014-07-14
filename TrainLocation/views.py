@@ -30,14 +30,34 @@ class HTTP_STATUS:
 
 @csrf_exempt
 def show_running_train(request):
+    user_id = 0
+    if 'user_id' in request.COOKIES:
+        user_id = request.COOKIES.get('user_id')
+    user = None
+    if user_id != 0:
+        users = User.objects.filter(fb_id=user_id)
+        if users.count() > 0:
+            user = users[0]
+
     direction = Direction.NORTH
     direction_str = request.GET.get('direction')
     if direction_str:
         direction = int(direction_str)
     schedule_list = get_running_train_schedule_by_direction(direction)
     station_list = TrainStation.objects.all().order_by("-latitude")
+    schedule_list_ex = []
+    for schedule in schedule_list:
+        checkins = TrainCheckIn.objects.filter(train=schedule.train)
+        checked = False
+        if user:
+            your_checkins = TrainCheckIn.objects.filter(user=user, train=schedule.train, pub_date__lte=schedule.train.arrive_time, pub_date__gte=schedule.train.departure_time)
+            if your_checkins.count() > 0:
+                checked = True
+        schedule_list_ex.append({"schedule": schedule, "checkins": checkins, "checked": checked})
+
     return render_to_response("running.html", {"schedule_list": schedule_list,
                                                "direction": direction,
+                                               "schedule_list_ex": schedule_list_ex,
                                                "station_list": station_list})
 
 
@@ -72,13 +92,13 @@ def show_train_schedule(request, train_id):
     checkins = TrainCheckIn.objects.filter(train=train)
     checked = False
     user = None
-    curr_checkins = None
+    curr_checkins = TrainCheckIn.objects.filter(train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
     if user_id != 0:
         users = User.objects.filter(fb_id=user_id)
         if users.count() > 0:
             user = users[0]
-            curr_checkins = TrainCheckIn.objects.filter(user=user, train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
-            if curr_checkins.count() > 0:
+            your_checkins = TrainCheckIn.objects.filter(user=user, train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
+            if your_checkins.count() > 0:
                 checked = True
 
     top_checkins = TrainCheckIn.objects.values('user').annotate(
