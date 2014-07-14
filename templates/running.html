@@ -298,6 +298,7 @@
                                     列車尚未行駛，無法提供簽到
                                 {% else %}
                                     今天共有<a href = '/train/{{ item.schedule.train.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ item.checkins.count }} </span>位乘客</a>簽到
+                                {% endif %}
 
                         {% endif %}
                     </td>
