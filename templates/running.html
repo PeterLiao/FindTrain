@@ -119,7 +119,10 @@
             }
         }
         else {
-            fb_post_msg(checkin, train_number);
+            if(checkin)
+                fb_post_msg(checkin, train_number);
+            else
+                do_checkin(checkin, train_number);
         }
     }
     function do_checkin(checkin, train_number)

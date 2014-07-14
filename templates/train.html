@@ -135,7 +135,10 @@
             }
         }
         else {
-            fb_post_msg(checkin);
+            if(checkin)
+                fb_post_msg(checkin);
+            else
+                do_checkin(checkin);
         }
     }
     function do_checkin(checkin)
