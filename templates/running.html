@@ -119,7 +119,7 @@
             }
         }
         else {
-            fb_post_msg(checkin);
+            fb_post_msg(checkin, train_number);
 
             var action_url = '/checkin/add/' + train_number;
             if(!checkin)
@@ -146,18 +146,15 @@
             });
         }
     }
-     function fb_post_msg(checkin) {
+     function fb_post_msg(checkin, train_number) {
                FB.ui(
                {
                  method: 'stream.publish',
                  message: 'this is message',
                  attachment: {
                    name: 'FindTrain',
-                   caption: '{{ user.name }} 正在搭乘高鐵{% if direction_id == 0 %}北上{% else %}南下{% endif %}列車',
-                   description: (
-                     '列車車次為{{ train.train_number }}，下一個停靠站是{{ running_schedule.train_station.name }}，終點站是{{ end_station.name }}'
-                   ),
-                   href: 'http://petercliao.pythonanywhere.com/train/{{ train.train_number }}'
+                   caption: '{{ user.name }} 正在搭乘高鐵' + train_number + '車次{% if direction == 0 %}北上{% else %}南下{% endif %}列車',
+                   href: 'http://petercliao.pythonanywhere.com/train/' + train_number
                  },
                  action_links: [
                    { text: 'Code', href: 'action url here' }

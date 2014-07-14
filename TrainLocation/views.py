@@ -58,6 +58,7 @@ def show_running_train(request):
     return render_to_response("running.html", {"schedule_list": schedule_list,
                                                "direction": direction,
                                                "schedule_list_ex": schedule_list_ex,
+                                               "user": user,
                                                "station_list": station_list})
 
 
