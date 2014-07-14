@@ -122,30 +122,8 @@
             fb_post_msg(checkin, train_number);
         }
     }
-     function fb_post_msg(checkin, train_number) {
-               FB.ui(
-               {
-                 method: 'stream.publish',
-                 message: 'this is message',
-                 attachment: {
-                   name: 'FindTrain',
-                   caption: '{{ user.name }} 正在搭乘高鐵' + train_number + '車次{% if direction == 0 %}北上{% else %}南下{% endif %}列車',
-                   href: 'http://petercliao.pythonanywhere.com/train/' + train_number
-                 },
-                 action_links: [
-                   { text: 'Code', href: 'action url here' }
-                 ],
-                 user_prompt_message: 'Personal message here'
-               },
-               function(response) {
-                 if (response && response.post_id) {
-                   console.log('Post was published.');
-                 } else {
-                   console.log('Post was not published.');
-                 }
-               }
-             );
-
+    function do_checkin(checkin, train_number)
+    {
             var action_url = '/checkin/add/' + train_number;
             if(!checkin)
                 action_url = '/checkin/delete/' + train_number;
@@ -169,6 +147,32 @@
                       popup_cehckin_alert(err.toString());
                   }
             });
+    }
+     function fb_post_msg(checkin, train_number) {
+               FB.ui(
+               {
+                 method: 'stream.publish',
+                 message: 'this is message',
+                 attachment: {
+                   name: 'FindTrain',
+                   caption: '{{ user.name }} 正在搭乘高鐵' + train_number + '車次{% if direction == 0 %}北上{% else %}南下{% endif %}列車',
+                   href: 'http://petercliao.pythonanywhere.com/train/' + train_number
+                 },
+                 action_links: [
+                   { text: 'Code', href: 'action url here' }
+                 ],
+                 user_prompt_message: 'Personal message here'
+               },
+               function(response) {
+                 if (response && response.post_id) {
+                   console.log('Post was published.');
+                     do_checkin(checkin, train_number);
+                 } else {
+                   console.log('Post was not published.');
+                     do_checkin(checkin, train_number);
+                 }
+               }
+             );
      }
 </script>
 <!-- This is the modal -->
