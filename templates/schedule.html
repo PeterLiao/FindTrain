@@ -59,6 +59,7 @@
                     </ul>
                 </div>
             </li>
+            <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
         </ul>
     </nav>
     <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
@@ -73,6 +74,7 @@
                 {% for station in station_list %}
                     <th>{{ station.name }}</th>
                 {% endfor %}
+                <th><i class="fa fa-1x fa-pencil-square-o "></i> 簽到</th>
             </tr>
         </thead>
         {% regroup schedule_list by train as train_list %}

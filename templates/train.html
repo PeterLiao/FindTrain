@@ -266,11 +266,11 @@
                                 {{ user.name }} 總共簽到了此列車<span class="uk-text-bold uk-text-sky-blue"> {{ top_checkins|get_count:i }} </span>次，是本車的
                                 <span class="uk-text-bold uk-text-sky-blue">
                                     {% if i == 0 %}
-                                        列車長
+                                        冠軍
                                     {% elif i == 1 %}
-                                        駕駛員
+                                        亞軍
                                     {% else %}
-                                        服務員
+                                        季軍
                                     {% endif %}
                                 </span>
                         {% endfor %}
