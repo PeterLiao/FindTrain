@@ -55,11 +55,15 @@ class Train(models.Model):
         else:
             return False
 
+    def curr_checkins(self):
+        return TrainCheckIn.objects.filter(train=self, pub_date__lte=self.arrive_time, pub_date__gte=self.departure_time)
+
     departure_time_str = property(get_departure_str)
     arrive_time_str = property(get_arrive_str)
     arrive_timedelta_str = property(get_arrive_timedelta_str)
     is_stopped = property(is_stopped)
     is_started = property(is_started)
+    curr_checkins = property(curr_checkins)
 
 
 class TrainStation(models.Model):

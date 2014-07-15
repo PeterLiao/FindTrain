@@ -12,8 +12,12 @@ def get_count(value, arg):
     return value[int(arg)]['checkin_count']
 
 
-@register.filter(name='get_list_count_by_index')
-def get_list_count_by_index(value, arg):
-    checkins =  value[int(arg)]
-    return checkins.count()
+@register.filter(name='get_checked')
+def get_checked(value, arg):
+    checked = False
+    for item in value:
+        if item['train_number'] == arg:
+            checked = item['checked']
+            break
+    return checked
 

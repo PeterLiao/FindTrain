@@ -64,13 +64,34 @@ def show_running_train(request):
 
 @csrf_exempt
 def show_trains_schedule(request, direction_id):
+    user_id = 0
+    if 'user_id' in request.COOKIES:
+        user_id = request.COOKIES.get('user_id')
+    user = None
+    if user_id != 0:
+        users = User.objects.filter(fb_id=user_id)
+        if users.count() > 0:
+            user = users[0]
+
     direction = int(direction_id)
     schedule_list = TrainSchedule.objects.filter(direction=direction)
     station_list = TrainStation.objects.all()
     if direction == Direction.SOUTH:
         station_list = station_list.order_by("-latitude")
+
+    checked_list = []
+    for schedule in schedule_list:
+        checkins = TrainCheckIn.objects.filter(train=schedule.train)
+        checked = False
+        if user:
+            your_checkins = TrainCheckIn.objects.filter(user=user, train=schedule.train, pub_date__lte=schedule.train.arrive_time, pub_date__gte=schedule.train.departure_time)
+            if your_checkins.count() > 0:
+                checked = True
+        checked_list.append({"train_number": schedule.train.train_number, "checked": checked})
+
     return render_to_response("schedule.html", {"schedule_list": schedule_list,
                                                 "station_list": station_list,
+                                                "checked_list": checked_list,
                                                 "direction_id": direction})
 
 @csrf_exempt
