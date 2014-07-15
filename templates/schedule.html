@@ -276,6 +276,8 @@
 
                                 {% if train.grouper.is_started and not train.grouper.is_stopped%}
                                     來成為第一個簽到者
+                                {% elif not train.grouper.is_started and not train.grouper.is_stopped%}
+                                    尚未發車
                                 {% else %}
                                     沒有人簽到此列車
                                 {% endif %}
