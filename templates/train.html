@@ -264,7 +264,7 @@
                     <div class="uk-margin-left uk-article-lead">
                         {% for i in top_checkins_range %}
                             <img id="img_{{ top_checkins|get_user:i }}" class="uk-icon-button-40 uk-animation-scale-up" width="40px" height="40px" src="https://graph.facebook.com/{{ top_checkins|get_user:i }}/picture?type=square" alt="">
-                                {{ user.name }} 總共簽到了此列車<span class="uk-text-bold uk-text-sky-blue"> {{ top_checkins|get_count:i }} </span>次，目前是本次列車的
+                                共簽到了此列車<span class="uk-text-bold uk-text-sky-blue"> {{ top_checkins|get_count:i }} </span>次，目前是本次列車的
                                 <span class="uk-text-bold uk-text-sky-blue">
                                     {% if i == 0 %}
                                         冠軍
