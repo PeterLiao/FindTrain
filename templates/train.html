@@ -6,9 +6,9 @@
     <title>你搭哪班車</title>
     <script src="../../static/jquery.js"></script>
     <script src="../../static/uikit-2.6.0/js/uikit.min.js"></script>
-    <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.gradient.min.css" />
+    <!--link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.gradient.min.css" /-->
     <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.gradient.css" />
-    <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.docs.min.css" />
+    <!--link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.docs.min.css" /-->
     <link rel="stylesheet" href="../../static/common.css" />
     <link rel="stylesheet" href="../../static/font-awesome-4.1.0/css/font-awesome.css" />
     <script src="../../static/fb.js"></script>
@@ -212,6 +212,7 @@
         <p id="checkin_msg"></p>
     </div>
 </div>
+
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
     <div class="uk-grid" data-uk-grid-margin="">
 
@@ -395,15 +396,19 @@
                 <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-building-o"></i> 各站資訊</p>
 
                 <div class="uk-grid">
+
                     {% for schedule in schedule_list %}
                         <div class="uk-width-medium-1-4">
+
                             <div class="uk-thumbnail" width="100%">
+
                                 <div class="uk-overlay">
                                         <img src="/static/img/{{ schedule.train_station.name }}.jpg" width="400" height="200" alt="" {% if schedule.is_passed %} class="grayImg" {% endif %}>
-                                        <div class="uk-overlay-caption">{{ schedule.train_station.name }}</div>
+                                        <div class="uk-overlay-caption-no-hover">{{ schedule.train_station.name }}</div>
                                 </div>
+
                                 <div class="uk-thumbnail-caption {% if schedule.is_passed %}uk-text-muted{% endif %}">
-                                    <span class="uk-text-bold">{{ schedule.train_station.name }}</span> - {% if schedule.arrive_time_str == " - " %}不停靠{% elif schedule.is_passed%}已經過站{% else %}還有<span class="uk-text-primary uk-text-bold">{{ schedule.arrive_timedelta_str }}</span>抵達{% endif %}<br>
+                                    {% if schedule.arrive_time_str == " - " %}不停靠{% elif schedule.is_passed%}已經過站{% else %}還有<span class="uk-text-primary uk-text-bold">{{ schedule.arrive_timedelta_str }}</span>抵達{% endif %}<br>
                                     {% if not schedule.is_passed %}
                                         <table width="100%">
                                             <hr/>

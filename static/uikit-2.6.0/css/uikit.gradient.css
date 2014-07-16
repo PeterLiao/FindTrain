@@ -5236,6 +5236,7 @@ a.uk-thumbnail:focus {
  * Hover
  * 1. Use optional `uk-overlay-toggle` to trigger the overlay earlier
  */
+
 .uk-overlay:hover .uk-overlay-caption,
 .uk-overlay-toggle:hover .uk-overlay-caption {
   opacity: 1;
@@ -6843,4 +6844,21 @@ a.uk-thumbnail:focus {
   h3 {
     page-break-after: avoid;
   }
+}
+
+.uk-overlay-caption-no-hover {
+  /* 1 */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* 2 */
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  /* 3 */
+  opacity: 1;
+  -webkit-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+  -webkit-transform: translate3d(0, 0, 0);
 }
