@@ -404,10 +404,17 @@
 
                                 <div class="uk-overlay">
                                         <img src="/static/img/{{ schedule.train_station.name }}.jpg" width="400" height="200" alt="" {% if schedule.is_passed %} class="grayImg" {% endif %}>
-                                        <div class="uk-overlay-caption-no-hover">{{ schedule.train_station.name }}</div>
+                                        <div class="uk-overlay-caption-no-hover">
+                                            <table width="100%"><tr>
+                                                <td align="left" width="100%">
+                                                    <b>{{ schedule.train_station.name }}</b>
+                                                </td>
+                                            </tr></table>
+                                        </div>
                                 </div>
 
                                 <div class="uk-thumbnail-caption {% if schedule.is_passed %}uk-text-muted{% endif %}">
+
                                     {% if schedule.arrive_time_str == " - " %}不停靠{% elif schedule.is_passed%}已經過站{% else %}還有<span class="uk-text-primary uk-text-bold">{{ schedule.arrive_timedelta_str }}</span>抵達{% endif %}<br>
                                     {% if not schedule.is_passed %}
                                         <table width="100%">

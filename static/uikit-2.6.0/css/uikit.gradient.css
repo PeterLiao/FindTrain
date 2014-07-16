@@ -6853,8 +6853,8 @@ a.uk-thumbnail:focus {
   left: 0;
   right: 0;
   /* 2 */
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.5);
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.3);
   color: #ffffff;
   /* 3 */
   opacity: 1;
