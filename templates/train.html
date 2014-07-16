@@ -363,7 +363,7 @@
 
                <div class="uk-margin-left ">
                     {% for checkin in curr_checkins %}
-                        <img id="img_{{ checkin.user.fb_id }}" class="uk-icon-button-40 uk-animation-scale-up" width="40px" height="40px" src="https://graph.facebook.com/{{ checkin.user.fb_id }}/picture?type=square" alt="">
+                        <img id="img_{{ checkin.user.fb_id }}" class="uk-icon-button-40 uk-animation-scale-up" width="40px" height="40px" src="https://graph.facebook.com/{{ checkin.user.fb_id }}/picture?type=square" alt="" data-uk-tooltip title="{{ checkin.user.name }}">
                     {%  endfor %}
                </div>
 
