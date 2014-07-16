@@ -275,19 +275,19 @@ def add_checkin(request, train_id):
         train_list = Train.objects.filter(train_number=train_id)
         if train_list.count() > 0:
             train = train_list[0]
-            #if not train.is_stopped:
-            user_list = User.objects.filter(fb_id=user_id)
-            if user_list.count() > 0:
-                user = user_list[0]
-                today_checkin_list = TrainCheckIn.objects.filter(user=user, train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
-                if today_checkin_list.count() == 0:
-                    train_checkin = TrainCheckIn(user=user, train=train, pub_date=get_local_now())
-                    train_checkin.save()
-                    result = HTTP_STATUS.ERROR_SUCCESS
-                else:
-                    result = HTTP_STATUS.ERROR_CHECKED_ALREADY
-            #else:
-            #    result = HTTP_STATUS.ERROR_TRAIN_STOPPED
+            if not train.is_stopped:
+                user_list = User.objects.filter(fb_id=user_id)
+                if user_list.count() > 0:
+                    user = user_list[0]
+                    today_checkin_list = TrainCheckIn.objects.filter(user=user, train=train, pub_date__lte=train.arrive_time, pub_date__gte=train.departure_time)
+                    if today_checkin_list.count() == 0:
+                        train_checkin = TrainCheckIn(user=user, train=train, pub_date=get_local_now())
+                        train_checkin.save()
+                        result = HTTP_STATUS.ERROR_SUCCESS
+                    else:
+                        result = HTTP_STATUS.ERROR_CHECKED_ALREADY
+            else:
+                result = HTTP_STATUS.ERROR_TRAIN_STOPPED
         else:
             result = HTTP_STATUS.ERROR_FIND_NO_TRAIN
     else:
