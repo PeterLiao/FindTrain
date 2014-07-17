@@ -160,7 +160,7 @@
                       popup_cehckin_alert("此列車目前未提供服務，無法簽到喔");
                   }
                   if(data["result"] == 0) {
-                      window.location.href = "/train/{{ train.train_number }}";
+                      //window.location.href = "/train/{{ train.train_number }}";
                       if(checkin)
                         fb_post_msg(checkin);
                   }
