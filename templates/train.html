@@ -135,10 +135,13 @@
             }
         }
         else {
-            if(checkin)
-                fb_post_msg(true);
-            else
-                do_checkin(false);
+            /*
+                        if(checkin)
+                            fb_post_msg(true);
+                        else
+                            do_checkin(false);
+                         */
+            do_checkin(checkin);
         }
     }
     function do_checkin(checkin)
@@ -158,6 +161,8 @@
                   }
                   if(data["result"] == 0) {
                       window.location.href = "/train/{{ train.train_number }}";
+                      if(checkin)
+                        fb_post_msg(checkin);
                   }
               },
               error: function(err)
@@ -188,10 +193,12 @@
                function(response) {
                  if (response && response.post_id) {
                    console.log('Post was published.');
-                   do_checkin(checkin);
+                   //do_checkin(checkin);
+                   window.location.href = "/train/{{ train.train_number }}";
                  } else {
                    console.log('Post was not published.');
-                   do_checkin(checkin);
+                   //do_checkin(checkin);
+                   window.location.href = "/train/{{ train.train_number }}";
                  }
                }
              );
