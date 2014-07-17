@@ -136,9 +136,9 @@
         }
         else {
             if(checkin)
-                fb_post_msg(checkin);
+                fb_post_msg(true);
             else
-                do_checkin(checkin);
+                do_checkin(false);
         }
     }
     function do_checkin(checkin)
@@ -320,6 +320,7 @@
                     <p>
 
                     {% if train.is_started and not train.is_stopped %}
+
                         {% if checked %}
                            <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false);">
                                 <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
@@ -329,6 +330,7 @@
                                 <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
                             </a>
                         {% endif %}
+
                     {% endif %}
 
                     {% if curr_checkins.count == 0 %}
@@ -406,8 +408,28 @@
                                         <img src="/static/img/{{ schedule.train_station.name }}.jpg" width="400" height="200" alt="" {% if schedule.is_passed %} class="grayImg" {% endif %}>
                                         <div class="uk-overlay-caption-no-hover">
                                             <table width="100%"><tr>
-                                                <td align="left" width="100%">
+                                                <td align="left" width="30%">
                                                     <b>{{ schedule.train_station.name }}</b>
+                                                </td>
+                                                <td align="right" width="70%">
+                                                    {% if schedule.arrive_time_str == " - " %}
+                                                        不停靠
+                                                    {% elif schedule.is_passed%}
+                                                        {%  if schedule.is_first_station %}
+                                                            已發車
+                                                        {% elif schedule.is_last_station %}
+                                                            已到站
+                                                        {% else %}
+                                                            已經過站
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <span class="uk-text-danger uk-text-bold">{{ schedule.arrive_timedelta_str }}</span>
+                                                        {%  if schedule.is_first_station %}
+                                                            後發車
+                                                        {% else %}
+                                                            後抵達
+                                                        {% endif %}
+                                                    {% endif %}
                                                 </td>
                                             </tr></table>
                                         </div>
@@ -415,10 +437,8 @@
 
                                 <div class="uk-thumbnail-caption {% if schedule.is_passed %}uk-text-muted{% endif %}">
 
-                                    {% if schedule.arrive_time_str == " - " %}不停靠{% elif schedule.is_passed%}已經過站{% else %}還有<span class="uk-text-primary uk-text-bold">{{ schedule.arrive_timedelta_str }}</span>抵達{% endif %}<br>
                                     {% if not schedule.is_passed %}
                                         <table width="100%">
-                                            <hr/>
                                             {% if schedule.is_day%}
                                                 <tr><td align="left" width="45%">天氣概況:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_wx }}</td></tr>
                                                 <tr><td align="left" width="45%">氣溫:</td><td align="right" width="55%">{{ schedule.train_station.weather.day_mint }} ~ {{ schedule.train_station.weather.day_maxt }}°C</td></tr>

@@ -108,10 +108,28 @@ class TrainSchedule(models.Model):
         else:
             return False
 
+    def is_first_station(self):
+        invalid_datetime = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
+        schedule_list = TrainSchedule.objects.filter(train=self.train).exclude(arrive_time=invalid_datetime).order_by("arrive_time")
+        if schedule_list.count() > 0 and schedule_list[0] == self:
+            return True
+        else:
+            return False
+
+    def is_last_station(self):
+        invalid_datetime = datetime.datetime(1982, 5, 31, 0, 0, tzinfo=utc)
+        schedule_list = TrainSchedule.objects.filter(train=self.train).exclude(arrive_time=invalid_datetime).order_by("arrive_time")
+        if schedule_list.count() > 0 and schedule_list.last() == self:
+            return True
+        else:
+            return False
+
     arrive_time_str = property(get_arrive_str)
     arrive_timedelta_str = property(get_arrive_timedelta_str)
     is_day = property(is_day)
     is_passed = property(is_passed)
+    is_first_station = property(is_first_station)
+    is_last_station = property(is_last_station)
 
 
 class User(models.Model):
