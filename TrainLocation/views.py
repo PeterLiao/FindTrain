@@ -324,3 +324,25 @@ def delete_checkin(request, train_id):
 
     response_data = {"result": result}
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+@csrf_exempt
+def show_trophy(request):
+    checkins = TrainCheckIn.objects.values('user').annotate(
+        checkin_count=models.Count("user")
+    ).all().order_by("-checkin_count")
+    for checkin in checkins:
+        user = User.objects.filter(fb_id=checkin['user'])
+        checkin['user'] = user
+    print checkins
+    return render_to_response("trophy.html",
+                              {},
+                              context_instance = RequestContext(request))
+
+
+@csrf_exempt
+def show_main(request):
+    station_list = TrainStation.objects.all().order_by("-latitude")
+    return render_to_response("main.html",
+                              { "station_list": station_list},
+                              context_instance = RequestContext(request))

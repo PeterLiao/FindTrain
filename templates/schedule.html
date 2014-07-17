@@ -8,12 +8,13 @@
     <script src="../../static/uikit-2.6.0/js/uikit.min.js"></script>
     <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.gradient.min.css" />
     <link rel="stylesheet" href="../../static/uikit-2.6.0/css/uikit.gradient.css" />
+    <link rel="stylesheet" href="../../static/uikit-2.6.0/css/docs.css" />
     <link rel="stylesheet" href="../../static/common.css" />
     <link rel="stylesheet" href="../../static/font-awesome-4.1.0/css/font-awesome.css" />
     <script src="../../static/fb.js"></script>
     <script src="../../static/carhartl-jquery-cookie-92b7715/jquery.cookie.js"></script>
 </head>
-<body>
+<body class="tm-background">
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -195,16 +196,15 @@
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 <div class="uk-grid" data-uk-grid-margin="">
 <div class="uk-width-medium-1-1">
+
     <nav class="uk-navbar">
         <ul class="uk-navbar-nav">
            <li>
                 <a href="http://petercliao.pythonanywhere.com" style="text-decoration: none">
-                    <!--span class="uk-text-bold uk-text-rose-red uk-text-large">Point</span>
-                    <span class="uk-text-large"></span-->
-                    <span class="uk-text-sky-blue uk-text-bold uk-text-large">FindTrain</span>
+                    <span class="uk-text-sky-blue uk-text-bold uk-text-large">你搭那班車？</span>
                 </a>
             </li>
-            <li><a href="/">定位</a></li>
+            <li><a href="/find/">搜尋</a></li>
             <li><a href="/nearby/">最近車站</a></li>
             <li><a href="/running/">行駛中</a></li>
             <li data-uk-dropdown="{mode:'click'}" class="uk-active">
@@ -234,7 +234,11 @@
             <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
         </ul>
     </nav>
-    <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
+
+<div class="uk-vertical-align uk-text-center" style="background-color: #ffffff">
+<div class="uk-vertical-align-middle uk-width-3-4">
+
+    <table class="uk-table uk-table-condensed uk-table-hover">
         {% if direction_id == 0 %}
             <caption>北上列車</caption>
         {% else %}
@@ -303,6 +307,11 @@
             </tbody>
 
     </table>
+
+</div>
+</div>
+
+
 </div>
 </div>
 </div>
