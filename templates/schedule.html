@@ -249,8 +249,7 @@
                 {% for station in station_list %}
                     <th>{{ station.name }}</th>
                 {% endfor %}
-                <th class="uk-hidden-small"><i class="fa fa-1x fa-pencil-square-o "></i> 簽到</th>
-                <th class="uk-visible-small"><i class="fa fa-1x fa-pencil-square-o "></i> 簽到</th>
+                <th><i class="fa fa-1x fa-pencil-square-o "></i> 簽到</th>
             </tr>
         </thead>
         {% load dictionary_extras %}
@@ -263,7 +262,7 @@
                             <td>{{ item.arrive_time_str }}</td>
                         {% endfor %}
 
-                        <td class="uk-hidden-small">
+                        <td>
                             {% if train.grouper.is_started and not train.grouper.is_stopped %}
                                 {% if checked_list|get_checked:train.grouper.train_number %}
                                    <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false, '{{ train.grouper.train_number }}');">
@@ -298,29 +297,6 @@
                                         列車尚未行駛，無法提供簽到
                                     {% else %}
                                         今天共有<a href = '/train/{{ train.grouper.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ train.grouper.curr_checkins.count }} </span>位乘客</a>簽到
-                                    {% endif %}
-
-                            {% endif %}
-                        </td>
-                        <td class="uk-visible-small">
-                            {% if train.grouper.is_started and not train.grouper.is_stopped %}
-                                {% if checked_list|get_checked:train.grouper.train_number %}
-                                   <a class="uk-icon uk-text-danger checked " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, false, '{{ train.grouper.train_number }}');">
-                                        <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
-                                    </a>
-                                {% else %}
-                                    <a class="uk-icon uk-text-muted " href="#" onmouseover="btn_on_mouse_over(this);" onmouseout="btn_on_mouse_out(this);" onmousedown="checkIn(this, true, '{{ train.grouper.train_number }}');">
-                                        <i id="checkin_icon" class="fa fa-lg fa-map-marker "></i>
-                                    </a>
-                                {% endif %}
-                            {% endif %}
-                            {% if train.grouper.curr_checkins.count != 0 %}
-
-                                    {% if train.grouper.is_started and not train.grouper.is_stopped%}
-                                       <a href = '/train/{{ train.grouper.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ train.grouper.curr_checkins.count }} 人簽到</span></a>
-                                    {% elif not train.grouper.is_started and not train.grouper.train.is_stopped%}
-                                    {% else %}
-                                        <a href = '/train/{{ train.grouper.train_number }}'><span class="uk-text-bold uk-text-sky-blue"> {{ train.grouper.curr_checkins.count }} 人簽到</span></a>
                                     {% endif %}
 
                             {% endif %}
