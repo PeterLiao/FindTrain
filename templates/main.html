@@ -6,8 +6,8 @@
     <title>你搭哪班車？</title>
     <script src="../static/jquery.js"></script>
     <script src="../static/uikit-2.6.0/js/uikit.min.js"></script>
-    <link rel="stylesheet" href="../static/uikit-2.6.0/css/uikit.gradient.min.css" />
-    <link rel="stylesheet" href="../static/uikit-2.6.0/css/uikit.gradient.css" />
+    <link rel="stylesheet" href="../static/uikit-2.6.0/css/uikit.min.css" />
+    <link rel="stylesheet" href="../static/uikit-2.6.0/css/uikit.css" />
     <link rel="stylesheet" href="../static/uikit-2.6.0/css/docs.css" />
     <link rel="stylesheet" href="../static/common.css" />
     <link rel="stylesheet" href="../static/font-awesome-4.1.0/css/font-awesome.css" />
@@ -235,17 +235,6 @@
                 </li>
                 <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
             </ul>
-            <div class="uk-navbar-content uk-navbar-flip uk-hidden-small">
-                <div class="uk-button-group">
-                    {% if direction == 0%}
-                        <a class="uk-button uk-button-primary uk-active" href="./?direction=0">北上</a>
-                        <a class="uk-button uk-button-danger" href="./?direction=1">南下</a>
-                    {% else %}
-                        <a class="uk-button uk-button-primary" href="./?direction=0">北上</a>
-                        <a class="uk-button uk-button-danger uk-active" href="./?direction=1">南下</a>
-                    {% endif %}
-                </div>
-            </div>
         </div>
     </nav>
 
