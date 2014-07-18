@@ -331,19 +331,19 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent uk-active uk-open"><a href="/find/"> 搜尋</a>
+                    <li class=""><a href="/find/"> 搜尋</a>
                     </li>
-                    <li class="uk-parent"><a href="/nearby/"><i class="uk-icon-wrench"></i> 最近車站</a>
+                    <li class=""><a href="/nearby/"><i class="uk-icon-wrench"></i> 最近車站</a>
                     </li>
-                    <li class="uk-parent"><a href="/running/"><i class="uk-icon-th-large"></i> 行駛中</a>
+                    <li class="uk-active"><a href="/running/"><i class="uk-icon-th-large"></i> 行駛中</a>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> 時刻表</a>
+                    <li class="uk-parent uk-open"><a href="#"><i class="uk-icon-bars"></i> 時刻表</a>
                         <div style="overflow:hidden;height:0;position:relative;"><ul class="uk-nav-sub">
                             <li><a href="/schedule/0/">北上</a></li>
                             <li><a href="/schedule/1/">南下</a></li>
                         </ul></div>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> 車站</a>
+                    <li class="uk-parent uk-open"><a href="#"><i class="uk-icon-check"></i> 車站</a>
                         <div style="overflow:hidden;height:0;position:relative;"><ul class="uk-nav-sub">
                             {% for station in station_list %}
                                 <li><a href="/station/{{ station.id }}/">{{ station.name }}</a></li>
