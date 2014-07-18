@@ -334,23 +334,23 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class=""><a href="/find/"> 搜尋</a>
+                    <li class=""><a href="/find/"><i class="fa fa-compass"></i> 定位搭乘列車</a>
                     </li>
-                    <li class=""><a href="/nearby/"><i class="uk-icon-wrench"></i> 最近車站</a>
+                    <li class=""><a href="/nearby/"><i class="fa fa-briefcase"></i> 最近車站</a>
                     </li>
-                    <li class="uk-active"><a href="#"><i class="uk-icon-th-large"></i> 行駛中</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="fa fa-car"></i> 行駛中列車</a>
                         <ul class="uk-nav-sub">
                             <li><a href="/running/?direction=0">北上</a></li>
-                            <li><a href="/schedule/?direction=1">南下</a></li>
+                            <li><a href="/running/?direction=1">南下</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-open"><a href="#"><i class="uk-icon-bars"></i> 時刻表</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-clock-o"></i> 時刻表</a>
                         <ul class="uk-nav-sub">
                             <li><a href="/schedule/0/">北上</a></li>
                             <li><a href="/schedule/1/">南下</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-open"><a href="#"><i class="uk-icon-check"></i> 車站</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-building-o"></i> 車站</a>
                             <ul class="uk-nav-sub">
                                 {% for station in station_list %}
                                     <li><a href="/station/{{ station.id }}/">{{ station.name }}</a></li>
