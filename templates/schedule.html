@@ -234,17 +234,6 @@
                 </li>
                 <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
             </ul>
-            <div class="uk-navbar-content uk-navbar-flip uk-hidden-small">
-                <div class="uk-button-group">
-                    {% if direction == 0%}
-                        <a class="uk-button uk-button-primary uk-active" href="./?direction=0">北上</a>
-                        <a class="uk-button uk-button-danger" href="./?direction=1">南下</a>
-                    {% else %}
-                        <a class="uk-button uk-button-primary" href="./?direction=0">北上</a>
-                        <a class="uk-button uk-button-danger uk-active" href="./?direction=1">南下</a>
-                    {% endif %}
-                </div>
-            </div>
         </div>
     </nav>
 
