@@ -222,19 +222,15 @@
     </div>
 </div>
 
-<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
-    <div class="uk-grid" data-uk-grid-margin="">
-        <div class="uk-width-medium-1-1">
 
 
 
-        <nav class="uk-navbar uk-margin-bottom">
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+                <a href="http://petercliao.pythonanywhere.com" class="uk-navbar-brand uk-hidden-small">
+                    <span class="uk-text-warning uk-text-bold uk-text-large">FindTrain</span>
+                </a>
                 <ul class="uk-navbar-nav">
-                   <li>
-                        <a href="http://petercliao.pythonanywhere.com" style="text-decoration: none">
-                            <span class="uk-text-sky-blue uk-text-bold uk-text-large">FindTrain</span>
-                        </a>
-                    </li>
                     <li><a href="/find/">搜尋</a></li>
                     <li><a href="/nearby/">最近車站</a></li>
                     <li><a href="/running/">行駛中</a></li>
@@ -264,7 +260,11 @@
                     </li>
                     <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
                 </ul>
-            </nav>
+            </div>
+        </nav>
+
+<div class="tm-middle">
+    <div class="uk-container uk-container-center">
 
             <article class="uk-article">
                 {% if checkins.count != 0 %}
@@ -383,7 +383,7 @@
                 <p class="uk-article-lead uk-text-bold"><i class="fa fa-1x fa-clock-o"></i> 到站時刻表</p>
 
                 <div class="uk-margin-left">
-                    <table class="uk-table uk-table-striped uk-table-condensed uk-table-hover">
+                    <table class="uk-table uk-table-striped uk-table-hover">
                         <thead>
                             <tr>
                                 <th>車次</th>
@@ -472,11 +472,10 @@
             </article>
 
 
-
-
-        </div>
-    </div>
 </div>
+</div>
+
+
 
     <form id="user_form" style="display:none" action="/user/add/" method="post">
         {% csrf_token %}

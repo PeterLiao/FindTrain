@@ -193,57 +193,57 @@
         <p id="checkin_msg"></p>
     </div>
 </div>
-<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
-<div class="uk-grid" data-uk-grid-margin="">
-<div class="uk-width-medium-1-1">
 
-    <nav class="uk-navbar">
-        <ul class="uk-navbar-nav">
-           <li>
-                <a href="http://petercliao.pythonanywhere.com" style="text-decoration: none">
-                    <span class="uk-text-sky-blue uk-text-bold uk-text-large">FindTrain</span>
-                </a>
-            </li>
-            <li><a href="/find/">搜尋</a></li>
-            <li><a href="/nearby/">最近車站</a></li>
-            <li class="uk-active"><a href="/running/">行駛中</a></li>
-            <li data-uk-dropdown="{mode:'click'}">
-                <a href="#">時刻表 <i class="uk-icon-caret-down"></i></a>
-                <div class="uk-dropdown uk-dropdown-small">
-                    <ul class="uk-nav uk-nav-dropdown">
-                        <li><a href="/schedule/0/">北上</a></li>
-                        <li><a href="/schedule/1/">南下</a></li>
-                    </ul>
+
+    <nav class="tm-navbar uk-navbar uk-navbar-attached">
+        <div class="uk-container uk-container-center">
+            <a href="http://petercliao.pythonanywhere.com" class="uk-navbar-brand uk-hidden-small">
+                <span class="uk-text-warning uk-text-bold uk-text-large">FindTrain</span>
+            </a>
+            <ul class="uk-navbar-nav">
+                <li><a href="/find/">搜尋</a></li>
+                <li><a href="/nearby/">最近車站</a></li>
+                <li class="uk-active"><a href="/running/">行駛中</a></li>
+                <li data-uk-dropdown="{mode:'click'}">
+                    <a href="#">時刻表 <i class="uk-icon-caret-down"></i></a>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="/schedule/0/">北上</a></li>
+                            <li><a href="/schedule/1/">南下</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li data-uk-dropdown="{mode:'click'}">
+                    <a href="#">車站 <i class="uk-icon-caret-down"></i></a>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            {% for station in station_list %}
+                                <li><a href="/station/{{ station.id }}/">{{ station.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+                <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
+            </ul>
+            <div class="uk-navbar-content uk-navbar-flip">
+                <div class="uk-button-group">
+                    {% if direction == 0%}
+                        <a class="uk-button uk-button-primary uk-active" href="./?direction=0">北上</a>
+                        <a class="uk-button uk-button-danger" href="./?direction=1">南下</a>
+                    {% else %}
+                        <a class="uk-button uk-button-primary" href="./?direction=0">北上</a>
+                        <a class="uk-button uk-button-danger uk-active" href="./?direction=1">南下</a>
+                    {% endif %}
                 </div>
-            </li>
-            <li data-uk-dropdown="{mode:'click'}">
-                <a href="#">車站 <i class="uk-icon-caret-down"></i></a>
-                <div class="uk-dropdown uk-dropdown-small">
-                    <ul class="uk-nav uk-nav-dropdown">
-                        {% for station in station_list %}
-                            <li><a href="/station/{{ station.id }}/">{{ station.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </li>
-            <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
-        </ul>
-        <div class="uk-navbar-content uk-navbar-flip">
-            <div class="uk-button-group">
-                {% if direction == 0%}
-                    <a class="uk-button uk-button-primary uk-active" href="./?direction=0">北上</a>
-                    <a class="uk-button uk-button-danger" href="./?direction=1">南下</a>
-                {% else %}
-                    <a class="uk-button uk-button-primary" href="./?direction=0">北上</a>
-                    <a class="uk-button uk-button-danger uk-active" href="./?direction=1">南下</a>
-                {% endif %}
             </div>
         </div>
     </nav>
 
+<div class="tm-middle">
+    <div class="uk-container uk-container-center uk-text-center">
 
-    <table class="uk-table uk-table-condensed uk-table-hover">
-        <caption>行駛中的列車</caption>
+
+    <table class="uk-table uk-table-hover">
         <thead>
             <tr>
                 <th>車次</th>
@@ -312,7 +312,8 @@
 
 </div>
 </div>
-</div>
+
+
     <form id="user_form" style="display:none" action="/user/add/" method="post">
         {% csrf_token %}
         {{ user_form.as_p }}
