@@ -198,11 +198,30 @@
     <nav class="tm-navbar uk-navbar uk-navbar-attached">
         <div class="uk-container uk-container-center">
 
-            <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas=""></a>
-            <div class="uk-navbar-brand uk-navbar-center uk-visible-small">
-                <a href="http://petercliao.pythonanywhere.com">
-                    <span class="uk-text-warning uk-text-bold uk-text-large">FindTrain</span>
-                </a>
+            <div class="uk-visible-small">
+                <ul class="uk-navbar-nav">
+                    <li>
+                        <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas=""></a>
+                    </li>
+                    <li>
+                        <a href="http://petercliao.pythonanywhere.com">
+                            <span class="uk-text-warning uk-text-bold uk-text-large">FindTrain</span>
+                        </a>
+                    </li>
+
+                    <li class="uk-parent" data-uk-dropdown="">
+                        <a href="" class="uk-navbar-nav-subtitle"><i class="fa fa-chevron-down"></i></a>
+
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li class="uk-nav-header">方向</li>
+                                    <li><a href="./?direction=0">北上</a></li>
+                                    <li><a href="./?direction=1">南下</a></li>
+                                </ul>
+                        </div>
+                    </li>
+
+                </ul>
             </div>
 
             <a href="http://petercliao.pythonanywhere.com" class="uk-navbar-brand uk-hidden-small">
@@ -234,7 +253,7 @@
                 </li>
                 <li id="logout_btn" style="display:none"><a href="javascript:logoutFB()">登出</a></li>
             </ul>
-            <div class="uk-navbar-content uk-navbar-flip">
+            <div class="uk-navbar-content uk-navbar-flip uk-hidden-small">
                 <div class="uk-button-group">
                     {% if direction == 0%}
                         <a class="uk-button uk-button-primary uk-active" href="./?direction=0">北上</a>
